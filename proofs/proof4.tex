@@ -1,0 +1,22 @@
+\begin{proof}%[Preuve] % Minimisation estimateur de Bayes via Fubini
+Nous prouvons ici qu'un estimateur minimisant le risque intégré $R_B$ est obtenu par sélection, pour chaque valeur $x\in\Omega$, de la valeur $\delta(x)$ qui minimise le coût moyen {\it a posteriori}. Il s'agit en pratique d'une méthode de calcul d'un estimateur bayésien. En effet,
+%\begin{eqnarray*}
+%R_B(\delta|\pi) & = & \int_{\Omega} R_P(\delta(x)|\pi,x) m_{\pi}(x) \dx.
+%\end{eqnarray*}
+L'application du théorème de Fubini est possible par la finitude des intégrales impliquées ci-dessous : avec $L(\theta,\delta(x))\geq 0$, il vient
+\begin{eqnarray*}
+R_B(\delta|\pi) & = & \int_{\Theta}\int_{\Omega} L(\theta,\delta(x)) f(x|\theta) \ dx \pi(\theta) \ d\theta, \\
+&= & \int_{\Omega} \int_{\Theta} L(\theta,\delta(x)) f(x|\theta) \pi(\theta) \ d\theta dx, \\
+& = & \int_{\Omega} \int_{\Theta} L(\theta,\delta(x)) \pi(\theta|x) \ d\theta m_{\pi}(x) \ dx, \\
+& = & \int_{\Omega} R_P(\delta|\pi,x) m_{\pi}(x) \ dx.
+\end{eqnarray*}
+On peut en déduire que pour tout $\delta\in{\cal{D}}$, 
+%\begin{eqnarray*}
+$R_P\left(\delta^{\pi}(x)|\pi,x\right)  \leq  R_P\left(\delta|\pi,x\right)
+$%\end{eqnarray*}
+implique
+%\begin{eqnarray*}
+$R_B\left(\delta^{\pi}|\pi\right)  \leq  R_B\left(\delta|\pi\right)
+$%\end{eqnarray*}
+ce qui permet de conclure la démonstration du corollaire.
+ \end{proof}

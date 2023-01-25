@@ -1,0 +1,16 @@
+\begin{proof}%[Preuve] % Espérance a priori
+On a ${\cal{D}}=\Theta\in\R^d$ (ou plus généralement un espace de Hilbert) et $L(\theta,\delta)=\|\theta-\delta\|^2$ (norme euclidienne au carré). Par simplificité travaillons sur $\Theta=\R$ (d=1). Alors
+\begin{eqnarray*}
+R_{P}\left(\delta|\pi\right) & = & \int_{\Theta} (\theta-\delta)^2 \pi(\theta|x) \ d\theta, \\
+& = & \E[\theta^2|x] - 2\delta\E[\theta|x] + \delta^2.
+\end{eqnarray*}
+En dérivant en $\delta$, on obtient 
+\begin{eqnarray*}
+R'_{P}\left(\delta|\pi\right) & = & 2\delta-2\E[\theta|x]
+\end{eqnarray*}
+valant 0 en $\delta=\E[\theta|x]$. Or
+\begin{eqnarray*}
+R''_{P}\left(\delta|\pi\right) & = & 2 \ > \ 0
+\end{eqnarray*}
+donc  $\delta\to R_{B}\left(\delta|\pi\right)$ est convexe, ce qui signifie que la solution de $R'_{P}\left(\delta|\pi\right)=0$ est bien un minimisateur du risque. 
+ \end{proof}

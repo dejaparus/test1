@@ -1,0 +1,248 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Examen 2020 : Modélisation et statistique bayésienne computationnelle  }
+\date{30 mars 2020}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+
+
+
+{\it L'examen dure en théorie 3h et est noté sur 30. Tous les supports de cours sont autorisés. Il est attendu un code R ou Python commenté {\it a minima} pour les parties computationnelles, et un support papier peut être utilisé pour la partie formelle. Lisez bien tout le document, certaines questions peuvent être traitées formellement indépendamment du reste de l'exercice qui les contient.} \\
+
+{\it Vous pouvez rendre ce travail par email à l'adresse} 
+\begin{center}
+ \texttt{nicolas.bousquet@sorbonne-universite.fr} 
+ \end{center} 
+{\it ou }
+ \begin{center}
+ \texttt{nbousquet@gmail.com} 
+  \end{center} 
+{\it avant le {\bf 31 mars à 12h00 (midi)}. Si vous ne pouvez scanner vos écrits, prenez des photos, constituez un répertoire zippé avec vos photos triées par ordre} \\
+
+ {\it Vous pouvez rédiger en fran\c cais ou en anglais.} \\ 
+
+
+\section{Construction de prior (5 pts)}
+
+Soientt $X$ une variable aléatoire de loi de Poisson ${\cal{P}}(\theta)$ avec $\theta\in\R^+_*$, et $x_1,\ldots,x_n$ un échantillon de cette loi.
+\begin{enumerate}
+\item Déterminer la mesure {\it a priori} de Jeffreys $\pi^J(\theta)$.
+\item \'Evaluer, à partir de l'existence des lois {\it a posteriori} si cette mesure {\it a priori} est préférable à la mesure {\it a priori} invariante par transformation d'échelle $\pi_0(\theta)\propto1/\theta$.
+\item Soit $\pi_{\alpha}(\theta) \propto \theta^{-\alpha}$ avec $\alpha\in\R^+$. Donner l'expression de la fonction de masse prédictive {\it a posteriori} $P_{\alpha}(X=k|x_1,\ldots,x_n)$ ainsi que son espérance et sa variance, et leurs conditions d'existence.
+%\item Donner la loi {\it a priori} d'entropie maximale définie pour la mesure de référence $\pi_{\alpha}(\theta)$ et les contraintes $\E_{\pi_0}[\theta]=1$, $\V_{\pi_0}[\theta]=1$. Discuter l'existence d'une vraie densité {\it a priori} en fonction de $\alpha$
+\end{enumerate}
+
+
+
+
+\section{Risque d'un estimateur (6 pts)}
+
+Considérons une variable binomiale $X\sim{\cal{B}}(n,p)$ de probabilité $p\in[0,1]$. Soit la perte quadratique $L(\delta,p)$. On appelle {\it risque bayésien d'un estimateur $\delta(x)$} la quantité $\E_{\pi}[L(\delta(x),p)|x]$, et  {\it risque fréquentiste de $\delta(x)$}  la quantité $\E_{X}[L(\delta(x),p)]$.
+\begin{enumerate}
+\item Soit $\pi(p)$ le prior de Laplace. Définissez l'estimateur MAP ({\it maximum a posteriori}) $\delta_1(x)$ de $p$.
+\item En choisissant plutôt $\pi(p)$ comme le prior de Jeffreys, calculez les risques bayésien et fréquentiste $R_b(x)$ et $R_f(p)$ de  $\delta_1(x)$.
+\item Comparez $r_f = \sup_p R_f(p)$ à 
+$r_b  =  \sup_x R_b(x)$. 
+\end{enumerate}
+
+
+\section{Maximisation d'entropie (11 pts) }\label{max.entropie}
+
+On définit une nouvelle méthodologie de construction de prior de la fa\c con suivante. \'Etant donné un modèle d'échantillonnage $X|\theta \sim p(x|\theta)$, avec $x\in S$ et $\theta\in\Theta\in\R^d$, et un prior de référence $\pi^J(\theta)$, on définit
+\begin{eqnarray}
+\pi^*(\theta) & = & \arg\max\limits_{\pi(\theta)\geq 0} G(\Theta) \label{mdiprior}
+\end{eqnarray}
+où $G(\Theta)$ est l'information moyenne apportée par la densité $p$ relativement à celle apportée par un prior $\pi(\theta)$ :
+\begin{eqnarray*}
+G(\Theta) & = & \E_{\theta}\left[H^J(\Theta) - H(X|\theta)\right],
+\end{eqnarray*}
+où $H(X|\theta)$ et
+$H^J(\Theta)$ sont respectivement l'entropie (relative à une mesure de Lebesgue) du modèle d'échantillonnage et l'entropie (relative à $\pi^J(\theta)$) du prior $\pi(\theta)$. 
+\begin{enumerate}
+\item Prouvez que si $Y\sim f(y)$ sur un espace normé et mesuré $\Omega\in\R^q$ avec $q<\infty$ et $f\in L^2(\Omega)$, alors l'entropie relative à la mesure de Lebesgue de $f$ est bornée. 
+\item Prouvez que le problème  (\ref{mdiprior}), en imposant la contrainte que $p(x|\theta)$ et $\pi(\theta)$ soient respectivement $L^4$ ($\forall \theta\in\Theta$) sur $S$ et sur $\Theta$,  implique que $\pi(\theta)$ est solution du problème de maximum d'entropie de $\pi(\theta)$ sous une contrainte linéaire
+\begin{eqnarray}
+\int_{\Theta} Z(\theta) \pi(\theta) \ d\theta & = & c \ < \ \infty \label{contr2}
+\end{eqnarray}
+où $Z(\theta)$ est l'information de Shannon (ou entropie différentielle négative) de $p$ 
+\begin{eqnarray*}
+Z(\theta) & = & \int_{S} p(x|\theta) \log p(x|\theta) \ dx
+\end{eqnarray*}
+et $c$ prend une valeur maximale (mais finie). 
+\item Pour $S=\R^+$ et $(\beta,\eta)\in\R^+_* \times \R^+_*$, considérons maintenant la loi de fonction de répartition de Weibull
+\begin{eqnarray*}
+P(X<x|\theta) & = & 1-\exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right).
+\end{eqnarray*}
+\begin{enumerate}
+\item Calculez $Z(\eta,\beta)$ pour ce modèle.
+\item En utilisant le prior de Berger-Bernardo $\pi^J(\eta,\beta)\propto (\eta,\beta)^{-1}$ comme mesure de référence, donnez la solution formelle $\pi^*(\eta,\beta)$  du problème de maximisation d'entropie relative sous les contraintes (\ref{contr2}) et
+\begin{eqnarray}
+\int_S x m_{\pi}(x) \ dx & = & x_e \label{cons2}
+\end{eqnarray}
+où $m_{\pi}(x)$ est la loi {\it a priori} prédictive. 
+\item Placez les résultats sous la forme hiérarchique 
+\begin{eqnarray*}
+\pi^*(\theta) & = & \pi^*(\eta|\beta)\pi^*(\beta).
+\end{eqnarray*}
+et prouvez que la loi {\it a priori} sur $\beta$ peut s'écrire
+\begin{eqnarray*}
+\pi^*(\beta) & \propto & \tilde{\pi}^*(\beta) 
+\end{eqnarray*}
+avec
+\begin{eqnarray}
+\tilde{\pi}^*(\beta) & = & \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}\label{pistar}
+\end{eqnarray}
+où $\lambda_1$ est un multiplicateur de Lagrange. 
+\item En pla\c cant des contraintes sur les multiplicateurs de Lagrange issus de l'écriture générale de $\pi^*(\eta,\beta)$, reconnaissez-vous une forme spécifique (connue) pour $\pi^*(\eta|\beta)$ et $\pi^*(\beta)$ ? La loi $\pi^*(\eta|\beta)$ est-elle conjuguée conditionnellement à $\beta$ ? 
+\item Cette loi jointe $\pi^*(\theta)$ est-elle propre (intégrale) ? Sous quelle(s) condition(s) sur les multiplicateurs de Lagrange ?
+\item Reliez formellement les multiplicateurs de Lagrange à $x_e$ en vérifiant l'équation (\ref{cons2}). Doit-on connaître la constante d'intégration de $\pi^*(\beta)$ pour ce faire ? 
+\item Proposez, codez et validez une méthode numérique permettant de simuler des tirages de $\beta$ selon $\pi^*(\theta)$ (formule (\ref{pistar})), en fixant $\lambda_1=1$. Pour la validation, utilisez plutôt la représentation de la variable $Y=1/beta$ en opérant un changement de variable.
+\end{enumerate}
+\end{enumerate}
+
+\textit{
+\paragraph{\bf Indications.}
+\begin{itemize}
+\item Il peut être utile de prouver au préalable  à la question 1 que $\log y \leq 1 + y$ $\forall y\in \R^+_*$
+\item On rappelle que l'espérance de la loi de Weibull est 
+\begin{eqnarray}
+\E[X|\theta] & = & \eta\Gamma(1+1/\beta) \label{weibu}
+\end{eqnarray}
+et que lorsque $\beta>0$ 
+\begin{eqnarray}
+\Gamma(1+1/\beta) & \geq & \frac{\sqrt{\pi}}{3}  \label{borne.min}
+\end{eqnarray}
+\item On rappelle les formules suivantes :
+\begin{eqnarray}
+\int_0^{\infty} (\log x) \exp(-x) \ dx & = & -\gamma \label{aide1} \\
+\int_0^{\infty} x \exp(-x) \ dx & = & \Gamma(2) \label{aide2}
+\end{eqnarray}
+où $\gamma$ est la constante d'Euler (que vous pouvez prendre égale à 0.5772157)
+\end{itemize}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calcul bayésien (5 pts)}
+
+On reprend la loi de Weibull ${\cal{W}}(\eta,\beta)$ de l'exercice (\ref{max.entropie}) et on impose le prior suivant
+\begin{eqnarray*}
+\eta & \sim & {\cal{G}}(m,m/\eta_0) \\
+\beta & \sim & \tilde{\pi}^*(\beta)  = \ \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}
+\end{eqnarray*}
+qui est le prior (\ref{pistar}) sur $\beta$. \\
+
+Soit l'échantillon
+\begin{eqnarray*}
+{\bf x_n} & = & \left\{ 103, 157 , 39 ,145 , 24  ,22 ,122, 126 , 66 , 97\right\},
+\end{eqnarray*}
+\begin{enumerate}
+\item Proposez et implémentez une méthode permettant de générer des tirages {\it a posteriori} de $(\eta,\beta)$. 
+\item Estimez numériquement l'espérance de la loi {\it a posteriori prédictive} 
+\begin{eqnarray*}
+p(x|{\bf x_n}) & = & \iint_{\R^+\times\R^+} p(x|\eta,\beta) \pi(\eta,\beta|{\bf x_n}) \ d\eta d\beta,,
+\end{eqnarray*}
+ en prenant $m=2$, $\eta_0=100$ et $\lambda_1=1$ 
+\end{enumerate}
+
+
+
+\section{Bonus (3 pts) }
+
+Soit $f(x|\theta) = h(x)\exp\left(\theta\cdot x - \psi(\theta)\right)$ une distribution d'une famille exponentielle, avec $\theta\in\Theta$. Pour toute loi {\it a priori} $\pi$, prouvez que la moyenne {\it a posteriori} de $\theta$ est donnée par
+\begin{eqnarray*}
+\E[\theta|x] & = & \nabla \log m_{\pi}(x) - \nabla \log h(x)
+\end{eqnarray*}
+où $\nabla$ est l'opérateur gradient et $m_{\pi}$ est la loi marginale {\it a priori} associée à $x$.
+
+
+
+\end{document} 

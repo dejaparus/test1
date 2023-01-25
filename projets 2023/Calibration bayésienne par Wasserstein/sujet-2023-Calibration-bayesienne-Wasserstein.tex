@@ -1,0 +1,206 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour ins\'erer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+\def\GEV{{\cal{GEV}}} % raccourci pour la d\'enomination de la loi GEV
+\def\GPD{{\cal{GPD}}} % raccourci pour la d\'enomination de la loi GPD
+\def\EXPO{{\cal{E}}} % raccourci pour la d\'enomination de la loi exponentielle
+\def\GAUSS{{\cal{N}}} % raccourci pour la d\'enomination de la loi gaussienne
+\def\GEV{{\cal{GEV}}} % raccourci pour la d\'enomination de la loi GEV
+\def\BERN{{\cal{B}}_e} % raccourci pour la d\'enomination de la loi de Bernoulli
+\def\BINOM{{\cal{B}}} % raccourci pour la d\'enomination de la loi binomiale
+\def\POIS{{\cal{P}}} % raccourci pour la d\'enomination de la loi de Poisson
+
+
+\def\iid{\textit{iid} } % raccourci pour le terme "i.i.d."
+\def\va{\textit{va} } % raccourci pour le terme "variable al\'eatoire"
+\def\EMV{$\text{EMV}$} % raccourci pour le terme "estimateur du maximum de vraisemblance"
+\def\EMC{$\text{EMC}$} % raccourci pour le terme "estimateur des moindres carr\'es"
+\def\MSY{\mbox{MSY}} 
+\def\msy{\mbox{\small{MSY}}}
+
+\newcommand{\U}{\mathbbm{U}}
+%\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Ss}{\Gamma}
+\newcommand{\RCI}{\mbox{RCI}}
+\newcommand{\LCI}{\Upsilon}
+\newcommand{\LIC}{\Upsilon}
+\newcommand{\tenacite}{K_{IC}}
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Projet de recherche : calibration bay\'esienne par divergence KL discr\`ete et distance de Wasserstein}
+\date{M2 2023}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+\section{Introduction}
+
+Dans un cadre bay\'esien param\'etrique, la calibration de mesures {\it a priori} suit le choix de la forme de telles mesures (par exemple le fait que le prior soit gaussien ; la calibration \'etant alors l'estimation de la moyenne et la variance de cette loi). Il s'agit de l'un des aspects les plus critiqu\'es de l'inf\'erence bay\'esienne, car il laisse une large place \`a l'arbitraire. Il faut donc essayer de se doter de r\`egles formelles en partant d'hypoth\`eses sur l'interpr\'etation du sens de grandeurs "expertes", connues {\it a priori}. \\
+
+Il est classique de consid\'erer que ces grandeurs ont le sens de quantiles d'une loi pr\'edictive {\it a priori} sur une grandeur $X$ dont on cherche \`a inf\'erer, en pr\'esence de donn\'ees $x_1,\ldots,x_n$, la loi {\it a posteriori}. En introduisant un vecteur de param\`etre $\theta$, de loi {\it a priori} $\pi(\theta)$, la loi {\it a priori} pr\'edictive est
+$$
+f(x)=\int f(x|\theta) \pi(\theta) d \theta
+$$
+et la loi {\it a posteriori} pr\'edictive est
+$$
+f(x|x_1,\ldots,x_n)=\int f(x|\theta) \pi(\theta|x_1,\ldots,x_n) d \theta.
+$$
+
+ 
+
+\section{Premi\`ere formalisation}
+
+On consid\`ere premi\`erement la situation o\`u l'on cherche \`a repr\'esenter le comportement d'une variable al\'eatoire $X$ d\'efinie sur $\{\R,{\cal{B}}(\R),\cal{P}\}$, de densit\'e suppos\'ee
+\begin{eqnarray}
+f(x) & = & \int_{\Theta} f(x|\theta) \pi(\theta) \ d\theta
+\end{eqnarray}
+o\`u $x\to f(x|\theta)$ est une mesure de probabilit\'e param\'etrique connue, $\Theta$ est un espace probabilis\'e en dimension $d$, de mesure dominante $\mu(\theta)$, et $\pi(\theta)$ est une mesure int\'egrable sur $\Theta$, dite {\it a priori}. On dispose de contraintes quantiles sur $X$ : 
+\begin{eqnarray}
+{\cal{P}}\left(X\leq x_i \right) & = & \int_{\Theta} \left\{\int_{-\infty}^{x_i} f(u|\theta) \ du \right\} \pi(\theta) \ d\theta \ = \ \alpha_i, \ \ \ \ i=1,\ldots,p \label{contraintes}
+\end{eqnarray}
+On suppose que $\pi(\theta)=\pi(\theta|\xi)$ o\`u $\xi$ est un ensemble d'hyperparam\`etres inconnus, d\'efini dans un espace $\Xi$ de dimension finie. On note alors $f(x)=f(x|\xi)$ la loi {\it a priori} pr\'edictive (ou {\it marginale}) et ${\cal{P}}\left(X\leq x_i \right)={\cal{P}}\left(X\leq x_i|\xi \right)$ sa fonction de r\'epartition. \\
+
+Connaissant la forme de $\pi(\theta|\xi)$ (ex : gaussienne, etc.), on souhaite d\'efinir une r\`egle de calibration de $\xi$ en fonction des contraintes (\ref{contraintes}). Une premi\`ere id\'ee, naturelle, est de proposer l'usage d'une perte quadratique \'eventuellement pond\'er\'ee, du type
+\begin{eqnarray}
+\xi^* & = & \arg\min\limits_{\xi\in\Xi} \sum\limits_{i=1}^p  \omega_i\left( \alpha_{i}(\xi) - \alpha_i\right)^2
+\end{eqnarray}
+o\`u $\alpha_{i}(\xi)={\cal{P}}\left(X\leq x_i|\xi \right)$ et $\omega_i$ est un poids indiquant la pr\'ef\'erence "souhait\'ee" donn\'ee au respect de la contrainte $i$. D'autres crit\`eres ont \'et\'e sugg\'er\'es dans la litt\'erature, comme celui de Cooke, issu d'une discr\'etisation de la divergence de Kullback-Leibler entre la loi inconnue ${\cal{F}}$ de $X$,  respectant toutes les contraintes (\ref{contraintes}), et la loi {\it atteignable} (ou {\it calibrable}) ${\cal{P}}\left(.|\xi \right)$ :
+\begin{eqnarray*}
+\xi^* & = & \arg\min\limits_{\xi\in\Xi} \sum\limits_{i=1}^p (\alpha_{i+1}-\alpha_i)\log\frac{\alpha_{i+1}-\alpha_i}{\alpha_{i=1}(\xi)-\alpha_{i}(\xi)}
+\end{eqnarray*}
+o\`u $\alpha_{0}(\xi)=\alpha_{0}=0$ et $\alpha_{p+1}(\xi)=\alpha_{p+1}=1$. Cependant, la litt\'erature consacr\'ee aux choix / m\'etriques de calibration {\it a priori} en statistique bay\'esienne param\'etrique est relativement \'eparse, et \`a ce jour aucune r\`egle formelle claire ne se d\'egage. \\
+
+Le probl\`eme \`a r\'esoudre reste donc le suivant : {\bf comment bien poser le probl\`eme de la calibration (vue comme une inversion stochastique)} ?  Quels choix /  quelles conditions peut-on mettre en lumi\`ere sur $f(x|\theta)$, $\pi(\theta|\xi)$ et la fonction de co\^ut de fa\c con \`a obtenir la convexit\'e ou la quasi-convexit\'e de la fonction \`a optimiser (minimiser) en $\xi$ ? Il semble ais\'e de montrer cette convexit\'e dans des cas o\`u $p=2$, pour un choix de fonction de co\^ut L2 ou KL, mais peut-on faire mieux ? En particulier, peut-on utiliser la distance de Wasserstein $W2$ ?\\
+
+Exhiber des situations o\`u, au contraire, il peut y avoir une infinit\'e ou un grand nombre de solutions est \'egalement un probl\`eme int\'eressant (et important). \\
+
+D'autres questions portent sur l'inclusion de poids dans cette fonction \`a optimiser ; peut-on construire une r\`egle pour les optimiser ? La litt\'erature consacr\'ee \`a la fusion de lois peut probablement nous aider. \\
+
+Enfin, la mise en oeuvre pratique du calcul n\'ecessite certainement des calculs d'optimisation stochastique. Quels algorithmes peuvent \^etre privil\'egi\'es, en fonction des contraintes en dimension ? 
+
+
+
+\section{Calibration conditionnelle}
+
+Une situation importante est celle o\`u la forme de la mesure {\it a priori} $\pi(\theta)$ est d\'efinie par
+\begin{eqnarray*}
+\pi(\theta) & \simeq & \pi^J(\theta|\tilde{x}_1,\ldots,\tilde{x}_m)
+\end{eqnarray*}
+o\`u $\tilde{x}_1,\ldots,\tilde{x}_m$ est un \'echantillon {\it virtuel} cens\'e suivre $f(x|\theta)$ de fa\c con iid, et $\pi^J(\theta)$ est une mesure {\it a priori} de r\'ef\'erence. Dans ce cas,  il est parfois possible de s\'eparer 
+les hyperparam\`etres $\xi$ en deux groupes :
+\begin{itemize}
+    \item des hyperparam\`etres $\xi_s$ reli\'es \`a des statistiques inconnues de $\tilde{x}_1,\ldots,\tilde{x}_m$ ;
+    \item la taille $m$  de cet \'echantillon virtuel.\\
+\end{itemize}
+
+Un exemple est issu de la th\'eorie des {\it Jeffreys Conjugate Priors} (JCP)  (voir $\S$ 3.1.4.2 dans \cite{Bioche2015} : $X|\theta$ appartient \`a la famille exponentielle
+$$
+f(x|\theta) = \exp(\theta.t(x) - \phi(\theta))h(x)
+$$
+o\`u $\Theta$ est un domaine ouvert de $\R^d$. On suppose que $\phi(\theta)$ et que l'information de Fisher $I(\theta)$ sont continues. Soit $\pi^J(\theta)$ le prior de Jeffreys par rapport \`a la mesure de Lebesgue 
+\begin{eqnarray}
+\pi^J(\theta)  & \propto &  \left|I(\theta) \right|^{1/2}
+\end{eqnarray}
+et soit 
+\begin{eqnarray}
+\pi(\theta|\alpha,\beta) & \propto & \exp(\alpha.\theta - \beta \phi(\theta)) \left|I(\theta) \right|^{1/2}
+\end{eqnarray}
+un repr\'esentant de la classe des JCP. Alors celui-ci, outre converger vers $\pi^J(\theta)$ au sens de la convergence $q-$vague (voir Prop. 3.1.28 dans \cite{Bioche2015}), peut \'egalement \^etre interpr\'et\'e comme la loi a posteriori de Jeffreys pour un \'echantillon virtuel $\tilde{x}_1,\ldots,\tilde{x}_m$ tel que 
+\begin{eqnarray}
+\alpha & = &  \sum\limits_{i=1}^m t(\tilde{x}_i)
+\end{eqnarray}
+et de taille $m=\beta$. \\
+
+L'hyperparam\`etre $m$ refl\`ete donc la taille de l'information {\it a priori}, qui peut \^etre compar\'ee \`a celle de donn\'ees r\'eelles. La calibration de cet hyperparam\`etre r\'epond \`a une logique diff\'erente ; on peut ainsi envisager de minimiser $\xi_s$, conditionnellement \`a $m$, puis de produire des choix de $m$ par d'autres types de r\`egle. \\
+
+%\section{Intercalibration de priors}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+
+
+\end{document} 

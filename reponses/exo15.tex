@@ -1,0 +1,23 @@
+\begin{rep}
+\begin{enumerate}
+\item Des calculs algébriques montrent que les lois conditionnelles sont
+\begin{eqnarray*}
+U_i|{\bf x_{IJ}},\beta,\sigma^2,\tau^2 & \sim & {\cal{N}}\left(\frac{J(\bar{x}_i-\beta)}{J+\tau^2\sigma^{-2}},(J\tau^{-2} + \sigma^{-2})^{-1}\right) \\
+\beta|{\bf x_{IJ}},\sigma^2,\tau^2,{\bf u_I} & \sim & {\cal{N}}\left(\bar{x}-\bar{u},\tau^2/IJ\right) \\
+\sigma^2|{\bf x_{IJ}},\beta,\tau^2,{\bf u_I} & \sim &  {\cal{IG}}\left(I/2,(1/2)\sum\limits_{i=1}^I u^2_i\right) \ \ \ \ \ \text{\it (loi inverse gamma)} \\
+\tau^2|{\bf x_{IJ}},\beta,\sigma^2,{\bf u_I} & \sim &  {\cal{IG}}\left(IJ/2,(1/2)\sum\limits_{i=1}^I\sum\limits_{j=1}^J (x_{ij} - u_i - \beta)^2\right)  
+\end{eqnarray*}
+qui sont donc bien définies. 
+\item La loi {\it a posteriori} jointe 
+\begin{eqnarray*}
+\pi(\sigma^2,\tau^2|{\bf x_{IJ}}) & = & \int \pi(\beta,\sigma^2,\tau^2|{\bf x_{IJ}}) \ d\beta \\
+                                  & = & \int\left[\int_1\ldots\int_i\ldots\int_I \pi(\beta,\sigma^2,\tau^2|{\bf x_{IJ}}) \ d u_i\right] d\beta \\
+\end{eqnarray*}
+est proportionnelle à
+\begin{eqnarray*}
+\frac{\sigma^{-2-I}\tau^{-2-IJ}}{\left(J\tau^{-2} + \sigma^{-2}\right)^{I/2}}\sqrt{\tau^2 + J\sigma^2} \exp\left\{-\frac{1}{2\tau^2}\sum\limits_{i,j} (y_{ij}-\bar{y}_i)^2 - \frac{J}{2'\tau^2 + J\sigma^2)}\sum\limits_{i} (\bar{y}_i-\bar{y})^2\right\}
+\end{eqnarray*}
+qui se comporte comme $\sigma^{-2}$ au voisinage de $\sigma=0$, pour $\tau\neq 0$. Cette loi jointe n'est donc pas intégrable ({\it propre}). 
+\item On constate normalement une absence de convergence claire des chaînes, ou une stationnarité (momentanée) trompeuse.
+\end{enumerate}
+\end{rep}

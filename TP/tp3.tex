@@ -1,0 +1,43 @@
+\subsection{TP : Un exemple complet dans un cadre de fiabilité industrielle }
+
+Soit $X$ la durée de vie d'un composant $\Sigma$, supposé tomber uniquement en panne par hasard. Le taux de défaillance $\lambda$ de $\Sigma$ est donc constant, ce qui implique  $X\sim {\cal{E}}(\lambda)$. Il est courant de disposer d'un  expert industriel  familier de $\lambda$, avec qui le dialogue suivant peut être engagé. 
+ "Considérons une décision de management (remplacement) établie sur une valeur donnée $\bar{\lambda}$ \emph{(différente de la vraie valeur inconnue $\lambda$)}
+\item Pour un \emph{co\^ut} similaire  $|\bar{\lambda}-\lambda|$, il y a 2 conséquences possibles au remplacement : 
+\begin{itemize}
+\item  soit $C_1$ le co\^ut positif moyen d'\^etre trop optimiste (d'avoir $\bar{\lambda}\leq \lambda$) ; 
+\item  soit $C_2$ le co\^ut positif moyen d'\^etre trop pessimiste (d'avoir $\bar{\lambda}>\lambda$). 
+\item Pouvez-vous donner un estimé $\hat{\delta}$ du rapport des co\^uts moyens $\delta=C_2/C_1$" ?
+\end{itemize}
+L'axiome de rationalité dit que si l'expert n'est pas \emph{averse au risque}, alors 
+\begin{eqnarray*}
+\bar{\lambda} & = & \arg\min_{x} \underbrace{\int_{0}^{\infty} \left|x-\lambda\right|\left(C_1\1_{\{x\leq \lambda\}} + C_2\1_{\{x>\lambda\}}\right) \pi(\lambda) \ d\lambda}_{\text{\tiny fonction de co\^ut intégr\'ee sur toutes les valeurs possibles {\it a priori} du vrai $\lambda$}} 
+\end{eqnarray*}
+\begin{eqnarray*}
+\text{ Il s'ensuit que} \ \ \ \ \int_{0}^{\bar{\lambda}} d\Pi(\lambda) & = & \Pi(\lambda<\bar{\lambda}) \ = \ \frac{C_1}{C_1+C_2}.  
+\end{eqnarray*} 
+ L'interprétation de la réponse de l'expert est que $1/(1+\hat{\delta})$ est un estimé du quantile {\it a priori} d'ordre $\alpha=C_1/(C_1+C_2)$. 
+Avec $P(\lambda<\bar{\lambda})=\frac{C_1}{C_1+C_2}=\alpha$, on a :
+\begin{itemize}
+\item tant que les co\^uts sont équilibrés, un expert de plus en plus optimiste fournira un $\bar{\lambda}$ de plus en plus petit, car la durée moyenne avant la prochaine défaillance est
+\begin{eqnarray*}
+\E[X|\lambda] & = &  \frac{1}{\lambda}.
+\end{eqnarray*}
+ 
+\item cependant l'expert s'exprime plutôt sur les co\^uts lorsqu'on lui fournit une valeur représentative de $\bar{\lambda}$ : 
+\begin{itemize} 
+\item   plus l'expert est optimiste, plus le co\^ut $C_2$ d'\^etre optimiste (selon lui) est petit, donc $\alpha$ grandit vers 1 et
+\begin{eqnarray*}
+\E[X] & = & \E[\E[X|\lambda]] \ = \ \E[1/\lambda] \ \ \text{augmente}.
+\end{eqnarray*}
+\item   plus l'expert est pessimiste, plus le co\^ut $C_2$ d'\^etre optimiste augmente, donc $\alpha$ tombe vers 0 et
+\begin{eqnarray*}
+\E[X] & = &  \E[1/\lambda] \ \ \text{diminue}.
+\end{eqnarray*}
+\end{itemize}
+\end{itemize} 
+Quelle choix de loi {\it a priori} pouvons-nous proposer au décideur ?
+
+
+
+\if\mycmdtpthree1 \input{TP/corrigeTP3}
+\fi

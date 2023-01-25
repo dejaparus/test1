@@ -1,0 +1,127 @@
+\section{Notations}
+
+La d\'efinition des notations suivantes sera rappel\'ee à leur
+premi\`ere occurrence dans le document, et elles seront r\'eutilis\'ees
+par la suite sans rappel obligatoire. D'une mani\`ere g\'en\'erale, les
+variables al\'eatoires (v.a.) seront not\'ees en majuscules, les
+r\'ealisations de ces
+variables en minuscules. Les vecteurs et matrices sont indiqu\'es en gras, à la diff\'erence des scalaires. 
+
+\begin{center}
+\begin{tabular}{ll}
+%\hline
+& \\
+\multicolumn{2}{c}{\textsc{\large Notations g\'en\'erales}} \\
+& \\
+\cline{1-2}
+& \\
+%$\bX$  & variable al\'eatoire d'\'etude, multidimensionnelle en dimension $d$ \\
+$X$ & variable al\'eatoire d'\'etude, unidimensionnelle ou multidimensionnelle \\
+& \\
+$\Pp(.)$ & mesure de probabilit\'e usuelle  \\
+%$\Omega_{\bX}$ & notation canonique pour l'espace probabilis\'e de $\bX$ \\
+${\cal{B}}(A)$ & tribu ($\sigma-$alg\`ebre) des bor\'eliens sur un espace $A$ \\
+$P(A)$ & ensemble des parties de $A$ \\
+$\1_{\{x\in A\}}$ & fonction indicatrice \\
+$\varnothing$ & ensemble vide \\
+& \\
+%$Z$ & variable al\'eatoire d'int\'er\^et \\
+$F_{X}$  & fonction de r\'epartition de $X$ \\
+$f_{X}$   & fonction de densit\'e de probabilit\'e de $\bX$ \\
+$F_{X}(.|\theta)$ & fonction de r\'epartition de $X$, param\'etr\'ee par le vecteur $\theta$ \\
+$f_{X}(.|\theta)$ & fonction de densit\'e de probabilit\'e de $X$, param\'etr\'ee par $\theta$ \\
+$\ell(x_1,\ldots,x_n|\theta)$ & vraisemblance statistique des observations \\
+& conditionnelle au vecteur $\btheta$ \\
+$\pi(\theta)$ & densit\'e {\it a priori} (bay\'esienne) sur le vecteur $\theta$ \\
+$\pi(\theta|x_1,\ldots,x_n)$ & densit\'e {\it a posteriori} (bay\'esienne) sur le vecteur $\theta$ sachant \\
+& 
+un \'echantillon d'observations $x_1,\ldots,x_n$ \\
+$\Pi(\theta)$ & fonction de r\'epartition {\it a priori}  \\
+$\Pi(\theta|x_1,\ldots,x_n)$& fonction de r\'epartition {\it a posteriori} \\
+\sign(x) & signe de $x$ \\
+\supp(f) & support de la densit\'e $f$ \\
+$X^T$ & transpos\'ee de $X$ \\
+$\lfloor x \rfloor$ & partie enti\`ere de $X$ \\
+\hline
+\end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textsc{\large Notations g\'en\'erales (suite)}} \\
+\hline
+& \\
+$\E_X[.]$ & esp\'erance selon la loi de $X$ (le $X$ peut \^etre ôt\'e si pas d'ambiguït\'e) \\
+$\V_X[.]$ & variance selon la loi de $X$  \\
+$\Cov_{\bX}[.]$ & matrice de covariance selon la loi de ${\bX}$  \\
+%$\M_k[.]$ & moment d'ordre $k$ \\
+$\R$ & ensemble des r\'eels \\
+$\N$ & ensemble des entiers naturels \\
+& \\
+$L^2$ & espace des fonctions de carr\'e int\'egrable \\
+${\cal{C}}$ & notation g\'en\'erique pour une classe de r\'egularit\'e fonctionnelle \\
+$<.,.>$ & produit scalaire canonique \\
+$A^T$ & transpos\'ee de $A$ \\
+$\trace(A)$ & trace de $A$ \\
+$\diag(A)$ & vecteur diagonal de $A$  \\
+$|A|$ & d\'eterminant de $A$ \\
+$\grad X$ & gradient de $X$ \\
+$\boldsymbol{0}_d$ & vecteur nul de dimension $d$ \\   % a rajouter version anglaise
+$X_1 \vee X_2 $ & vecteur de composantes maximales deux à deux \\
+& \\
+$\xrightarrow{\cal{L}} $ & convergence en loi \\
+$\xrightarrow{\Pm} $ & convergence en probabilit\'e \\
+$\xrightarrow{p.s.} $ & convergence presque sûre \\
+& \\
+$\log$ & logarithme n\'ep\'erien (ln) \\
+$\exp(.)$ & exponentielle  \\
+$\text{cste}$ & valeur constante \\
+{\it resp.} & respectivement \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\clearpage
+
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textsc{\large Notations et fonctions de r\'epartition de lois statistiques}} \\
+\hline
+& \\
+Bernoulli ${\cal{B}}(p)$ & $\Pm(X=1)=1-\Pm(X=0)=p$ \\
+& \\
+Binomiale $\BINOM(N,p)$ & ${\displaystyle  \Pm(X\leq k) = \sum\limits_{i=0}^k \frac{i!(n-i)!}{n!} p^i (1-p)^{n-i}}$ \\
+Poisson $\POIS(\lambda)$ & ${\displaystyle \Pm(X\leq k) = \sum\limits_{i=0}^k \frac{\lambda^i}{i!} \exp(-\lambda)}$ \\
+& \\
+Normale centr\'ee r\'eduite ${\cal{N}}(0,1)$ & $F_X(x)=\Phi(x)$ \\
+& \\
+Gaussienne $\GAUSS(\mu,\sigma^2)$ & $F_X(x) = \Phi\left(\frac{x-\mu}{\sigma}\right)$ \\
+& \\
+Exponentielle $\EXPO(\lambda)$ & $F_X(x) = 1- \exp(-\lambda x)$ \\
+& \\
+& \\
+Bêta ${\cal{B}}_e(a,b)$ & ${\displaystyle \Pm(X\leq x) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1} \1_{\{0\leq x \leq 1\}}}$ \\
+& \\
+Gamma $\GAMMA(a,b)$ & ${\displaystyle F_X(x) = \frac{\gamma(a,bx)}{\Gamma(a)}}$ \ \ \ \text{avec $\gamma(a,x)=\int_{0}^x t^{a-1} \exp(-t) \ dt$}\\
+& \\
+Inverse gamma $\INVGAMMA(a,b)$ & ${\displaystyle F_X(x) = \frac{\Gamma(a,b/x)}{\Gamma(a)}}$ \ \ \ \text{avec $\Gamma(a,x)=\int_{x}^{\infty} t^{a-1} \exp(-t) \ dt$}\\
+& \\
+$\chi^2_k$ (Chi-2)  & ${\displaystyle F_X(x) = \frac{\gamma(k/2,x/2)}{\Gamma(k/2)}}$ \\
+& \\
+Student $\STU(k)$  & ${\displaystyle F_X(x) = \frac{1}{\sqrt{k\pi}}\frac{\Gamma(\frac{k+1}{2})}{\frac{k}{2}}\int_{-\infty}^x \left(1 + \frac{t^2}{k}\right)^{-\frac{k+1}{2}} \ dt}$ \\
+& \\
+\hline
+\end{tabular}
+\end{center}
+
+
+Voir également l'Annexe $\ref{annexe:modeles}$ pour des précisions sur les modèles fréquemment rencontrés durant le cours. 
+
+
+\clearpage
+
+
+

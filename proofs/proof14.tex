@@ -1,0 +1,54 @@
+\begin{proof} % Maximum d'entropie
+Dans ce cadre fonctionnel, on définit le problème global d'optimisation 
+\begin{eqnarray*}
+\textcolor{black}{\pi^*(\theta)} & = & \arg\max\limits_{\pi\in{\cal{P}}} {\cal{L}}_{\pi}
+\end{eqnarray*}
+où ${\cal{L}}({\pi})$ est le Lagrangien défini par
+\begin{eqnarray*}
+{\cal{L}}({\pi}) & = &  - \int_{\Theta} \pi(\theta) \log\frac{\pi(\theta)}{\pi_0(\theta)} \ d\theta  - \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) \pi(\theta) \ d\theta + C
+\end{eqnarray*}
+et où les $\lambda_i$ sont des réels, nommés {\it multiplicateurs de Lagrange}, et $C$ est une constante. L'optimum $\pi^*$, s'il existe dans ${\cal{P}}$, est défini comme une solution du {\it problème variationnel}
+\begin{eqnarray*}
+\frac{\partial {\cal{L}}({\pi^*})}{\partial \pi} & = &  0
+\end{eqnarray*}
+où la différentielle fonctionnelle $\frac{\partial {\cal{L}}({\pi^*})}{\partial \pi}$ (ici grossièrement écrite) doit être redéfinie. On remarque que l'application $\pi\mapsto {\cal{L}}({\pi})$ est convexe, ce qui implique l'existence d'un optimum unique. On introduit une {\it direction} $h$ (une densité) sur $\Theta$ suffisamment intégrable ($L^2$) et $\epsilon\in\R$ ; alors la différentielle de ${\cal{L}}({\pi})$ dans la direction $h$ est définie par
+\begin{eqnarray*}
+\nabla_h {\cal{L}}({\pi}) & = & \lim\limits_{\epsilon\to\ 0} \frac{1}{\epsilon}\left\{{\cal{L}}({\pi + \epsilon h})  - {\cal{L}}({\pi})\right\}, \\
+& = &  \lim\limits_{\epsilon\to\ 0} \frac{1}{\epsilon}\left\{ \int_{\Theta} \left(\pi(\theta) + \epsilon h(\theta)\right) \left( \log \left[ \pi(\theta) + \epsilon h(\theta)\right]  - \log \pi_0(\theta)\right)\ d\theta \right. \\   \\
+&  & \left. - \int_{\Theta} \pi(\theta) \log\frac{\pi(\theta)}{\pi_0(\theta)} \right\}   -   \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) h(\theta) \ d\theta, \\
+& = &  \lim\limits_{\epsilon\to\ 0} \frac{1}{\epsilon} \left\{ \int_{\Theta} \left(\pi(\theta) + \epsilon h(\theta)\right) \left( \log \left[ 1 + \epsilon \frac{h(\theta)}{\pi(\theta)}\right]  - \log \pi_0(\theta)\right) \ d\theta  \right. \\
+& & \left. + \int_{\Theta} \pi(\theta) \log \pi_0(\theta) \ d\theta\right\}  
+%&  & 
++ \int_{\Theta} h(\theta) \log\pi(\theta) \ d\theta  - \  \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) h(\theta) \ d\theta, \\
+& = &  \lim\limits_{\epsilon\to\ 0} \frac{1}{\epsilon} \left\{ \int_{\Theta} \left(\pi(\theta) + \epsilon h(\theta)\right) \left[\frac{\epsilon h(\theta)}{\pi(\theta)}( 1+k(\theta)) -   \log \pi_0(\theta)\right]\ d\theta \right.\\
+& & \left. + \int_{\Theta} \pi(\theta) \log \pi_0(\theta) \ d\theta\right\} 
++ \int_{\Theta} h(\theta) \log\pi(\theta) \ d\theta \\
+& & -  \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) h(\theta) \ d\theta, 
+\end{eqnarray*}
+en faisant un développement limité à l'ordre 1, où $k(\theta)$ est une fonction dominée par $h(\theta)$, telle que $h(\theta)k(\theta)$ et$(h^2(\theta)/\pi(\theta))(1+k(\theta))$ soient intégrables sur $\Theta$. Alors 
+\begin{eqnarray*}
+\nabla_h {\cal{L}}({\pi}) & = &  \lim\limits_{\epsilon\to\ 0}  \left[\int_{\Theta} h(\theta)(1+k(\theta)) \ d\theta + \epsilon \int_{\Theta}\frac{h^2(\theta)}{\pi(\theta)}(1+k(\theta)) \ d\theta + \int_{\Theta} h(\theta) \log\frac{\pi(\theta)}{\pi_0(\theta)} \ d\theta\right] \\
+&  & \ \ \ - \  \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) h(\theta) \ d\theta.
+\end{eqnarray*}
+\end{proof}
+
+\begin{proof}{\bf (suite)} ${}^{}$ 
+Avec $\int_{\Theta}h(\theta)\ d\theta = 1$, on en déduit donc que $\pi^*$ est tel que (au premier ordre variationnel)
+\begin{eqnarray*}
+\int_{\Theta} h(\theta) \log\frac{\pi^*(\theta)}{\pi_0(\theta)} \ d\theta & = &  \sum\limits_{i=1}^M \lambda_i \int_{\Theta} g_i(\theta) h(\theta) + D
+\end{eqnarray*}
+où $D$ est une constante indépendante de $h$, pour toute direction $h$ respectant les conditions d'intégrabilité. 
+
+On en déduit que
+\begin{eqnarray*}
+\int_{\Theta} h(\theta) \left[ \log\frac{\pi^*(\theta)}{\pi_0(\theta)} -  \sum\limits_{i=1}^M \lambda_i  g_i(\theta) - D\right] \ d\theta & = &  0
+\end{eqnarray*}
+et en reconnaissant un produit scalaire $<h,g>=0$ pour tout $h$ (en supposant que $\Theta$ est un borélien sur $\R^d$ avec $d<\infty$ et des conditions de bornitude), on a  que 
+\begin{eqnarray*}
+\log\frac{\pi^*(\theta)}{\pi_0(\theta)}  & = &  \sum\limits_{i=1}^M \lambda_i g_i(\theta) + D \ \ \ \text{presque partout.}
+\end{eqnarray*}
+On en déduit l'expression
+\begin{eqnarray*}
+\pi^*(\theta)   & \propto & {\pi_0(\theta)} \exp\left( \sum\limits_{i=1}^M \lambda_i g_i(\theta)\right).
+\end{eqnarray*}
+\end{proof}

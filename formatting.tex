@@ -1,0 +1,204 @@
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=3cm]{geometry}
+\usepackage{enumitem}
+\frenchbsetup{StandardLists=true}
+\usepackage{supertabular}
+\newframedtheorem
+	
+
+\usepackage[colored]{shadethm}
+\definecolor{shadethmcolor}{rgb}{0.8,0.8,0.8}% couleur du fond
+\definecolor{shaderulecolor}{rgb}{0,0,1}% couleur de l'encadré
+
+%\usepackage[english,french]{babel}
+%\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+\setitemize[0]{font=\bfseries, label=\textbullet}  
+
+\def\bX{\mathbf{X}} % raccourcis pour un vecteur aléatoire
+\def\bY{\mathbf{Y}}
+\def\bZ{\mathbf{Z}}
+\def\vec{\mathbf}
+\def\cN{{\cal{N}}}
+\def\cH{{\cal{H}}}
+\def\cG{{\cal{G}}}
+\def\Expect{\mathbbm{E}}
+\def\btheta{{\boldsymbol{\theta}}}  % raccourci pour le vecteur de paramètres usuel 
+\def\bbeta{{\boldsymbol{\beta}}}  % raccourci pour le vecteur de paramètres usuel 
+
+\def\bpsi{{\boldsymbol{\psi}}}  % raccourci pour le vecteur de paramètres usuel 
+ 
+
+\def\ba{\mathbf{a}}  % raccourcis pour les suites de vecteurs impliqués dans la
+\def\bb{\mathbf{b}}  % démonstration des théorèmes limites
+
+\def\barchi{\bar\chi}  % raccourci pour un coefficient de dépendance extrême
+
+\def\brho{{\boldsymbol{\rho}}}  % raccourci pour une matrice de corrélation
+
+\def\sign{\text{sign}} % raccourci pour le signe d'un scalaire
+\def\supp{\text{Supp}} % raccourci pour le support d'une densité
+\def\trace{\text{tr}} % raccourci pour la trace d'une matrice 
+\def\diag{\text{diag}} % raccourci pour le vecteur diagonal d'une matrice 
+
+\def\grad{\nabla} 
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\CV}{\text{CV}}  % un raccourci pour le coefficient de variation
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mathbbm{E}}
+\newcommand{\V}{\mathbbm{V}} 
+\newcommand{\Var}{\mathbbm{V}} 
+\newcommand{\Cov}{\mathbbm{C}{ov}} 
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+\newcommand{\Pm}{\mathbbm{P}}
+
+\def\sign{\text{sign}} % raccourci pour le signe d'un scalaire
+\def\supp{\text{Supp}} % raccourci pour le support d'une densité
+\def\trace{\text{tr}} % raccourci pour la trace d'une matrice 
+\def\diag{\text{diag}} % raccourci pour le vecteur diagonal d'une matrice 
+
+\def\grad{\nabla} % raccourci pour le gradient 
+
+\def\GEV{{\cal{GEV}}} % raccourci pour la dénomination de la loi GEV
+\def\GPD{{\cal{GPD}}} % raccourci pour la dénomination de la loi GPD
+\def\EXPO{{\cal{E}}} % raccourci pour la dénomination de la loi exponentielle
+\def\GAUSS{{\cal{N}}} % raccourci pour la dénomination de la loi gaussienne
+\def\GEV{{\cal{GEV}}} % raccourci pour la dénomination de la loi GEV
+\def\BERN{{\cal{B}}_e} % raccourci pour la dénomination de la loi de Bernoulli
+\def\BINOM{{\cal{B}}} % raccourci pour la dénomination de la loi binomiale
+\def\POIS{{\cal{P}}} % raccourci pour la dénomination de la loi de Poisson
+\def\GAMMA{{\cal{G}}} % raccourci pour la dénomination de la loi gamma
+\def\INVGAMMA{{\cal{IG}}} % raccourci pour la dénomination de la loi inverse gamma
+\def\FS{{\cal{FS}}} % raccourci pour la dénomination de la loi de Fisher-Snedecor
+\def\STU{{\cal{S}}_t} % raccourci pour la dénomination de la loi de Student
+
+\def\iid{\textit{iid} } % raccourci pour le terme "i.i.d."
+\def\va{\textit{va} } % raccourci pour le terme "variable aléatoire"
+\def\EMV{$\text{EMV}$} % raccourci pour le terme "estimateur du maximum de vraisemblance"
+\def\EMC{$\text{EMC}$} % raccourci pour le terme "estimateur des moindres carrés"
+
+
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemme}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\fbox{\noindent\textsc{Exemple}\,\refstepcounter{cptexo}\thecptexo.}\it $\ {}^{} \ $  }
+
+%\newtheorem{theorem}{Théorème}
+\usepackage{array,longtable}
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Preuve}
+\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}{Lemme}
+
+
+\newshadetheorem{theorem}{Théorème}
+
+\newenvironment{proof2}
+    {
+    \begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    {\bf Preuve.} $\ {}^{} \ $} 
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    \hspace{0.5cm}
+    }
+
+\newenvironment{proof}
+    {
+    {\bf \textcolor{blue}{Preuve.}} $\ {}^{} \ $} 
+
+    
+
+\newenvironment{rep2}
+    {
+      \begin{center}
+    \begin{longtable}{|p{0.9\textwidth}|}
+    \hline\\
+    {\bf Réponse.} $\ {}^{} \ $} 
+    { 
+    \\\\\hline
+    \end{longtable} 
+    \end{center}
+    \hspace{0.5cm}
+    }
+    
+\newenvironment{rep}
+    {
+    {\bf \textcolor{purple}{Réponse}.} $\ {}^{} \ $} 
+    
+
+%\newtheorem{rep}[theorem]{\it R\'eponse}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{exec}{\textcolor{blue}{Exercice}}
+\newtheorem{assumption}{\noindent Hypothèse}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Exemple}
+\newtheorem{lemma}{\noindent Lemme}
+
+
+
+\newtheorem{remark}{\noindent Remarque}
+
+\usepackage{imakeidx}
+\makeindex
+
+
+\newcommand{\Exemple}[1]{\fbox{\begin{minipage}{\textwidth}\begin{exo}#1\end{exo}\end{minipage}

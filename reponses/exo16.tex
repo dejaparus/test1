@@ -1,0 +1,60 @@
+\begin{rep}
+ La mesure de maximum d'entropie s'écrit 
+\begin{eqnarray*}
+\pi(\theta) & \propto & \theta^{-1} \exp\left(- \lambda_1 \theta^{\beta} + \lambda_2\log \theta\right) \1_{\{ \theta\geq 0\}}
+\end{eqnarray*} 
+où $(\lambda_1,\lambda_2)\in\R^2$ sont deux multiplicateurs de Lagrange. Soit :
+\begin{eqnarray*}
+\pi(\theta) & \propto & \theta^{\lambda_2-1} \exp\left(- \lambda_1 \theta^{\beta}\right)\1_{\{ \theta\geq 0\}}.
+\end{eqnarray*} 
+Si l'on souhaite définir une mesure $\sigma-$finie sur $\R^+$, il nous faut avoir
+\begin{eqnarray*}
+\lim\limits_{\theta\to\infty} \pi(\theta) & = & 0
+\end{eqnarray*}
+ce qui implique $\lambda_1>0$. Dans ce cas, 
+\begin{eqnarray*}
+\pi(\theta) & = & \Delta^{-1} \theta^{\lambda_2-1} \exp\left(- \lambda_1 \theta^{\beta}\right)\1_{\{ \theta\geq 0\}}.
+\end{eqnarray*} 
+où la constante d'intégration $\Delta$ est définie par
+\begin{eqnarray*}
+\Delta & = & \int_{\R^+} \theta^{\lambda_2-1} \exp\left(- \lambda_1 \theta^{\beta}\right) \ d\theta.
+\end{eqnarray*} 
+En opérant le changement de variable $u=\lambda_1\theta^{\beta}$, il vient
+\begin{eqnarray*}
+d u & = & \beta u (u/\lambda_1)^{-1/\beta} d \theta
+\end{eqnarray*} 
+et
+\begin{eqnarray*}
+\Delta & = & \frac{1}{\lambda^{\frac{\lambda_2}{\beta}}_1 \beta} \int_{\R^+} u^{\lambda_2/\beta-1} \exp\left(- u\right) \ du.
+\end{eqnarray*} 
+On reconnaît dans l'intégrale le terme général d'une loi gamma ${\cal{G}}(\lambda_2/\beta,1)$, qui est bien définie (intégrable) si et seulement si $\lambda_2>0$. On en déduit alors que 
+\begin{eqnarray*}
+\Delta & = & \frac{\Gamma\left(\frac{\lambda_2}{\beta}\right)}{\lambda^{\frac{\lambda_2}{\beta}}_1 \beta}.
+\end{eqnarray*} 
+\end{rep}
+
+\begin{rep}{ ${}^{}$ {\bf (suite). }}
+On peut alors réécrire la contrainte (\ref{constrainte1toto}) : 
+\begin{eqnarray*}
+\E[\theta^{\beta}] & = & \Delta^{-1} \int_{\R^+} \theta^{\beta+\lambda_2-1} \exp\left(-\lambda_1\theta^{\beta}\right) \ d\theta.
+\end{eqnarray*}
+En réutilisant le changement de variable $\theta\to u$, on peut réécrire
+\begin{eqnarray*}
+\E[\theta^{\beta}] & = & \frac{\Delta^{-1}}{\beta\lambda_1} \int_{\R^+} u^{\lambda_2} \exp\left(-u\right) \ du, \\
+                            & = & \frac{\Gamma(1+\lambda_2/\beta)}{\Gamma(\lambda_2/\beta)} \lambda^{\frac{\lambda_2}{\beta}}_1 \ = \ 1.
+\end{eqnarray*}
+Enfin, on s'intéresse à la contrainte (\ref{constrainte2toto}) :
+\begin{eqnarray*}
+\E[\log\theta] & = & \Delta^{-1} \int_{\R^+}  \theta^{\lambda_2-1} \log\theta \exp\left(-\lambda_1\theta^{\beta}\right) \ d\theta.
+\end{eqnarray*}
+En réutilisant une nouvelle fois le changement de variable $\theta\to u$, on peut réécrire
+\begin{eqnarray*}
+\E[\log\theta] & = & \frac{\Delta^{-1}}{\beta^2\lambda^{\frac{\lambda_2}{\beta}}_1} \int_{\R^+} u^{\lambda_2/\beta-1} \exp\left(-u\right)\left[\log u - \log \lambda_1 \right] \ du, \\
+                            & = &  \frac{\Delta^{-1} \Gamma\left(\frac{\lambda_2}{\beta}\right)}{\beta^2\lambda^{\frac{\lambda_2}{\beta}}_1} \E_{g}\left[ \log u- \log\lambda_1\right]\end{eqnarray*} 
+où l'espérance $\E_{g}$ est définie par rapport à la loi ${\cal{G}}(\lambda_2/\beta,1)$. Donc
+\begin{eqnarray*}
+\E[\log\theta] & = &  \frac{\Delta^{-1} \Gamma\left(\frac{\lambda_2}{\beta}\right)}{\beta^2\lambda^{\frac{\lambda_2}{\beta}}_1} \left[\psi\left(\frac{\lambda_2}{\beta}\right) -  \log\lambda_1\right], \\
+& = & \frac{1}{\beta}  \left[\psi\left(\frac{\lambda_2}{\beta}\right) -  \log\lambda_1\right] \ = \ - \frac{\gamma}{\beta}.
+\end{eqnarray*} 
+Une solution triviale est $\lambda_1=1$ et $\lambda_2=\beta$. Dans ce cas, on reconnaît pour $\pi(\theta)$ une loi de Weibull de paramètre de forme $\beta$ et d'échelle 1. 
+\end{rep}

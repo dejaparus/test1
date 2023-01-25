@@ -1,0 +1,736 @@
+\documentclass[10pt]{article}
+\include{formatting}
+
+
+\title{{\bf Modélisation et statistique bayésienne computationnelle} \\ \vspace{1cm} Corrigé des exercices et démonstrations des résultats \\ (document évolutif)}
+\date{\today}
+\author{\url{nicolas.bousquet@sorbonne-universite.fr}}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+\vspace{0.5cm} 
+\begin{center}
+%\large {\it nicolas.bousquet@sorbonne-universite.fr} \\ 
+\vspace{2cm} 
+  {\large {\bf Master 2,  Sorbonne Universit\'e, 2023}} \\
+  \vspace{1cm}
+  \includegraphics[height=25mm]{logos/lpsm.jpg}
+  \includegraphics[height=25mm]{logos/isup.jpg}
+  \end{center}
+%%%%%%%%%%%%%%%%%%  
+ 
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Condition d'insertion des explications et preuves
+% 
+% placer 0 pour ôter les preuves
+% placer 1 pour les replacer dans le texte
+%
+\def\mycmdexo{0}  % Solutions des exercices (partie 1)
+\def\mycmdexotwo{0} % Solutions des exercices (partie 2)
+\def\mycmdexothree{0} % Solutions des exercices (partie 3)
+\def\mycmdproof{0} % Preuves techniques partie 1
+\def\mycmdprooftwo{0} % Preuves techniques partie 2
+\def\mycmdproofthree{0} % Preuves techniques partie 3
+\def\mycmdtpone{0} % Corrigés du TP 1
+\def\mycmdtpthree{0} % Corrigés du TP 2
+\def\mycmdannales{0} % Annales incluant la correction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Corrigés et preuves "Introduction et Théorie de la décision"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Exercices}
+
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}[Adapté de \cite{Robert2007}]\label{exo1}
+            Soient $(x_1,x_2)$ deux réalisations aléatoires. Nous disposons de deux candidats pour la loi jointe de ces observations: $x_i\sim {\cal{N}}(\theta,1)$ ou encore
+            \begin{eqnarray*}
+g(x_1,x_2|\theta) & = & \pi^{-3/2}\frac{\exp\left\{-(x_1 + x_2 - 2\theta)^2/4\right\}}{1+(x_1-x_2)^2}.
+\end{eqnarray*}
+Quel est l'estimateur du maximum de vraisemblance de $\theta$ dans chacun des cas ? Que constate-on ?
+        \end{exec}
+ \input{reponses/exo1}
+%\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}[Bayes (1763)]\label{exo2}
+Une boule de billard $Y_1$ roule sur une ligne de longueur $1$, avec une probabilité uniforme de s'arr\^eter n'importe où. Supposons qu'elle s'arr\^ete à la position $\theta$. Une seconde boule $Y_2$ roule alors $n$ fois dans les m\^emes conditions, et on note $X$ le nombre de fois où $Y_2$ s'arr\^ete à gauche de $Y_1$. Connaissant $X$, quelle inférence peut-on mener sur $\theta$ ?
+\end{exec}
+ \input{reponses/exo2}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}[Loi gaussienne / loi exponentielle]\label{exo3}
+Soit une observation $x\sim{\cal{N}}(\theta,\sigma^2)$ où $\sigma^2$ est connu. On choisit {\it a priori}
+\begin{eqnarray*}
+\theta & \sim & {\cal{N}}(m,\rho\sigma^2)
+\end{eqnarray*} 
+Quelle est la loi {\it a posteriori} de $\theta$ sachant $x$ ? Même question en supposant que $X\sim {\cal{E}}(\lambda)$ et
+\begin{eqnarray*}
+\lambda & \sim & {\cal{G}}(a,b).
+\end{eqnarray*}
+\end{exec}
+% \input{reponses/exo3}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\if\mycmdexo1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}[Loi uniforme généralisée]\label{exo4}
+Soit $X\sim {\cal{N}}(\mu,\sigma^2)$ et $d\pi(\mu) = d \mu$ (mesure de Lebesgue). Que vaut $m_{\pi}(x)$ ? 
+\end{exec}
+ \input{reponses/exo4}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}[Loi d'échelle]\label{exo5}
+Soit $X_1,\ldots,X_n\sim {\cal{N}}(\mu,\sigma^2)$ et $\pi(\mu,\sigma) = 1/\sigma$ avec $\Theta=\R \times \R^+_*$.  Que vaut $m_{\pi}(x_1,\ldots,x_n)$ ? La mesure $\pi(\mu,\sigma)$ peut-elle être utilisable ?
+\end{exec}
+\input{reponses/exo5}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}\label{exo6}
+Soient $x_1 $ et $x_2$ deux observations de la loi définie par \begin{eqnarray*}
+P_{\theta}(x=\theta-1) & = & P_{\theta}(x=\theta+1) \ = \ 1/2 \ \ \ \ \text{avec $\theta\in\R$}
+\end{eqnarray*}
+Le paramètre d'intér\^et est $\theta$ (donc ${\cal{D}}=\Theta$) et il est estimé par $\delta$ sous le co\^ut
+\begin{eqnarray*}
+L(\theta,\delta) & = & 1 - \1_{\theta}(\delta)
+\end{eqnarray*}
+appelé  \emph{co\^ut 0-1}, qui pénalise par 1 toutes les erreurs d'estimation quelle que soit leur magnitude (grandeur). Soit les estimateurs
+\begin{eqnarray*}
+\delta_1(x_1,x_2) & = & \frac{x_1+x_2}{2}, \\
+\delta_2(x_1,x_2) & = & x_1 + 1, \\
+\delta_3(x_1,x_2) & = & x_2 - 1. 
+\end{eqnarray*}
+Calculez les risques $R(\theta,\delta_1)$, $R(\theta,\delta_2)$ et $R(\theta,\delta_3)$. Quelle conclusion en tirez-vous ? 
+\end{exec}
+\input{reponses/exo6}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\if\mycmdexo1
+\begin{exec}
+Lorsqu'on fait un choix de fonction de coût $L(\theta,\delta)$ dans un ensemble $U:\Theta\times{\cal{D}}\to\Lambda\in\R^+$, on commet une erreur par rapport à la meilleure fonction de coût possible pour le problème. On peut donc proposer un estimateur bayésien de cette fonction de coût en introduisant une fonction de coût sur les fonctions de coût $L(\theta,\delta)$ :
+\begin{eqnarray*}
+\tilde{L}: \Theta\times U \times {\cal{D}}  & \to & \R^+ \\
+(\theta,\ell,\delta) & \mapsto & \tilde{L}(\theta,\ell,\delta).
+\end{eqnarray*}
+Quel est l'estimateur bayésien de $\tilde{L}(\theta,\ell,\delta)$ sous un coût quadratique, lorsque $L(\theta,\delta)$ est elle-même quadratique ?
+\end{exec}
+
+ \input{reponses/exo7}
+%\fi
+
+\if\mycmdexo1
+\begin{exec}
+Soit $X\sim{\cal{B}}(\theta)$ (loi de Bernoulli) avec $\Theta=[0,1]$. Soit $M_0$ un modèle défini par $\{\theta=1/2\}$ et $M_1$ un modèle défini par un $\theta$ inconnu dans $[0,1]$, avec $\pi_1(\theta)={\cal{U}}[0,1]$. Un échantillon de 200 tirages fournit 115 succès et 85 échecs. Au vu de ces données, quel modèle choisir ? Ce résultat diffère-t-il significativement d'un test fréquentiste ?
+\end{exec}
+
+
+ \input{reponses/exo10}
+%\fi
+
+\if\mycmdexothree1
+\begin{exec}{\bf Sélection de modèle discret avec des priors impropres.}
+\begin{enumerate}
+    \item Pour des données discrètes $x_1,\ldots,x_n$, on considère un modèle de Poisson ${\cal{P}}(\lambda)$ ou une loi binomiale négative ${\cal{NB}}(m,p)$ avec les {\it a priori} 
+\begin{eqnarray*}
+\pi_1(\lambda) & \propto & 1/\lambda \\
+\pi_2(m,p) & = & \frac{1}{M} \1_{\{1,\ldots,M\}}(m) \1_{[0,1]}(p)
+\end{eqnarray*}
+Peut-on sélectionner l'un des deux modèles ?
+\item Si on remplace $\pi_1(\lambda)$ par un {\it a priori} {\bf vague}
+$$
+\pi_1(\lambda)  \equiv  {\cal{G}}(\alpha,\beta)
+$$
+avec $\alpha(\beta)$ ou/et $\beta(\alpha) \to 0$, peut-on de nouveau résoudre le problème ? 
+\end{enumerate}
+\end{exec}
+
+ \vspace{1cm} \input{reponses/exo19}
+\fi
+
+
+\subsection{Démonstrations}
+
+
+\if\mycmdproof1
+\begin{theorem}
+Pour chaque $x\in\Omega$,
+\begin{eqnarray}
+\delta^{\pi}(x) & = & \arg\min\limits_{d\in{\cal{D}}}  R_P(d|\pi,x). \label{risque.bayes.calcul}
+\end{eqnarray}
+Un corollaire est le suivant : s'il existe $\delta\in{\cal{D}}$ tel que $R_B(\delta|\pi)<\infty$, et si $\forall x\in \Omega$ l'équation (\ref{risque.bayes.calcul}) est vérifiée, alors $\delta^{\pi}(x)$ est un estimateur de Bayes.
+\end{theorem}
+
+ \input{proofs/proof4}
+\fi
+
+\if\mycmdproof1
+\begin{theorem}
+Si un estimateur de Bayes $\delta^{\pi}$ associé à une mesure {\it a priori} $\pi$ (probabiliste ou non) est tel que le risque $R(\theta,\delta^{\pi})<\infty$ et si la fonction $\theta\mapsto R(\theta,\delta)$ est continue sur $\Theta$, alors $\delta^{\pi}$ est admissible.
+\end{theorem}
+
+
+ \input{proofs/proof6}
+\fi
+
+\if\mycmdproof1
+\begin{theorem}
+Si un estimateur de Bayes $\delta^{\pi}$ associé à une mesure {\it a priori} $\pi$ (probabiliste ou non) et une fonction de coût $L$ est unique, alors il est admissible.
+\end{theorem}
+
+ \input{proofs/proof5}
+\fi
+
+\if\mycmdproof1
+\begin{proposition}\label{prop1}
+L'estimateur de Bayes associé à toute loi {\it a priori} $\pi$ et au co\^ut 
+\begin{eqnarray}
+L(\theta,\delta) & = & \|\theta-\delta\|^2. \label{cout.quad}
+\end{eqnarray}
+est l'espérance (moyenne) de la loi {\it a posteriori} $\pi(\theta|{\bf x_n})$
+\end{proposition}
+ \input{proofs/proof1}
+\fi
+
+\if\mycmdproof1
+\begin{proposition}\label{prop2}
+L'estimateur de Bayes associé à toute loi {\it a priori} $\pi$ et au co\^ut  
+\begin{eqnarray}
+L_{c_1,c_2}(\theta,\delta) & = & \left\{\begin{array}{ll} c_2(\theta-\delta) & \text{si $\theta>\delta$} \\ c_1(\delta-\theta) & \text{sinon} 
+\end{array} \right. \label{cout.lin}
+\end{eqnarray}
+est le fractile $c_1/(c_1+c_2)$ de la loi {\it a posteriori} $\pi(\theta|{\bf x_n})$. En particulier, la médiane de la loi {\it a posteriori} est l'estimateur de Bayes lorsque $c_1=c_2$ (qui sont donc des co\^uts associés à la sous-estimation et la surestimation de $\theta$).
+\end{proposition}
+ \input{proofs/proof2}
+\fi
+
+\begin{proposition}\label{prop3}
+L'estimateur de Bayes associé à toute loi {\it a priori} $\pi$ et au co\^ut 0-1 est 
+\begin{eqnarray*}
+\delta^{\pi} & = & \left\{\begin{array}{ll} 1 & \text{si $\Pi(\theta\in\Theta_0|{\bf x_n}) > \Pi(\theta\notin\Theta_0|{\bf x_n})$} \\ 0 & \text{sinon} \end{array}\right. \label{cout01}
+\end{eqnarray*}
+\end{proposition}
+\if\mycmdproof1 \input{proofs/proof3}
+\fi
+
+
+
+
+ \input{TP/tp1}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section{Corrigés et preuves "Propriétés"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Exercices}
+
+\if\mycmdexo1 
+\begin{exec}
+Soit $x_1,\ldots,x_n$ des réalisations iid de loi ${\cal{N}}(\mu,\sigma^2)$. On choisit la mesure {\it a priori} (non probabiliste) jointe
+\begin{eqnarray*}
+\pi(\mu,\sigma^2) & \propto & 1/\sigma^2.
+\end{eqnarray*}
+\begin{enumerate}
+\item Déterminez la loi {\it a posteriori} jointe $\pi(\mu,\sigma^2|x_1,\ldots,x_n)$ 
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\mu|x_1,\ldots,x_n)$ 
+\item Calculez la région HPD de seuil $\alpha$ pour $\mu$ et comparez-la à la région de confiance fréquentiste, de même seuil, qu'on pourrait calculer par l'emploi du maximum de vraisemblance.
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\sigma^2|x_1,\ldots,x_n)$ ; le calcul de la région HPD est-il simple ?
+\end{enumerate}
+\paragraph{Remarque.} ``Déterminez" signifie indiquer si la loi appartient à une famille connue, par exemple largement implémentée sur machines. La connaissance des lois gamma, inverse gamma et Student est peut-être nécessaire pour répondre aux questions.
+\end{exec}
+
+\input{reponses/exo8}
+\fi
+
+\if\mycmdexotwo1
+\begin{exec}
+Soit $A_{\alpha,\pi}=\left\{\theta\in\Theta  \ , \ \pi(\theta|x)\geq h_{\alpha}\right\}$ une région HPD et soit 
+$$
+\eta = g(\theta)
+$$
+un $C^1-$diffémorphisme (bijection). On définit alors la région HPD correspondante pour $\pi(\eta|x)$ :
+\begin{eqnarray*}
+\tilde{A}_{\alpha,\pi} & = & \left\{\eta\in g(\Theta)  \ , \ \pi(\eta|x)\geq \tilde{h}_{\alpha}\right\}
+\end{eqnarray*}
+\begin{itemize}
+    \item Sous quelle condition peut-on écrire que $\tilde{A}_{\alpha,\pi}=g\left(A_{\alpha,\pi}\right)$ ?
+    \item Illustrons cela en supposant $X\sim{\cal{N}}(\theta,1)$ et $\pi(\theta)\propto 1$, puis en posant $\eta=\exp(\theta)$.
+\end{itemize}
+\end{exec}
+
+ \input{reponses/exo9}
+\fi
+
+
+
+\subsection{Démonstrations}
+
+\if\mycmdprooftwo1
+\begin{theorem}
+Si $\Theta$ est fini et discret et $\Pi(\theta=\theta_0)>0$, alors pour tout échantillon iid $X_1,\ldots,X_n|\theta\sim f(X|\theta)$,
+\begin{eqnarray*}
+\Pi\left(\theta=\theta_0|X_1,\ldots,X_n\right) & \xrightarrow[\Pp]{n\to\infty} & 1.
+\end{eqnarray*}
+\end{theorem}
+
+ \input{proofs/proof7}
+\fi
+
+\if\mycmdproof1
+\begin{theorem}
+Si $\Theta$ est un ensemble compact et si $V_{\theta_0}$ est tel que $\Pi(\theta\in V_{\theta_0})>0$ avec
+\begin{eqnarray*}
+\theta_0 & = & \arg\min\limits_{\theta\in\Theta} KL(\theta)
+\end{eqnarray*}
+alors 
+\begin{eqnarray*}
+\Pi(\theta\in V_{\theta_0}|x_1,\ldots,x_n) & \xrightarrow[\Pp]{n\to\infty} & 1.
+\end{eqnarray*}
+\end{theorem}
+
+ \input{proofs/proof9}
+\fi
+
+
+\if\mycmdprooftwo1
+
+\begin{theorem}{Consistance}\label{consistance.post}
+Si $f(.|\theta)$ est suffisamment régulière et \textcolor{black}{identifiable}, soit si $\theta_1\neq\theta_2 \Rightarrow f(x|\theta_1)\neq f(x|\theta_2)$ $\forall x\in\Omega$, alors pour tout échantillon $\bf x_n$ iid
+\begin{eqnarray*}
+\pi(\theta|{\bf x_n}) & \xrightarrow{p.s.}{} & \delta_{\theta_0}.
+\end{eqnarray*}
+Par ailleurs, si $g:\Theta\to\R$ est mesurable et telle que $\E[g(\theta)]<\infty$, alors sous les mêmes hypothèses
+\begin{eqnarray*}
+\lim\limits_{n\to\infty} \E\left[g(\theta)|X_1,\ldots,X_n\right] & = & g(\theta) \ \ \ \text{p.s.}
+\end{eqnarray*}
+\end{theorem}
+
+ \input{proofs/proof9}
+
+
+
+\begin{theorem}{Normalité asymptotique (\textbf{Bernstein-von Mises})}\label{von.mises}
+Soit $I_{\theta}$ la matrice d'information de Fisher du modèle $f(.|\theta)$ et soit $g(\theta)$ la densité de la gaussienne ${\cal{N}}(0,I^{-1}_{\theta_0})$. Soit $\hat{\theta}_n$ le maximum de vraisemblance. Alors, dans les conditions précédentes,
+\begin{eqnarray*}
+\int_{\Theta}\left|\pi\left(\sqrt{n}\left\{\theta - \hat{\theta}_n\right\}|{\bf x_n}\right) - g(\theta)\right| \ d\theta & \rightarrow & 0.
+\end{eqnarray*}
+\end{theorem}
+
+ \input{proofs/proof8}
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section{Corrigés et preuves "Modélisation {\it a priori}"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Exercices}
+
+\if\mycmdexotwo1 \vspace{1cm} 
+\begin{exec}{\bf Prior de Jeffreys pour une loi binomiale.}\label{exobino}
+Soit $x$ un nombre de boules tirées dans une urne en contenant $n$ avec probabilité $\theta$. Alors $x\sim {\cal{B}}(n,\theta)$. Calculer la mesure {\it a priori} de Jeffreys sur $\theta$. Mener un calcul bayésien sur un échantillon simulé. Peut-on dire que cette mesure est {\it défavorable} {\it a priori} ? 
+\end{exec}
+
+\input{reponses/exo17}
+\fi
+
+\if\mycmdexothree1 \vspace{1cm}
+\begin{exec}{\bf Prior de Jeffreys pour une loi de Weibull.}
+Considérons deux paramétrisations classiques de la loi de Weibull ${\cal{W}}$:
+\begin{eqnarray*}
+f(x|\eta,\beta) & = & \frac{\beta}{\eta} \left(\frac{x}{\eta}\right)^{\beta-1} \exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right) \1_{\{x\geq 0\}}, \\
+f(x|\mu,\beta) & = & \beta \mu x^{\beta-1} \exp\left(-\mu x^{\beta}\right) \1_{\{x\geq 0\}}. 
+\end{eqnarray*}
+Calculer chaque prior de Jeffreys correspondant, et vérifier la cohérence des résultats grâce à la règle de changement de variable. 
+\end{exec}
+
+ \input{reponses/exo18}
+\fi
+
+\if\mycmdexothree1 \vspace{1cm}
+\begin{exec}{\bf Problème de Neyman-Scott.}\label{neymann.scott}
+On considère le problème suivant
+\begin{eqnarray*}
+x_i & {\sim} & {\cal{N}}(\mu_i,\sigma^2) \ \ \ \text{pour $i=1,\ldots,n$}
+\end{eqnarray*}
+où les $x_i$ sont indépendants. Soit $\theta=(\mu_1,\ldots,\mu_n,\sigma)$. Calculez le prior de Jeffreys $\pi^J(\theta)$ puis l'espérance {\it a posteriori} de $\sigma^2$. Est-ce un estimateur consistant ?
+\end{exec}
+
+ \input{reponses/exo23}
+\fi
+
+
+
+\if\mycmdexotwo1 \vspace{1cm} 
+\begin{exec}{\bf Exemple industriel.}
+On cherche la distribution de la profondeur  $X$ d'un défaut de fabrication dans une enceinte d'acier difficile d'accès. \`A partir d'anciennes données  mesurées sur des aciers différents, on suppose connaître un modèle exponentiel pour $X|\theta\sim {\cal{E}}(\theta)$ de densité $f(x|\theta)=\theta^{-1} \exp(-x/\theta)\1_{X\geq 0}$. Les mesures ultrasonores pour estimer la distribution de $X$ sont cependant coûteuses et ont besoin d'être calibrées {\it a priori}. D'où les questions posées successivement à un expert en métallurgie :
+\begin{enumerate}
+    \item Pouvez-vous préciser la profondeur moyenne $\theta_e$ d'un défaut de fabrication dans cette coulée ?
+    \item Pouvez-vous préciser un écart-type $\sigma_e$ pour cette profondeur en général ? 
+\end{enumerate}
+(Remarque : la question à l'expert est ici quelque peu idéalisée. Il faut en pratique plutôt passer par des questions sur $X$ et les connecter à $\pi(\theta)$ {\it via} la loi prédictive {\it a priori}.
+\end{exec}
+
+\input{reponses/exo22}
+\fi
+\vspace{0.5cm}
+
+\if\mycmdexothree1 \vspace{1cm} 
+\begin{exec}
+On considère les contraintes suivantes sur une mesure {\it a priori} sur $\theta\geq 0$ : pour $\beta>0$, 
+\begin{eqnarray}
+\E[\theta^{\beta}] & = & 1 \label{constrainte1toto} \\
+\E[\log \theta] & = & -\frac{\gamma}{\beta}. \label{constrainte2toto}
+\end{eqnarray}
+où $\gamma$ est la constante d'Euler ($\simeq 0,577$).
+Calculer la mesure de maximum d'entropie $\pi(\theta)$ relativement à une mesure $\pi^J(\theta)\propto \theta^{-1}$. Quelles sont les conditions pour que cette mesure soit une vraie mesure de probabilité ? \\
+
+\paragraph{\it Indication} : si $X\sim {\cal{G}}(a,b)$, alors $\E[\log X]=\psi(a)-\log b$ où $\psi$ est la fonction digamma, dérivée logarithmique de la fonction gamma :  
+\begin{eqnarray*}
+\psi(x) & = & \frac{\Gamma'(x)}{\Gamma(x)},
+\end{eqnarray*}
+et $\psi(1)=-\gamma$. 
+\end{exec}
+
+\input{reponses/exo16}
+\fi
+
+
+\if\mycmdexothree1 \vspace{1cm}
+
+\if\mycmdexothree1 \vspace{1cm} 
+\begin{exec}{Loi inverse Wishart.}
+Soient des observations $x_1,\ldots,x_n\sim{\cal{N}}_p(\mu,\Sigma)$, de loi jointe
+\begin{eqnarray*}
+f(x_1,\ldots,x_n|\theta=(\mu,\Sigma)) & \propto & \left(\det \Sigma\right)^{-n/2} \exp\left(-\frac{1}{2}\left[n(\bar{x}_n-\mu)^T \Sigma^{-1} (\bar{x}_n-\mu) + \mbox{tr}(\Sigma^{-1} S_n)\right]\right)
+\end{eqnarray*}
+avec $S_n=\sum_{i=1}^n (x_i-\bar{x}_n)(x_i-\bar{x}_n)^T$. 
+On suppose prendre {\it a priori}
+\begin{eqnarray*}
+\mu|\Sigma & \sim & {\cal{N}}_p\left(\mu_0,\frac{1}{n_0}\Sigma\right) \\
+\Sigma & \sim & {\cal{IW}}(\alpha,V) 
+\end{eqnarray*} 
+la loi de Wishart inverse ${\cal{IW}}$ étant définie (sur l'espace des matrices symétriques non indépendantes de rang $d$) par la densité
+\begin{eqnarray*}
+f(x) & = & \frac{|V|^{\alpha/2}}{2^{\alpha d/2} \Gamma_d(\alpha/2)} |x|^{-\frac{\alpha+d+1}{2}} \exp\left\{-\frac{1}{2} \text{tr}\left(V x^{-1}\right)\right\}
+\end{eqnarray*}
+où $\Gamma_d$ est la fonction gamma multivariée. Le prior est-il conjugué ? En dimension 1, à quelle loi se réduit-il ?
+\end{exec}
+
+\input{reponses/exo27}
+\fi
+
+\if\mycmdexothree1 \vspace{1cm}
+\begin{exec}
+Soit $X\sim {\cal{N}}(\theta,\theta)$ avec $\theta>0$. 
+\begin{enumerate}
+\item Déterminer la loi {\it a priori} de Jeffreys $\pi^J(\theta)$
+\item \'Etablir si la loi de $X$ appartient à la famille exponentielle et construire les lois {\it a priori} conjuguées sur $\theta$.
+\item Utiliser la propriété de linéarité des espérances des familles exponentielles pour relier les hyperparamètres des lois conjuguées à l'espérance de $\theta$.
+\end{enumerate}
+\end{exec}
+
+ \input{reponses/exo21}
+\fi
+
+\begin{exec}
+Soit $\Theta=\N$ et $\Pi_n= {\cal{U}}\left(\left\{0,1,\ldots,n\right\}\right)$ la distribution uniforme discrète sur le compact discret $\{0,\ldots,n\}$.  Prouver que $\{\Pi_n\}_n$ converge $q-$vaguement vers la mesure de comptage.
+\end{exec}
+
+ \input{reponses/exo24}
+\fi
+
+
+\if\mycmdexothree1  \vspace{1cm}
+\begin{exec}
+Soit $\Theta=\R$ et $\Pi_n= {\cal{N}}(0,n)$. Prouver que $\{\Pi_n\}_n$ converge $q-$vaguement vers la mesure de Lebesgue.
+\end{exec}
+
+ \input{reponses/exo26}
+\fi
+
+\begin{proposition}\label{condition.continue}
+Soient $\mu$ et $\mu_n$ des mesures {\it a priori} sur $\Theta$. Supposons que :
+\begin{enumerate}
+\item il existe un suite de réels positifs $\{a_n\}_n$ tel que la suite $\{a_n \mu_n\}_n$ converge ponctuellement vers $\mu$ ; 
+\item pour tout ensemble compact $K$, il existe un scalaire $M$ et $N\in\N$ tels que, pour tout $n>N$, 
+$$
+\sup_{\theta\in K} a_n \mu_n(\theta) < M.
+$$
+\end{enumerate}
+Alors $\{\mu_n\}_n$ converge $q-$vaguement vers $\mu$.
+\end{proposition}
+
+\subsection{Démonstrations}
+
+\if\mycmdprooftwo1 \vspace{1cm}
+\begin{theorem}{\bf Propriété d'invariance du prior de Jeffreys.}
+Soit $\pi_{\theta}(\theta)$ le prior de Jeffreys pour la paramétrisation $\theta$, et soit $\eta=g(\theta)$ n'importe quelle reparamétrisation bijective de $\theta$. Alors
+\begin{eqnarray*}
+\pi_{\eta}(\eta) & \propto & \sqrt{\det I({\eta})}.
+\end{eqnarray*}
+Le prior de Jeffreys vérifie donc le principe d'invariance {\it (intrinsèque)} proposé par la Définition \ref{principe.invariance}  pour n'importe quelle reparamétrisation.   
+\end{theorem}
+
+\begin{definition}{\bf Principe d'invariance par reparamétrisation.}\label{principe.invariance}
+Si on passe de $\theta$ à $\eta=g(\theta)$ par une bijection $g$, l'information {\it a priori} reste inexistante et ne devrait pas être modifiée. 
+\end{definition}
+
+
+ \input{proofs/proof12}
+\fi
+
+\if\mycmdprooftwo1 \vspace{1cm}
+\begin{theorem}{\bf Prior par maximum d'entropie.}
+Le problème
+\begin{eqnarray*}
+\textcolor{black}{\pi^*(\theta)} & = & \textcolor{black}{\arg\max\limits_{\pi\in{\cal{P}}} - \int_{\Theta} \pi(\theta) \log\frac{\pi(\theta)}{\pi_0(\theta)} \ d\theta} \label{maxent}
+\end{eqnarray*}
+dans l'ensemble ${\cal{P}}$ des mesures positives, sous $M$ contraintes  linéaires
+\begin{eqnarray*}
+\int_{\Theta} g_i(\theta) \pi(\theta) \ d\theta & = & c_i, \ ,\ \ \ i=1,\ldots,M,
+\end{eqnarray*}
+a pour solution unique presque partout
+\begin{eqnarray*}
+\pi(\theta) & \propto & \pi_0(\theta) \exp\left(\sum\limits_{i=1}^M \lambda_i g_i(\theta)\right)
+\end{eqnarray*}
+où les $\lambda_i$ sont des réels. 
+\end{theorem}
+
+ \input{proofs/proof14}
+\fi
+
+
+
+\if\mycmdproofthree1 \vspace{1cm}
+\begin{proposition}
+Le minimiseur de la perte pondérée
+\begin{eqnarray*}
+\pi^*(\theta) & = & \arg\min\limits_{\pi} \sum\limits_{i=1}^M  \omega_i KL(\pi,\pi_i)
+\end{eqnarray*}
+est l'{\it a priori} opérant la fusion logarithmique. 
+\end{proposition}
+
+
+ \input{proofs/proof13}
+\fi
+
+
+ \input{TP/tp3}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section{Corrigés et preuves "Calcul bayésien"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Exercices}
+
+\if\mycmdexotwo1 \vspace{1cm} 
+\begin{exec}\label{quasi.conjug}
+ On suppose $X   \sim {\cal{N}}(\theta,1)$ et on suppose connaître un échantillon ${\bf x_n}$ composé de :
+\begin{itemize}
+\item quelques observations $x_1,\ldots,x_{n-1}$ supposées iid. 
+\item une pseudo-observation $y$ qui est un cas-limite masquant ({\it censurant}) une observation $x_{n}$ qui aurait dû être faite: $y<x_{n}$
+\end{itemize}
+ {\it A priori}, on suppose $\theta \sim {\cal{N}}(\mu,1)$. 
+Pouvez-vous produire un algorithme d'AR qui génère des réalisations de la loi {\it a posteriori} de $\theta$ ? 
+\end{exec}
+
+\input{reponses/exo11}
+\clearpage
+\fi
+
+\if\mycmdexotwo1 \vspace{1cm}
+\begin{exec}\label{gamma}
+Soit un échantillon de loi gamma $x_1,\ldots,x_n\overset{iid}{\sim} {\cal{G}}(a,\theta)$ où $a$ est connu. On suppose $\pi(\theta)\equiv {\cal{G}}(c,d)$. Produisez une méthode par AR pour simuler la loi {\it a posteriori} $\pi(\theta|x_1,\ldot,x_n)$ et vérifiez que les tirages obtenus sont bien issus de cette loi, par ailleurs explicite.
+\end{exec}
+
+ \input{reponses/exo20}
+\fi
+
+\if\mycmdexotwo1 \vspace{1cm} 
+\begin{exec}
+Considérons une fonction d'intérêt $h(\theta)$ que l'on cherche à résumer par un estimateur calculé sous un coût quadratique ; il s'agit donc de l'espérance {\it a posteriori}
+\begin{eqnarray}
+h \ = \ \E_{\pi}[h(\theta)|x_1,\ldots,x_n] & = & \int_{\Theta} h(\theta)\pi(\theta|x_1,\ldots,x_n) \ d\theta\label{IS.estim1}
+\end{eqnarray}
+que l'on suppose pouvoir estimer simplement, de fa\c con consistante, par Monte Carlo. Supposons vouloir modifier le prior : $\pi(\theta)\to\pi'(\theta)$, sans modifier le support, mais de fa\c con à ce que la nouvelle loi {\it a posteriori} ne soit plus directement simulable. Peut-on (et sous quelles conditions) ne pas faire de calcul supplémentaire pour simuler le nouveau posterior $\pi'(\theta\x_1,\ldots,x_n)$ ?
+\end{exec}
+
+\input{reponses/exo13}
+\fi
+
+\if\mycmdexotwo1 \vspace{1cm}
+\begin{exec}\label{debit.extreme}
+Soit $X$ la variable ``débit maximal de rivière". Elle est supposée suivre une loi des extrêmes (Gumbel) de densité
+\begin{eqnarray*}
+f(x|\theta) & = &  \lambda\mu\exp(-\lambda x)
+\exp(-\mu\exp(-\lambda x)).
+\end{eqnarray*}
+avec $\theta=(\mu,\lambda)$. %L'espérance est
+%\begin{eqnarray*}
+%\E[X|\theta] & = & \lambda^{-1}\left(\log \mu + \gamma\right)
+%\end{eqnarray*}
+%où $\gamma$ est la constante d'Euleur ($\simeq$ 0.578..)
+\begin{center}
+\includegraphics[scale=0.4]{figures/calcul/hist-gumbel.pdf}
+\end{center}
+Considérons $n$ observations ${\bf x_n}=(x_1,\ldots,x_n)$ supposées iid  selon cette distribution. 
+\begin{enumerate}
+    \item Comment s'écrit la vraisemblance ?
+    \item On considère l'{\it a priori} $\pi(\mu,\lambda) = \pi(\mu|\lambda)\pi(\lambda)$ avec
+\begin{eqnarray*}
+\mu|\lambda & \sim   & {\cal{G}}\left(m,b_m(\lambda) \right),  \\
+\lambda    & \sim   & {\cal{G}}\left(m,m/\lambda_e\right)
+\end{eqnarray*}
+et ${\displaystyle b_m(\lambda)  = \left[\alpha^{-1/m}
+-1\right]^{-1} \exp(-\lambda x_{e,\alpha}).}$. Ces hyperparamètres ont le sens suivant :
+\begin{itemize}
+\item $x_{e,\alpha}=$ quantile prédictif {\it a priori} d'ordre $\alpha$:
+\begin{eqnarray*}
+P\left(X<x_{e,\alpha}\right) & = & \int P\left(X<x_{e,\alpha}|\mu,\lambda\right)  \pi(\mu,\lambda) \ d\mu d\lambda \ = \ \alpha ; 
+\end{eqnarray*}  
+\item $m =$ taille d'échantillon fictif, associée à la ``force" de la connaissance {\it a priori} $x_{e,\alpha}$ ; 
+\item $1/\lambda_e = $ moyenne de cet échantillon  fictif. 
+\end{itemize}
+Pouvez-vous produire un algorithme de type MCMC qui permette de générer une loi jointe {\it a posteriori} pour $(\mu,\lambda)$ ? 
+\end{enumerate}
+\end{exec}
+
+ \input{reponses/exo12}
+\fi
+
+\if\mycmdexotwo1 \vspace{1cm}
+\begin{exec}{\bf (Retour à l'exercice \ref{quasi.conjug}).}. 
+ On suppose de nouveau connaître un échantillon ${\bf x_n} \sim {\cal{N}}(\theta,1)$ composé de quelques observations $x_1,\ldots,x_{n-1}$ supposées iid de loi ${\cal{N}}(\theta,1)$, et d'une  pseudo-observation $y$ qui est un cas-limite masquant ({\it censurant}) une observation $x_{n}$ qui aurait dû être faite: $y<x_{n}$. On considère toujours $\theta \sim {\cal{N}}(\mu,1)$ {\it a priori}. 
+Pouvez-vous produire un algorithme d'échantillonnage par Gibbs qui génère des réalisations de la loi {\it a posteriori} de $\theta$ ? 
+\end{exec}
+
+ \input{reponses/exo14}
+\fi
+
+\if\mycmdexotwo1 \vspace{1cm}
+\begin{exec}{\bf Modèle à effets aléatoires autour d'une constante  (Hobert-Casella).}
+Pour $i=1,\ldots,I$ et $j=1,\ldots,J$, on considère 
+\begin{eqnarray*}
+x_{ij} &  = & \beta + u_i + \epsilon_{ij}
+\end{eqnarray*}
+où $u_i\sim {\cal{N}}(0,\sigma^2)$ et $\epsilon_{ij}\sim {\cal{N}}(0,\tau^2)$. Ce type de modèle permet de représenter la distribution d'une caractéristique au sein d'une population, où  $\beta$ est une tendance moyenne, $u_i$ correspond à une  variation d'un groupe et $\epsilon_{ij}$ à une  variation au sein d'un sous-groupe. On suppose choisir 
+\begin{eqnarray*}
+\pi(\beta,\sigma^2,\tau^2) & \propto & \frac{1}{\sigma^2\tau^2} \ \ \ \text{(prior de Jeffreys)}.
+\end{eqnarray*}
+On note ${\bf x_{IJ}}$ l'échantillon des données observées, $\bar{x}_i$ la moyenne sur les $j$. On note ${\bf u_I}$ l'échantillon manquant des $u_1,\ldots,u_I$ (reconstitué dans l'inférence). 
+\begin{enumerate}
+    \item Calculer les lois conditionnelles {\it a posteriori} de 
+\begin{eqnarray*}
+U_i|{\bf x_{IJ}},\beta,\sigma^2,\tau^2 &  &  \\
+\beta|{\bf x_{IJ}},\sigma^2,\tau^2,{\bf u_I} &  &  \\
+\sigma^2|{\bf x_{IJ}},\beta,\tau^2,{\bf u_I} &  &  \\
+\tau^2|{\bf x_{IJ}},\beta,\sigma^2,{\bf u_I} & & 
+\end{eqnarray*}
+Ces lois sont-elles bien définies ?
+\item Donner une formule (à un coefficient proportionnel près) pour la loi {\it a posteriori} jointe $\pi(\sigma^2,\tau^2|{\bf x_{IJ}})$. Comment se comporte-t-telle au voisinage de $\sigma=0$, pour $\tau\neq 0$ ? Que pouvez-vous en déduire ? 
+\item Mettre en place un algorithme de Gibbs permettant d'inférer sur $(\beta,\sigma^2,\tau^2)$. 
+Que pouvez-vous dire sur la convergence des chaînes MCMC ?
+\end{enumerate}
+\end{exec}
+
+ \input{reponses/exo15}
+\fi
+
+\clearpage 
+\subsection{Démonstrations}
+
+\if\mycmdprooftwo1 \vspace{1cm} 
+\paragraph{Algorithme d'acceptation-rejet (AR).} \\
+\rule[0.5ex]{0.7\textwidth}{0.1mm}
+\vspace{-0.2cm}
+\texttt{
+\begin{enumerate}
+\item { simulation indirecte :}  soit $\theta_i\sim \rho(\cdot)$ 
+\vspace{0.05cm}
+\item { test :} 
+\begin{itemize} 
+\item  soit $U_i\sim {\cal{U}}[0,1]$
+\vspace{0.15cm}
+\item  si ${\displaystyle U_i\leq \frac{f({\bf x_n}|\theta_i)\pi(\theta_i)}{K \rho(\theta_i)}}$ alors $\theta_i$ suit la loi $\pi(\theta|{\bf x_n})$
+\end{itemize}
+\end{enumerate}
+\rule[0.5ex]{0.7\textwidth}{0.1mm}
+}
+
+\input{proofs/proof10}
+\fi
+
+\if\mycmdprooftwo1 \vspace{1cm} 
+\begin{theorem}{Importance sampling optimal.}
+Soit l'estimateur de la fonction d'intérêt $h(\theta)\in\R$ par IS :
+\begin{eqnarray*}
+\hat{h}_M & = & \frac{1}{M}\sum\limits_{i=1}^M \frac{\pi(\theta_i|x)}{\rho(\theta_i)} h(\theta_i) \ \to \ \E_{\pi}[h(\theta|X] \ \ \ p.s.
+\end{eqnarray*}
+où les $\theta_i\overset{iid}{\sim} \rho(\theta)$. Alors le choix de $\rho$ qui minimise la variance de l'estimateur $\hat{h}_M$ est 
+\begin{eqnarray*}
+\rho^*(\theta) & = & \frac{|h(\theta)|\pi(\theta|X)}{\int_{\Theta}|h(\theta)|\pi(\theta|X) \ d\theta}.
+\end{eqnarray*}
+\end{theorem}
+
+\input{proofs/proof11}
+\fi
+
+\fi
+
+\clearpage
+%================= BIBLIOGRAPHIE =======================
+\addcontentsline{toc}{section}{R\'eférences}
+\bibliographystyle{plain}
+\bibliography{bibliographie}
+
+%\addcontentsline{toc}{section}{Index}
+%\printindex
+
+
+\end{document} 

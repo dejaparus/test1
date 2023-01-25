@@ -1,0 +1,486 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Examen corrig\'e 2022 : Mod\'elisation et statistique bay\'esienne computationnelle }
+\date{08 avril 2012}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+\section{Fonction de co\^ut (8 pts) }
+
+Soit $\theta\in\Theta=\R$ le param\`etre d'un mod\`ele, sur lequel on dispose d'une loi {\it a priori} $\pi(\theta)$ et de donn\'ees $x_1,\ldots,x_n$. On suppose que la loi a posteriori de densit\'e  $\pi(\theta|x_1,\ldots,x_n)$ est propre et telle que $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. On consid\`ere la fonction de co\^ut pour l'estimation $\delta$ de $\theta$ d\'efinie sur $\R$ par
+\begin{eqnarray*}
+L_a(\theta,\delta) & = & \exp(a(\theta-\delta)) - a(\theta-\delta) - 1
+\end{eqnarray*}
+o\`u $a$ est un r\'eel.
+\begin{enumerate}
+\item Montrer que $L_a(\theta,\delta)\geq 0$ pour tout $\theta\in\Theta$ et pour tout $a$ et qu'elle est convexe en $\theta$ ; repr\'esenter cette fonction de co\^ut comme une fonction de $(\theta-\delta)$ lorsque $a=\{0.1, 0.5, 1,2\}$. 
+\item On suppose que $a>0$. \`A quelles conditions cette fonction p\'enalise-t-elle les co\^uts de sous-estimation et de surestimation de $\theta$ de fa\c con similaire ? Au contraire, \`a quelles conditions cette fonction p\'enalise-t-elle les co\^uts de sous-estimation et de surestimation de $\theta$ de fa\c con tr\`es dissym\'etrique ? 
+\item On suppose que $a\neq 0$. Donner l'expression de l'estimateur de Bayes $\hat{\delta}_a$ sous cette fonction de co\^ut.
+\item Supposons que les donn\'ees sont issues de ${\cal{N}}(\theta,1)$ et que $\pi(\theta)\propto 1$ ; donnez l'estimateur de Bayes associ\'e.
+\end{enumerate}
+
+\paragraph{\bf R\'eponses.}
+\begin{enumerate}
+\item Avec 
+\begin{eqnarray*}
+\frac{\partial L_a}{\partial \delta}(\theta,\delta) & = & a\left(1-\exp(a(\theta-\delta)\right)
+\end{eqnarray*}
+qui s'annule en $\delta=\theta$, et 
+\begin{eqnarray*}
+\frac{\partial^2 L_a}{\partial \delta^2}(\theta,\delta) & = & a^2\exp(a(\theta-\delta) \ \geq \ 0,
+\end{eqnarray*}
+on a clairement que $\delta\to L_a(\theta,\delta)$ est convexe et de minimum 0 en $\delta=\theta$. Un petit tableau de variations peut achever de nous en convaincre.
+Un code R minimal pour repr\'esenter le comportment de la fonction est le suivant :
+\begin{verbatim}
+f <- function(a) {
+    curve(exp(a*x)-a*x-1, xlim=c(-10,10))
+}
+
+par(mfrow=c(2,2))
+f(0.1)
+f(0.5)
+f(1)
+f(2)
+\end{verbatim} 
+\item Pour $a>0$, $L_a(\theta,\delta)$ se comporte comme une fonction lin\'eaire pour des grandes valeurs n\'egatives de l'\'ecart $\theta-\delta$, soit pour des surestimations de $\theta$. Elle se comporte comme une fonction exponentielle pour des grandes valeurs positives de l'\'ecart $\theta-\delta$, soit pour des sous-estimation de $\theta$. Elle p\'enalise donc bien plus fortement les sous-estimations de $\theta$ que les surestimations de $\theta$. Elle se comporte similairement comme $a(\theta-\delta)^2$ pour $\delta\to\theta$ (\`a gauche comme \`a droite). On en d\'eduit que cette fonction de co\^ut est appropri\'ee dans les cas o\`u les petites erreurs de sous-estimation et de surestimation ne provoquent pas un co\^ut tr\`es diff\'erent, mais o\`u les grandes erreurs am\`enent \`a des co\^uts tr\`es diff\'erents. 
+\item L'estimateur de Bayes est d\'efini par
+\begin{eqnarray*}
+\hat{\delta}_a & = & \arg\min\limits_{\delta} \underbrace{\int_{\Theta} L_a(\theta,\delta) \pi(\theta|x_1,\ldots,x_n) \ d\theta}_{J(\delta)}.
+\end{eqnarray*}
+Comme la fonction de co\^ut est convexe, l'estimateur est donc d\'efini comme la valeur de $\delta$ qui annule la d\'eriv\'ee du terme $J(\delta)$. Alors
+\begin{eqnarray*}
+J'(\hat{\delta}) = 0 & \Leftrightarrow & \int_{\Theta} \frac{\partial L_a}{\partial \delta}(\theta,\hat{\delta}) \pi(\theta|x_1,\ldots,x_n) \ d\theta = 0, \\
+& \Leftrightarrow & \exp(-a\hat{\delta}) \int_{\Theta} \exp(a\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta = 1,
+\end{eqnarray*}
+le terme de droite \'etant bien d\'efini car on suppose $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. Il vient alors (avec $a\neq 0$) 
+\begin{eqnarray}
+\hat{\delta} & = & \frac{1}{a}\log  \int_{\Theta} \exp(a\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta. \label{estimateur}
+\end{eqnarray}
+\item Avec $x_1,\ldots,x_n\sim{\cal{N}}(\theta,1)$ et $\pi(\theta)\propto 1$, il vient
+\begin{eqnarray*}
+\pi(\theta|x_1,\ldots,x_n) & \propto & \exp\left(- \frac{n}{2}\theta^2 + \theta \sum\limits_{i=1}^n x_i \right), \\
+ & \propto & \exp\left(- \frac{n}{2}\left\{\theta^2 - \frac{n}{2} 2\theta \bar{x}_n\right\} \right), \\
+ & \propto &  \exp\left(- \frac{n}{2}\left\{\theta - \bar{x}_n\right\}^2\right)
+\end{eqnarray*}
+et donc $\pi(\theta|x_1,\ldots,x_n)$ est la densit\'e de la loi ${\cal{N}}(\bar{x}_n,1/n)$. En appliquant (\ref{estimateur}), on d\'eduit alors 
+\begin{eqnarray*}
+\hat{\delta} & = & \frac{1}{a}\log  \int_{\Theta} \frac{n}{2\pi} \exp\left(a\theta -  \frac{n}{2}\left\{\theta - \bar{x}_n\right\}^2\right) \ d\theta, \\
+ & = & \frac{1}{a}\log  \int_{\Theta} \frac{n}{2\pi} \exp\left(-\frac{n}{2}\theta^2 -  \frac{n}{2}\bar{x}^2_n + 2 \frac{n}{2}\theta (\bar{x}_n + a/n) \right) \ d\theta, \\
+ & = & \frac{1}{a}\log  \exp\left (-  \frac{n}{2}\bar{x}^2_n + \frac{n}{2}(\bar{x}_n + a/n)^2\right)\int_{\Theta} \frac{n}{2\pi}  \exp\left(-\frac{n}{2} \left\{\theta - (\bar{x}_n + a/n)\right\}^2\right) 
+\end{eqnarray*}
+On reconna\^it dans le terme int\'egral la densit\'e d'une loi ${\cal{N}}(\bar{x}_n + a/n,1/n)$. Avec $\Theta=\R$, cette int\'egrale vaut donc 1, et 
+\begin{eqnarray*}
+\hat{\delta} & = & \frac{1}{a} \left (-  \frac{n}{2}\bar{x}^2_n + \frac{n}{2}(\bar{x}_n + a/n)^2\right), \\
+& = & \bar{x}_n + a/2n.  
+\end{eqnarray*}
+
+\end{enumerate}
+
+\paragraph{Remarque.} Cette fonction de co\^ut alternative aux fonctions classiques (co\^uts absolu, quadratique...) est dite LINEX ({\it linear-exponential}) et a \'et\'e introduite par Varian en 1974 puis tr\`es utilis\'ee par Zellner \`a partir de 1986.  
+
+
+\section{Construction de prior (4 pts)}
+
+Soient $X$ une variable al\'eatoire discr\`ete  de loi (fonction de masse ou densit\'e)
+$$
+P(X=x|\theta) \propto \theta^x \exp(-\theta) 
+$$
+avec $x\in\N$,  $\theta\in\R^+_*$, et $x_1,\ldots,x_n$ un \'echantillon de cette loi.
+\begin{enumerate}
+\item D\'eterminer la mesure {\it a priori} de Jeffreys $\pi^J(\theta)$.
+\item \'evaluer, \`a partir des conditions d'existence des lois {\it a posteriori} si cette mesure {\it a priori} est pr\'ef\'erable \`a la mesure {\it a priori} invariante par transformation d'\'echelle $\pi_0(\theta)\propto1/\theta$.
+\item Soit $\pi_{\alpha}(\theta) \propto \theta^{-\alpha}$ avec $\alpha\in\R^+$. Donner l'expression de la fonction de masse pr\'edictive {\it a posteriori} $P_{\alpha}(X=k|x_1,\ldots,x_n)$ ainsi que son esp\'erance.  %conditions d'existence.
+%\item Donner la loi {\it a priori} d'entropie maximale d\'efinie pour la mesure de r\'ef\'erence $\pi_{\alpha}(\theta)$ et les contraintes $\E_{\pi_0}[\theta]=1$, $\V_{\pi_0}[\theta]=1$. Discuter l'existence d'une vraie densit\'e {\it a priori} en fonction de $\alpha$
+\end{enumerate}
+
+\paragraph{\bf R\'eponses.}
+On reconna\^it bien s\^ur la loi de Poisson. 
+\begin{enumerate}
+\item La fonction de masse (densit\'e) de $X\sim {\cal{P}}(\theta)$ est, $\forall k\in\N$, 
+$$
+P(X=k|\theta) = \frac{\theta^k}{k!}\exp(-\theta) 
+$$
+et donc
+\begin{eqnarray*}
+\frac{\partial^2 \log P(X=k|\theta)}{\partial \theta^2} &= & -k/\theta^2
+\end{eqnarray*}
+Par absolue continuit\'e l'information de Fisher est donc $I(\theta)=-\E_X\left[\frac{\partial^2 \log P(X=k|\theta)}{\partial \theta^2}\right]$ et donc, avec $\E_X[k]=\theta$, il vient  $I(\theta)=1/\theta$ et par d\'efinition
+\begin{eqnarray*}
+\pi^J(\theta) & \propto & \theta^{-1/2}.
+\end{eqnarray*}
+\item On a alors
+\begin{eqnarray*}
+\pi^J(\theta|x_1,\ldots,x_n) & \propto & \theta^{\sum_i x_i} \exp\left(-n\theta\right) \theta^{-1/2}
+\end{eqnarray*}
+on reconna\^it le terme g\'en\'eral d'une loi gamma ${\cal{G}}\left(\sum_i x_i+1/2,n\right)$ qui est propre (int\'egrable et donc bien d\'efinie) $\forall x\in\N$ et tout $n\geq 1$. Si on remplace $\pi^J(\theta)$ par $\pi_0(\theta)$, alors la loi {\it a posteriori} devient ${\cal{G}}\left(\sum_i x_i,n\right)$ qui peut ne pas \^etre d\'efinie si tous les $x_i$ valent 0 (\c ca serait le cas, typiquement, si $\theta\ll 1$). La mesure de Jeffreys est donc pr\'ef\'erable.
+\item On a, par d\'efinition
+\begin{eqnarray}
+P_{\alpha}(X=k|x_1,\ldots,x_n) & = & \int_{\R^+_*} P(X=k|\theta)\pi_{\alpha}(\theta|x_1,\ldots,x_n)\ d\theta \label{eq1}
+\end{eqnarray}
+et si 
+\begin{eqnarray}
+\alpha & < & \sum_i x_i+1, \label{cond1}
+\end{eqnarray}
+alors
+\begin{eqnarray}
+\pi_{\alpha}(\theta|x_1,\ldots,x_n) & \equiv & {\cal{G}}\left(\sum_i x_i-\alpha+1,n\right) \label{eq2}
+\end{eqnarray}
+et 
+\begin{eqnarray*}
+\E[X|x_1,\ldots,x_n] &= & \E_{\pi_{\alpha}}\left[\E[X|\theta] | x_1,\ldots,x_n\right], \\
+& = &  \E_{\pi_{\alpha}}\left[\theta | x_1,\ldots,x_n\right], \\
+& = & \frac{\sum_i x_i-\alpha+1}{n}.
+\end{eqnarray*}
+
+%\item La loi d'entropie maximale par rapport \`a $\pi^J(\theta)$ s'\'ecrit
+%\begin{eqnarray*}
+%\pi(\theta) & \propto & \pi^J(\theta)\exp(\lambda_1 \theta + \lambda_2 \theta^2\right)
+%\end{eqnarray*}
+%car la contrainte en variance se r\'e\'ecrit comme la contrainte lin\'eaire 
+%\begin{eqnarray*}
+%\E[\theta^2] & = & \V[\theta] + \E^2[\theta] \ = \ 2.
+%\end{eqnarray*}
+\end{enumerate}
+
+\section{Maximisation d'entropie et calcul bay\'esien (13 pts) }\label{max.entropie}
+
+On d\'efinit une nouvelle m\'ethodologie de construction de prior de la fa\c con suivante. \'Etant donn\'e un mod\`ele d'\'echantillonnage $X|\theta \sim p(x|\theta)$, avec $x\in S$ et $\theta\in\Theta\in\R^d$, et un prior de r\'ef\'erence $\pi^J(\theta)$, on d\'efinit
+\begin{eqnarray}
+\pi^*(\theta) & = & \arg\max\limits_{\pi(\theta)\geq 0} G(\Theta) \label{mdiprior}
+\end{eqnarray}
+o\`u $G(\Theta)$ est l'information moyenne apport\'ee par la densit\'e $p$ relativement \`a celle apport\'ee par un prior $\pi(\theta)$ :
+\begin{eqnarray*}
+G(\Theta) & = & \E_{\theta}\left[H^J(\Theta) - H(X|\theta)\right],
+\end{eqnarray*}
+o\`u $H(X|\theta)$ et
+$H^J(\Theta)$ sont respectivement l'entropie (relative \`a une mesure de Lebesgue) du mod\`ele d'\'echantillonnage et l'entropie (relative \`a $\pi^J(\theta)$) du prior $\pi(\theta)$. 
+\begin{enumerate}
+\item Prouvez que si $Y\sim f(y)$ sur un espace norm\'e et mesur\'e $\Omega\in\R^q$ avec $q<\infty$ et $f\in L^2(\Omega)$, alors l'entropie relative \`a la mesure de Lebesgue de $f$ est born\'ee. \\
+
+\begin{itemize}
+    \item {\it Il peut \^etre utile de prouver au pr\'ealable  que $\log y \leq 1 + y$ $\forall y\in \R^+_*$.} \\
+\end{itemize}
+\item Soit $Z(\theta)$ l'information de Shannon (ou entropie diff\'erentielle n\'egative) de $p$ 
+\begin{eqnarray*}
+Z(\theta) & = & \int_{S} p(x|\theta) \log p(x|\theta) \ dx.
+\end{eqnarray*}
+En imposant la contrainte que $p(x|\theta)$ et $\pi(\theta)$ soient respectivement $L^4$ ($\forall \theta\in\Theta$) sur $S$ et sur $\Theta$, prouvez que 
+\begin{eqnarray*}
+\E_{\pi}[Z] \ = \ \int_{\Theta} Z(\theta) \pi(\theta) \ d\theta & < & \infty.
+\end{eqnarray*}
+\item Sous les hypoth\`eses pr\'ec\'edentes, prouvez alors que la solution du probl\`eme  (\ref{mdiprior}) est similaire \`a celle du probl\`eme de maximum d'entropie de $\pi(\theta)$ sous la contrainte
+\begin{eqnarray}
+\E_{\pi}[Z] & = & c \label{contr2}
+\end{eqnarray}
+o\`u $c$ prend une valeur maximale mais finie. \\
+
+
+ 
+\item {\bf Cette partie peut \^etre trait\'ee ind\'ependamment du reste.} Pour $S=\R^+$ et $(\beta,\eta)\in\R^+_* \times \R^+_*$, consid\'erons maintenant la loi de fonction de r\'epartition de Weibull
+\begin{eqnarray*}
+P(X<x|\theta) & = & 1-\exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right).
+\end{eqnarray*}
+d'esp\'erance $\E[X|\theta] =  \eta\Gamma(1+1/\beta)$.
+\begin{enumerate}
+\item Calculez $Z(\eta,\beta)$ pour ce mod\`ele, sachant que
+%{\it 
+%\begin{itemize}
+%    \item On rappelle que l'esp\'erance de la loi de Weibull est 
+%\begin{eqnarray}
+%\E[X|\theta] & = & \eta\Gamma(1+1/\beta). \label{weibu}
+%\end{eqnarray}
+%Par ailleurs, on rappelle que
+\begin{eqnarray}
+\int_0^{\infty} (\log x) \exp(-x) \ dx & = & -\gamma \label{aide1} \\
+\int_0^{\infty} x \exp(-x) \ dx & = & \Gamma(2) \label{aide2}
+\end{eqnarray}
+o\`u $\gamma$ est la constante d'Euler. % (que vous pouvez prendre \'egale \`a 0.5772157)
+%\end{itemize}
+%}
+    
+
+\item En utilisant le prior de Berger-Bernardo $\pi^J(\eta,\beta)\propto (\eta,\beta)^{-1}$ comme mesure de r\'ef\'erence, donnez la solution formelle $\pi^*(\eta,\beta)$  du probl\`eme de maximisation d'entropie relative sous les contraintes (\ref{contr2}) et
+\begin{eqnarray}
+\int_S x m_{\pi}(x) \ dx & = & x_e \label{cons2}
+\end{eqnarray}
+o\`u $m_{\pi}(x)$ est la loi {\it a priori} pr\'edictive. 
+\item Placez les r\'esultats sous la forme hi\'erarchique 
+\begin{eqnarray*}
+\pi^*(\theta) & = & \pi^*(\eta|\beta)\pi^*(\beta).
+\end{eqnarray*}
+et prouvez que la loi {\it a priori} sur $\beta$ peut s'\'ecrire
+\begin{eqnarray*}
+\pi^*(\beta) & \propto & \tilde{\pi}^*(\beta) 
+\end{eqnarray*}
+avec
+\begin{eqnarray}
+\tilde{\pi}^*(\beta) & = & \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}\label{pistar}
+\end{eqnarray}
+o\`u $\lambda_1$ est un multiplicateur de Lagrange. 
+\item En pla\c cant des contraintes sur les multiplicateurs de Lagrange issus de l'\'ecriture g\'en\'erale de $\pi^*(\eta,\beta)$, reconnaissez-vous une forme sp\'ecifique (connue) pour $\pi^*(\eta|\beta)$ et $\pi^*(\beta)$ ? La loi $\pi^*(\eta|\beta)$ est-elle conjugu\'ee conditionnellement \`a $\beta$ ? 
+\item Cette loi jointe $\pi^*(\theta)$ est-elle propre (int\'egrale) ? Sous quelle(s) condition(s) sur les multiplicateurs de Lagrange ? On rappelle que lorsque $\beta>0$ \begin{eqnarray}
+\Gamma(1+1/\beta) & \geq & \frac{\sqrt{\pi}}{3}  \label{borne.min}.
+\end{eqnarray}
+\item Reliez formellement les multiplicateurs de Lagrange \`a $x_e$ en v\'erifiant l'\'equation (\ref{cons2}). Doit-on conna\^itre la constante d'int\'egration de $\pi^*(\beta)$ pour ce faire ? 
+\item Proposez, codez et validez une m\'ethode num\'erique permettant de simuler des tirages de $\beta$ selon $\pi^*(\beta)$ (formule (\ref{pistar})), en fixant $\lambda_1=1$. Pour la validation, utilisez plut\^ot la repr\'esentation de la variable $Y=1/\beta$ en op\'erant un changement de variable.
+\end{enumerate}
+\end{enumerate}
+
+
+\paragraph{\bf R\'eponses.}
+\begin{enumerate}
+\item L'entropie relative \`a la mesure de Lebesgue sur $\Omega$ est $H(f)=-\E_f[\log f] $ et, via l'in\'egalit\'e de Jensen ($-\log $ \'etant convexe), 
+\begin{eqnarray*}
+-\E_f[\log f] & \leq & -\log \E_f[ f] \ = \ -\int_{\Omega} f^2(y) \ dy
+\end{eqnarray*}
+et $\int_{\Omega} f^2(y) \ dy < \infty$ puisque  $f\in L^2(\Omega)$. De plus, il est ais\'e de montrer que  $\|og y \leq 1 + y$ $\forall y\in \R^+_*$. On a donc que
+\begin{eqnarray*}
+-\E_f[\log f]  & \geq & -1 - \int_{\Omega} f^2(y) \ dy.
+\end{eqnarray*}
+Donc $H(f)$ est born\'ee. 
+\item On a
+\begin{eqnarray*}
+\E_{\pi}[Z] & = & \int_{\Theta} Z(\theta) \pi(\theta) \ d \theta \ = \ H(\Theta) - H(X,\Theta)
+\end{eqnarray*}
+o\`u $H(\Theta)$ est l'entropie (non relative) de $\pi(\theta)$ et  $H(X,\Theta)$ est l'entropie (non relative) de la loi jointe de $(X,\theta)$. Si $\pi(\theta)$ est $L^4$ sur $\Theta$, alors elle est aussi $L^2$ sur $\Theta$ et  $H(\Theta)$ est born\'ee d'apr\`es la question 1. Il suffit alors de montrer que $- H(X,\Theta)$ est fini. On a (en utilisant les r\'esultats pr\'ec\'edents)
+\begin{eqnarray*}
+- H(X,\Theta) & = & \int_{S \times \Omega} p(x|\theta) \pi(\theta) \log \left\{ p(x|\theta) \pi(\theta) \right\} \ dx d\theta \\
+& \leq & 1 + \int_{S \times \Omega} \left(p(x|\theta) \pi(\theta)\right)^2  \ dx d\theta \ \ \ \text{par Jensen}, \\
+& \leq & 1 + \sqrt{\int_S p^4(x|\theta) \ dx}\sqrt{\int_{\Theta} \pi^4(\theta) \ d\theta}
+\end{eqnarray*}
+d'apr\`es l'in\'egalit\'e de  Cauchy-Schwarz. Le terme de droite \'etant alors fini d'apr\`es les hypoth\`eses, on a donc que $-H(X,\Theta)$ est fini et dont $\E_{\pi}[Z] $ est fini.
+\item La d\'efinition (\ref{mdiprior}) est celle propos\'ee par Arnold Zellner pour d\'efinir la classe des {\it Maximal Data Information} (MDI) {\it Priors}, qui constitue une alternative souvent int\'eressante aux {\it reference priors} de Berger-Bernardo. On voit facilement que (modulo l'existence des int\'egrales ci-dessous) 
+ \begin{eqnarray*}
+\pi^*(\theta) & = & \arg\max\limits_{\pi(\theta)\geq 0}  \int_{\Theta} Z(\theta) \pi(\theta) \ d\theta - \int_{\Theta}
+\pi(\theta) \log \frac{\pi(\theta)}{\pi^J(\theta)}. 
+\end{eqnarray*}
+Les deux probl\`emes de maximisation ont le m\^eme lagrangien si l'int\'egrale $\int_{\Theta} Z(\theta) \pi(\theta) \ d\theta $ est finie. D'apr\`es la question pr\'ec\'edente, $\exists c<\infty$ tel que 
+\begin{eqnarray*}
+\int_{\Theta} Z(\theta) \pi(\theta) \ d\theta & = & c.
+\end{eqnarray*}
+\item Rappelons que la densit\'e correspondante de Weibull s'\'ecrit
+\begin{eqnarray*}
+f(x|\theta) & = & \frac{\beta}{\eta} \left(\frac{x}{\eta}\right)^{\beta-1} \exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right).
+\end{eqnarray*}
+\begin{enumerate}
+\item On a, apr\`es un simple d\'eveloppement,
+\begin{eqnarray*}
+Z(\eta,\beta) & = & \log \frac{\beta}{\eta^{\beta}} + (\beta-1) \E_X\left[\log X\right] -  \E_X\left[\left(\frac{X}{\eta}\right)^{\beta}\right]. 
+\end{eqnarray*}
+En utilisant la transformation $u=(x/\eta)^{\beta}$, avec $du/dx = \beta x^{\beta-1}/\eta^{\beta}$, il vient
+\begin{eqnarray*}
+\E_X\left[\log X\right] & = & \log(\eta) \int_{0}^{\infty} \exp(-u) \ du + \frac{1}{\beta} \int_{0}^{\infty} (\log u)  \exp(-u) \ du, \\
+& = &  \log(\eta) - \gamma/\beta \ \ \ \ \text{en utilisant (\ref{aide1})},
+\end{eqnarray*}
+puis
+\begin{eqnarray*}
+\E_X\left[\left(\frac{X}{\eta}\right)^{\beta}\right] & = &  \int_{0}^{\infty} u \exp(-u) \ du  \\
+& = &  \Gamma(2) \ = \ 1 \ \ \ \ \text{en utilisant (\ref{aide2})}.
+\end{eqnarray*}
+On en d\'eduit que
+\begin{eqnarray*}
+Z(\eta,\beta) & = & \log \beta - \log \eta + \gamma/\beta - (1+\gamma). 
+\end{eqnarray*}
+\item En notant que $\theta=(\eta,\beta)$, rappelons que l'on peut \'ecrire la contrainte sous forme lin\'eaire (par rapport \`a $\pi(\theta)$)
+\begin{eqnarray}
+\int_S x m_{\pi}(x) \ dx & = & x_e \ = \ \int_{\Theta} \E[X|\theta] \pi(\theta)  \ d\theta \label{mean1}
+\end{eqnarray}
+avec $\E_{\theta}[X]=\eta\Gamma(1+1/\beta)$. 
+\end{enumerate}
+Alors la solution du probl\`eme de maximisation d'entropie s'\'ecrit, en introduisant $(\lambda_1,\lambda_2)\in\R^2$ des multiplicateurs de Lagrange,
+\begin{eqnarray*}
+\pi^*(\theta) & \propto & \pi^J(\theta) \exp\left(-\lambda_1 Z(\theta) - \lambda_2\E[X|\theta]\right), \\
+& \propto &  \beta^{-\lambda_1-1} \eta^{\lambda_1-1} \exp\left(-\lambda_2 \eta\Gamma(1+1/\beta)\right) \exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)
+\end{eqnarray*}
+\item Si on impose $(\lambda_1,\lambda_2)\in\R^+\times \R^+$, on peut alors \'ecrire
+\begin{eqnarray*}
+\pi^*(\theta) & = & \pi^*(\eta|\beta)\pi^*(\beta)
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+\eta|\beta & \sim & {\cal{G}}\left(\lambda_1,\lambda_2 \Gamma(1+1/\beta)\right), \\
+\pi^*(\beta) & \propto & \underbrace{\frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}}_{\tilde{\pi}^*(\beta)}
+\end{eqnarray*}
+o\`u ${\cal{G}}$ d\'esigne une loi gamma \\
+{\it (le terme en d\'enominateur de $\pi^*(\beta)$ correspondant \`a la constante d'int\'egration (\`a un coefficient pr\`es) de $\pi^*(\eta|\beta)$)}
+
+\item On remarque que la loi $\pi^*(\eta|\beta)$ n'est pas conjugu\'ee conditionnellement \`a $\beta$ (il faudrait que ce soit une inverse gamma, et non une gamma). 
+\item Pour que la loi jointe soit propre, sachant $(\lambda_0,\lambda_1)\in\R^+_*\times \R^+_*$, il suffit donc de montrer que $\pi^*(\beta)$ est int\'egrable. Or, pour tout $\beta>0$, d'apr\`es (\ref{borne.min}) on a $\Gamma(1+1/\beta)\geq \sqrt{\pi}/{3}$. Donc,  
+\begin{eqnarray*}
+0 & \leq \ \tilde{\pi}^*(\beta) \ \leq & \left(\frac{3}{\sqrt{\pi}}\right)^{\lambda_1} \beta^{-\lambda_1-1} \exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)
+\end{eqnarray*}
+qui est clairement int\'egrable. Le prior est donc propre sous les conditions $(\lambda_1,\lambda_2)\in\R^+\times \R^+$. 
+\item On note $A(\lambda_1)$ la constante d'int\'egration de $\pi^*(\beta)$, telle que
+$$
+\pi^*(\beta) = A^{-1}(\lambda_1)\tilde{\pi}^*(\beta)
+$$
+V\'erifions l'\'equation (\ref{cons2}) en utilisant l'expression (\ref{mean1}) : 
+\begin{eqnarray*}
+x_e \ = \ \int_{\Theta} \E[X|\theta] \pi(\theta)  \ d\theta & = &  A^{-1}(\lambda_1) \int_{\R^+} \Gamma(1+1/\beta) \tilde{\pi}^*(\beta)\E[\eta|\beta] \ d\beta, \\
+& = & A^{-1}(\lambda_1) \int_{\R^+}  \tilde{\pi}^*(\beta) \frac{\lambda_1}{\lambda_2 \Gamma(1+1/\beta)} \ d\beta, \\
+& = & \frac{\lambda_1}{\lambda_2}.
+\end{eqnarray*}
+Ce r\'esultat est ind\'ependant de la constante d'int\'egration de $\pi^*(\beta)$.
+\item Dans ce cas unidimensionnel, l'id\'ee la plus simple consiste \`a utiliser une {\bf m\'ethode d'acceptation-rejet}, qui permettra en outre de calculer num\'eriquement la constante d'int\'egration  $A(\lambda_1)$. Pour ce faire, la forme du terme g\'en\'eral $\tilde{\pi}^*(\beta)$, proche d'une inverse gamma, peut nous inspirer. Si on choisit comme loi instrumentale la densit\'e
+\begin{eqnarray*}
+g(\beta) & \equiv & {\cal{IG}}(\lambda_1,\lambda_1/\gamma),
+\end{eqnarray*}
+alors il vient
+\begin{eqnarray*}
+\frac{\tilde{\pi}^*(\beta)}{g(\beta)} & = & \frac{\Gamma^{\lambda_1/\gamma}(\lambda_1)}{\Gamma^{\lambda_1}(1+1/\beta)}\frac{1}{\left(\lambda_1/\gamma\right)^{\lambda_1}}, \\
+& \leq &  \left(\frac{3}{\sqrt{\pi}}\right)^{\lambda_1} \frac{\Gamma^{\lambda_1/\gamma}(\lambda_1)}{\left(\lambda_1/\gamma\right)^{\lambda_1}}, \\
+\end{eqnarray*}
+d'apr\`es (\ref{borne.min}), borne sup\'erieure qui ne d\'epend plus de $\beta$. En utilisant la valeur $\lambda_1=\gamma$, on obtient
+\begin{eqnarray*}
+\frac{\tilde{\pi}^*(\beta)}{g(\beta)} & \leq & K  \ = \ \left(\frac{3}{\sqrt{\pi}}\right)^{\gamma} \Gamma(\gamma) \ \simeq \ 2.092
+\end{eqnarray*}
+Le programme attendu (exemple en R fourni sur le fichier \texttt{AR.r}) doit donc mettre en \oe{}uvre le pseudo-code suivant :
+\texttt{
+\begin{enumerate}
+\item Simuler $\beta\sim g(\beta)$.
+\item Simuler $U\sim {\cal{U}}[0,1]$.
+\item Accepter $\beta$ si $U\leq \frac{\tilde{\pi}^*(\beta)}{Kg(\beta)}$
+\end{enumerate}
+}
+et en notant $p$ la proportion d'acceptation dans cet algorithme, on peut estimer $A(\lambda_1)$ par
+\begin{eqnarray*}
+\hat{A}(\lambda_1) & = & 1/(Kp)
+\end{eqnarray*}
+puis repr\'esenter la densit\'e ${\pi}^*(\beta)$ estim\'ee par $\hat{A}^{-1}(\lambda_1)\tilde{\pi}^*(\beta)$ et la comparer avec l'histogramme des simulations accept\'ees. Il est plus simple visuellement de repr\'esenter plut\^ot la densit\'e de la variable $Y=1/\beta$, telle que $du = -u^2 d\beta$. La formule de changement de variable donne :
+\begin{eqnarray*}
+\pi^*_Y(Y) & = & \pi^*(\beta^{-1}(Y)))/Y^2
+\end{eqnarray*}
+avec $\beta^{-1}(Y)=1/Y$. 
+\end{enumerate}
+
+\section{Risque d'un estimateur (5 pts)}
+
+Consid\'erons une variable binomiale $X\sim{\cal{B}}(n,p)$ de probabilit\'e $p\in[0,1]$. Soit la perte quadratique $L(\delta,p)$. On appelle {\it risque bay\'esien d'un estimateur $\delta(x)$} la quantit\'e $\E_{\pi}[L(\delta(x),p)|x]$, et  {\it risque fr\'equentiste de $\delta(x)$}  la quantit\'e $\E_{X}[L(\delta(x),p)]$.
+\begin{enumerate}
+\item Soit $\pi(p)$ le prior de Laplace. D\'efinissez l'estimateur MAP ({\it maximum a posteriori}) $\delta_1(x)$ de $p$.
+\item En choisissant plut\^ot $\pi(p)$ comme le prior de Jeffreys, calculez les risques bay\'esien et fr\'equentiste $R_b(x)$ et $R_f(p)$ de  $\delta_1(x)$.
+\item Comparez $r_f = \sup_p R_f(p)$ \`a 
+$r_b  =  \sup_x R_b(x)$. 
+\end{enumerate}
+
+\paragraph{\bf R\'eponses.}
+\begin{enumerate}
+\item L'estimateur MAP pour le prior de Laplace (loi uniforme) est le mode de la distribution {\it a posteriori}
+$$
+p|x \sim {\cal{B}}_e(1+x,n-x+1)
+$$
+c'est-\`a-dire
+$$
+\delta_1(x) = x/n.
+$$
+\item On a 
+\begin{eqnarray*}
+R_b(x) &= & \E_{\pi}\left[(\delta_1(x)-p)^2|x\right] \ = \ \E_{\pi}\left[(x/n-p)^2|x\right], \\
+& = & \left(\frac{x+1/2}{n+1} - \frac{x}{n}\right)^2 + \frac{(x+1/2)(n-x+1/2)}{(n+1)^2(n+2)}, \\
+& = & \frac{(x-n/2)^2}{(n+1)^2 n^2} + \frac{(x+1/2)(n-x+1/2)}{(n+1)^2(n+2)}
+\end{eqnarray*}
+car $\pi(p)$ est la loi ${\cal{B}}_e(1/2,1/2)$ (loi de Jeffreys) et donc
+$$
+p|x \sim {\cal{B}}_e(1/2+x,n-x+1/2). 
+$$
+De plus, 
+\begin{eqnarray*}
+R_f(p) & = & \E_X\left[\left(\delta_1(x)- p\right)^2\right], \\
+& = & \V\left[x/n\right], \\
+& = & \frac{p(1-p)}{n}.
+\end{eqnarray*}
+\item Il est ais\'e de voir que $r_f =(4n)^{-1}$ et 
+\begin{eqnarray*}
+r_b  & = & \left\{4(n+2)\right\}^{-1}.
+\end{eqnarray*}
+Ainsi, $r_b< r_f$. 
+\end{enumerate}
+
+
+\end{document} 

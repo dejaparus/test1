@@ -1,0 +1,70 @@
+\begin{rep}
+On considére donc une fonction d'intérêt $h(\theta)$ que l'on cherche à résumer par son espérance {\it a posteriori}
+\begin{eqnarray}
+h \ = \ \E_{\pi}[h(\theta)|x_1,\ldots,x_n] & = & \int_{\Theta} h(\theta)\pi(\theta|x_1,\ldots,x_n) \ d\theta\label{IS.estim1}
+\end{eqnarray}
+que l'on suppose pouvoir estimer simplement, de fa\c con consistante, par Monte Carlo :
+\begin{eqnarray*}
+\hat{h}_M & = & \frac{1}{M}\sum\limits_{k=1}^M h(\theta_i) \ \ \ \text{avec $\theta_i\overset{iid}{\sim} \pi(\theta|x_1,\ldots,x_n)$}
+\end{eqnarray*}
+Supposons vouloir modifier le prior : $\pi(\theta)\to\pi'(\theta)$, sans modifier le support, mais de fa\c con à ce que la nouvelle loi {\it a posteriori} ne soit plus directement simulable. En supposant que $\pi(\theta|x_1,\ldots,x_n)>0$ pour tout $\theta\in\Theta$, on peut néanmoins recalculer facilement le nouvel estimateur de Bayes :
+\begin{eqnarray*}
+h' \ = \ \E_{\pi'}[h(\theta)|x_1,\ldots,x_n] & = & \int_{\Theta} h(\theta)\pi'(\theta|x_1,\ldots,x_n) \ d\theta, \\
+& = & \int_{\Theta} \omega(\theta_i) h(\theta)\pi(\theta|x_1,\ldots,x_n) \ d\theta
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+\omega(\theta_i) & = & \frac{\pi'(\theta|x_1,\ldots,x_n) }{\pi(\theta|x_1,\ldots,x_n)} \ = \ C\tilde{\omega}^*_i 
+\end{eqnarray*}
+où 
+\begin{eqnarray*}
+\tilde{\omega}^*_i  & = & \left(\frac{\pi'(\theta_i)}{\pi(\theta_i)}\right), \\
+C & = &  \frac{m_{\pi}(x_1,\ldots,x_n)}{m_{\pi'}(x_1,\ldots,x_n)}.
+\end{eqnarray*}
+Le calcul de la constante de proportionnalité $C$ nécessiterait usuellement de disposer de deux échantillons {\it a posteriori}. On peut cependant s'en passer en remarquant que d'après la loi forte des grands nombres,  \begin{eqnarray*}
+\frac{1}{M}\sum\limits_{i=1}^M \tilde{\omega}^*_i & \xrightarrow[n\to \infty]{p.s.} & \frac{1}{C}\int_{\Theta} \omega(\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta \ = \ 1/C
+\end{eqnarray*}
+et on en déduit donc qu'un estimateur IS  consistant de $h'$,  qui réutilise les calculs faits pour l'estimateur $\hat{h}_M$  sans coût calculatoire additionnel, est 
+\begin{eqnarray*}
+\hat{h''}_M & = & \frac{1}{M}\sum\limits_{k=1}^M \hat{\omega}^*_i h(\theta_i)
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+\hat{\omega}^*_i & = & \frac{\tilde{\omega}^*_i}{\sum\limits_{j=1}^M \tilde{\omega}^*_j}.
+\end{eqnarray*}
+
+ %\left(\frac{\pi'(\theta)}{\pi(\theta)}\right) \left(\frac{m_{\pi}(x_1,\ldots,x_n)}{m_{\pi'}(x_1,\ldots,x_n)}\right)
+%\end{eqnarray*}
+%Le second terme entre parenthèses ne dépend pas de $\theta$. En faisant l'hypothèse suivante :
+%\begin{eqnarray*}
+%\forall i\in\{1,\ldots,M\}, \ \ \pi(\theta_i_>0, \label{prior.pos}
+%\end{eqnarray*}
+%on peut donc proposer l'estimateur IS suivant pour $h'$, qui réutilise les calculs faits pour l'estimateur $\hat{h}_M$ : 
+%\begin{eqnarray*}
+%\hat{h'}_M & = & \frac{1}{M}\sum\limits_{k=1}^M \tilde{\omega}_i h(\theta_i)
+%\end{eqnarray*}
+%avec
+%\begin{eqnarray*}
+%\tilde{\omega}_i  =  C\tilde{\omega}^*_i & \text{et} & 
+%\tilde{\omega}^*_i  =  \left(\frac{\pi'(\theta_i)}{\pi(\theta_i)}\right),
+%\end{eqnarray*}
+%et $C$ la constante de proportionnalité 
+%\begin{eqnarray*}
+%C & = & \frac{m_{\pi}(x_1,\ldots,x_n)}{m_{\pi'}(x_1,\ldots,x_n)}
+%\end{eqnarray*}
+%dont le calcul nécessite en théorie uniquement des tirages des deux priors (par Monte Carlo). Cependant, on remarque que par la loi forte des grands nombres, que 
+%\begin{eqnarray*}
+%\frac{1}{M}\sum\limits_{i=1}^M \tilde{\omega}^*_i & \xrightarrow[n\to \infty]{p.s.} & 
+%\end{eqnarray*}
+
+%On remarque, par la loi forte des grands nombres,  que
+
+%\E\left[\frac{1}{M}\sum\limits_{i=1}^M \tilde{\omega}^*_i\right] \ = \ \frac{1}{M}\sum\limits_{i=1}^M \int_{\Theta} \pi'(\theta) \ d\theta \ = \ 1.
+%\end{eqnarray*}
+%Cependant, on sait que le calcul par Monte Carlo selon des tirages {\it a priori} du rapport $C$ des lois marginales peut être fortement instable. Il est donc simplement conseillé d'adopter la démarche suivante, suivant le théorème \ref{SIR.rubin} :
+%\begin{enumerate}
+%\item calculer les poids relatifs $\tilde{\omega}^*_i$ ;
+%\item resimuler avec remise dans $\theta_1,\ldots,\theta_M$ selon les poids $\tilde{\omega}^*_i$ pour obtenir de nouveaux tirages {\it a posteriori} de $\pi'(\theta|x_1,\ldots,x_n)$. 
+%\end{enumerate}
+Notons que ce faisant, on crée de la corrélation entre les deux estimateurs de $h$. 
+\end{rep}

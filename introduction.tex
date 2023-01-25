@@ -1,0 +1,397 @@
+\section{Introduction et rappels}\label{sec:intro}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Modélisation, inférence et décision statistique}
+
+Afin d'aborder sereinement ce cours, rappelons que la Statistique (avec une majuscule) peut \^etre vue comme une théorie de la description d'un {phénomène incertain}, per\c cu au travers de données ${ x_n}=(x_{1},\ldots,x_n)$, décrites comme des  { observations} d'une variable $X$ vivant dans un espace $\Omega$. Cette incertitude du phénomène est fondamentalement supposée {aléatoire} ; c'est-à-dire que l'incertitude sur les valeurs que prend $X$ ne peut pas \^etre réduite à 0 m\^eme si le nombre $n$ d'observations tend vers $+\infty$. \\
+
+La distribution probabiliste à l'origine de ce caractère aléatoire est notée ${\cal{P}}$, et l'{objectif premier} de la Statistique est donc d'{ inférer} sur ${\cal{P}}$ à partir de ${ x_n}$. \\
+
+Le { second objectif} est de pouvoir { mener une prévision} (ou ``prédiction") d'une répétition future du phénomène. Le { troisième objectif} est de { prendre une décision} ayant des conséquences mesurables, sur la base de l'étude du phénomène.  \\
+
+
+
+\begin{remark}
+Une intelligence artificielle (IA) dite {\it connexioniste} (qui se fonde sur l'exploitation des structures de corrélation dans des données) agglomère ces trois objectifs en fournissant une réponse finale à la prise de décision (troisième objectif). Comprendre le comportement d'une telle IA (par exemple en vue de l'étude de sa robustesse puis sa certification) nécessite donc de comprendre les fondations en modélisation et en inférence de la Statistique, et ses liens avec la théorie de la décision. \\
+\end{remark}
+
+La modélisation  du phénomène consiste en une {interprétation réductrice} faite sur ${\cal{P}}$ par le biais d'une approche statistique qui peut \^etre :
+\begin{itemize}
+\item { non-paramétrique}, qui suppose que l'inférence doit prendre en compte le maximum de complexité et à minimiser les hypothèses de travail, en ayant recours le plus souvent à l'estimation fonctionnelle ; 
+\item { paramétrique}, par laquelle la distribution des observations ${ x_n}$ est représentée par une fonction de densité $f(x|\theta)$ où seul le paramètre $\theta$ (de dimension finie) est inconnu.
+\end{itemize}
+
+Ce cours s'intéresse uniquement au cas de l'approche statistique paramétrique. On considèrera en effet en permanence un nombre $n$ fini (et parfois restreint) d'observations, qui ne peut en théorie servir qu'à estimer un nombre fini de paramètres. L'évaluation des outils inférentiels paramétriques peut d'ailleurs \^etre faite avec un nombre fini d'observations. \\
+
+La section suivante résume brièvement le cadre de la statistique paramétrique. Une revue des concepts fondamentaux de l'aléatoire est donnée en Annexe \ref{concepts}, ceux-ci n'étant pas rappelés durant le cours.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cadre statistique paramétrique}
+
+Pour formaliser la description faite précédemment, et fixer les notations pour le reste du cours, on décrit $X$ comme une variable évoluant dans un {espace mesuré et probabilisé}
+$$
+(\Omega,{\cal{A}},\mu,{\cal{P}})
+$$ 
+où :
+\begin{enumerate}
+\item $\Omega$ est l'{espace d'échantillonnage} des $X=x$, soit l'ensemble de toutes les valeurs possibles prises par $X$ ;
+\item la {tribu} (ou $\sigma-$algèbre) ${\cal{A}}$ est la  collection des événements (sous-ensembles de $\Omega$) mesurables par $\mu$  ;
+\item  $\mu$ est une {mesure positive dominante} sur $(\Omega,{\cal{A}})$.
+\item ${\cal{P}}$ est une famille de {distributions de probabilité} dominée par $\mu$, que suit $X$.
+\end{enumerate}
+
+\begin{definition}[Domination]
+ Le modèle $P\in{\cal{P}}$ est dit dominé s'il existe une mesure commune dominante $\mu$ tel que $P$ admet une densité par rapport à $\mu$\footnote{Pour des mesures  $\sigma-$finies et de part le théorème de Radon-Nykodim, ceci est équivalent à être absolument continue par rapport à $\mu$}
+ \begin{eqnarray*}
+ f(X) & = & \frac{d {\cal{P}}(X)}{d\mu}.
+ \end{eqnarray*}
+\end{definition}
+
+De manière générale, on travaillera avec $\Omega\subset\R^d$ avec $d<\infty$ et des échantillons de réalisations ${ x_n}=(x_1,\ldots,x_n)$ de $X$. La mesure dominante $\mu$ sera Lebesgue (cas continus) ou Dirac (cas discrets). Enfin, ${\cal{A}}$ sera très généralement / classiquement choisie comme la tribu des boréliens 
+$${\cal{A}}={\cal{B}}(\R^d)=\sigma\left(
+\left\{\otimes_{i=1}^d ]a_i,b_i]; \  a_i<b_i\in\R\right\}\right).$$
+
+Dans le cadre paramétrique, on supposera que ${\cal{P}}$ peut se définir par
+$$
+{\cal{P}}=\left\{\Pp_{\theta}; \ \theta\in\Theta\subset\R^p\right\}
+$$
+où $p<\infty$. De plus, on notera généralement $f(.|\theta)$ la densité (ou fonction de masse) induite par la dérivée de Radon-Nikodym de $Pp_{\theta}$ :
+\begin{eqnarray*}
+\frac{d \Pp_{\theta}}{d\mu} & = & f(X|\theta) %d \mu(x) \ \ \ \ \text{pour tout ensemble mesurable $A\in{\cal{A}}$}
+\end{eqnarray*}
+et parfois, lorsque $X$ sera unidimensionnelle ($d=1$), nous utiliserons aussi la notation classique $F(x|\theta)$ pour désigner la fonction de répartition $Pp_{\theta}(X\leq x)$. 
+Par la suite, on parlera indifférement de la variable aléatoire
+\begin{eqnarray*}
+X & \sim & f(x|\theta)
+\end{eqnarray*}
+ou de son observation $x\sim f(x|\theta)$, et on parlera plus généralement de {loi} en confondant $Pp_{\theta}$ et $f(.|\theta)$. Enfin, la notation $\mu$ sera généralement induite dans les développements techniques :
+\begin{eqnarray*}
+\Pp_{\theta}(X<t) & = & \int_{\Omega} f(x) \1_{\{x<t\}} \ dx.
+\end{eqnarray*}
+
+\begin{remark}
+Suivant l'usage classique, les variables et processus aléatoires sont décrits par des majuscules, tandis que leurs réalisations sont décrits par des minuscules. On notera souvent {\it v.a.} pour {\it variable aléatoire}.
+\end{remark}
+
+\index{vraisemblance}
+Nous retrouverons et utiliserons abondamment  la notion de \emph{vraisemblance} statistique $f({\bf x_n}|\theta)$, définie dans un cadre paramétrique comme la densité jointe des observations ${\bf x_n}=(x_1,\ldots,x_n)$ sachant le paramètre $\theta$. Lorsque les données sont \emph{indépendantes et identiquement distribuées} (iid) selon $f(•|\theta)$, alors
+\begin{eqnarray*}
+f({\bf x_n}|\theta) & = & \prod\limits_{i=1}^n f(x_i|\theta).
+\end{eqnarray*}
+D'autres formes de vraisemblance existent, notamment lorsque les données sont bruitées, censurées, etc. Voir Annexe \ref{concepts} pour des rappels  sur ces principaux concepts. \\
+
+\begin{remark}[Statistique bayésienne non paramétrique]
+Jusqu'à présent, $\theta$ est considéré comme appartenant à un espace $\Theta$ de dimension finie. On peut étendre la statistique bayésienne à $\Theta$ un ensemble comme $[0,1]^{\R}$ (l'ensemble des distributions sur $[0,1]$) ou encore l'ensemble des probabilités sur $\R$. Ces deux espaces ne sont pas dominés par $\mu$. C'est le principe fondateur de la statistique non paramétrique (au sens où le paramètre n'a pas de dimension finie). 
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%
+\subsection{Estimation statistique classique ("fréquentiste")}
+
+{\it (ou \emph{fréquentielle} en meilleur français)}
+
+\subsubsection{Rappel des principes}\label{rappel.principes}
+
+L'inférence statistique consiste à estimer "les causes à partir des effets". Ces \emph{causes} sont réduites, dans le cadre paramétrique, au paramètre $\theta$ du mécanisme générateur des données que représente la distribution $\Pp_{\theta}$. Les \emph{effets} sont naturellement les données observées ${\bf x_n}=(x_1,\ldots,x_n)$. De ce fait, dans un cadre paramétrique, l'inférence consiste à produire des règles d'estimation de $\theta$ à partir de ${\bf x_n}$. Dans ce cadre classique, {\bf $\theta$ est supposé inconnu, mais fixe}  (et à $\Theta$ n'est pas conféré la structure d'un espace probabilisé). \\
+
+Les règles d'estimation les plus courantes, fondées sur de l'optimisation de critère ($M-$estimation, telles la \emph{maximisation de la vraisemblance}
+$$
+\hat{\theta}_n({\bf x_n})  =  \arg\max\limits_{\theta} \log f({\bf x_n}|\theta)
+$$
+ou les \emph{estimateurs des moindres carrés}), par \emph{moments}, par des combinaisons linéaires de statistiques d'ordre ($L-$estimation, en général moins robuste), etc. sont nombreuses et doivent faire l'objet d'une sélection. Voir Annexe \ref{estimation.stat.classique} pour quelques rappels.
+
+Pour mener cette sélection, les estimateurs sont comparés en fonction de différents critères, comme le biais, la rapidité de convergence vers la valeur supposée "vraie" $\theta_0$ du paramètre, et d'autres différentes propriétés asymptotique (telle la nature de la loi d'un estimateur $\hat{\theta}_n({\bf X_n})$, qui est une variable aléatoire dont la loi dépend de celle des $X$. \\
+
+D'une manière générale, si l'on note $\hat{\theta}_n=\hat{\theta}_n({\bf X_n})$ tout estimateur classique de $\theta$, à de rares exceptions près la validité de ce choix d'estimateur est dépendante du caractère \emph{reproductible} et \emph{échangeable} des données $x_1,\ldots,x_n$ conditionnellement à $\theta$. 
+
+\begin{definition}[\'Echangeabilité.]
+Les données $x_1,\ldots,x_n$ sont dites échangeables si, pour toute permutation $\sigma:\N^n\to \N^n$, la loi jointe  $f(x_{\sigma(1)},\ldots,x_{\sigma(n)})$ est indépendante de $\sigma$.
+\end{definition}
+
+Cette validité, donc en général fondée sur des critères asymptotiques ($n\to\infty$), s'exprime en termes de \emph{région de confiance} (cf. Annexe \ref{interv.conf})
+\begin{eqnarray*}
+\Pp\left(\hat{\theta}_n - \theta \in A_{\alpha}\right) & = & 1-\alpha.
+\end{eqnarray*}
+ En général, la distribution $\Pp$ de l'estimateur est inconnue pour $n<\infty$, elle est le plus souvent approximée {asymptotiquement} via un théorème de convergence en loi, tel que :
+\begin{eqnarray*}
+\text{si $x_1,\ldots,x_n$ sont iid} \ \ \ \ \Sigma^{-1/2}_n \left(\hat{\theta}_n - \theta_0\right) & \xrightarrow{{\cal{L}}}{} & {\cal{Q}}
+\end{eqnarray*}
+où $\E_{{\cal{Q}}}[X]=0$ et $\V_{{\cal{Q}}}[X]=1$. Ici $\Sigma_n$ est lui-même un estimateur consistant de la matrice de covariance de $\hat{\theta}_n$, et le résultat précédent est issu de l'usage de la méthode Delta de dérivation des lois d'estimateur, ainsi que du théorème de Slutstky de composition des convergences. 
+
+\begin{remark}
+On utilise souvent le terme d'\emph{inférence} en {\it machine learning} pour désigner la tâche de prévision (\emph{prediction}) d'un modèle {\it appris}, et l'\textit{entraînement} la phase d'estimation de ce modèle. En ce sens, le mot \emph{inférer} est tout aussi valide, car il signifie "aller des principes vers la conclusion".   
+\end{remark}
+
+\subsubsection{Difficultés pratiques, théoriques et conceptuelles}
+
+Ce \emph{paradigme}\footnote{Modèle censé être cohérent d'un univers scientifique, faisant l'objet d'un consensus.} forme, depuis les travaux de Fisher, Neyman et Pearson dans la première moitié du XXème siècle, le socle théorique de la majeure partie des études statistiques. {Il n'est pas cependant sans poser quelques problèmes} :
+
+\begin{description}
+    \item[(a)] Tout d'abord, les difficultés rencontrées sont {\bf pratiques} : face à de petits échantillons, le cadre asymptotique ne tient plus: la comparaison des estimateurs doit alors reposer sur des critères non asymptotiques\footnote{Parmi ces critères, les inégalités de concentration (Markov, Bienaymé-Chebychev, Bernstein, etc.) se révèlent fondamentales.}, et on perd l'usage des résultats de la convergence en loi et ses dérivées (ex : production des régions de confiance). De même, la plupart des résultats utiles pour mener des tests statistiques (voir Annexe \ref{test.statistique.classique}) deviennent inutilisables.
+    \item[(b)] Des difficultés peuvent aussi être {\bf théoriques}. 
+    \begin{enumerate}
+        \item Ainsi, pour de nombreux modèles complexes, tels les modèles à espace d'états (qui font partie des modèles à données latentes), tels que les modèles de population, la dimension de $\Theta$ peut augmenter linéairement avec le nombre de données. Dans ce cas, la théorie asymptotique classique n'a plus de sens. \\
+        
+        \begin{exo}
+            On considère une population suivie annuellement, $n$ étant le nombre d'années de mesure. A chaque année est associée un paramètre spécifique de renouvellement de la population. La dimension augmente donc linéairement avec le nombre de donnée, si aucune réduction de dimension (par exemple via des covariables connues) n'est effectuée. \\
+        \end{exo}
+        
+        \item Plus fondamentalement, l'utilisation d'un estimateur fréquentiste peut contredire le principe fondamental de la statistique inférentielle :
+        
+        \begin{definition}[Principe de vraisemblance]
+        L'information {\footnotesize (= l'ensemble des inférences possibles)} apportée par une observation $x$ sur $\theta$ est entièrement contenue dans la fonction de vraisemblance $\ell(\theta|x)=f(x|\theta)$. De plus, si $x_1$ et $x_2$ sont deux observations qui dépendent du m\^eme paramètre $\theta$, telle qu'il existe une constante $c$ satisfaisant 
+\begin{eqnarray*}
+\ell(\theta|x_1) & = & c\ell(\theta|x_2) \ \ \ \forall \theta\in\Theta,
+\end{eqnarray*}
+alors elles apportent la m\^eme information sur $\theta$ et doivent conduire à la m\^eme inférence. \\
+        \end{definition}
+        
+        
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exec}[Adapté de \cite{Robert2007}]\label{exo1}
+            Soient $(x_1,x_2)$ deux réalisations aléatoires. Nous disposons de deux candidats pour la loi jointe de ces observations: $x_i\sim {\cal{N}}(\theta,1)$ ou encore
+            \begin{eqnarray*}
+g(x_1,x_2|\theta) & = & \pi^{-3/2}\frac{\exp\left\{-(x_1 + x_2 - 2\theta)^2/4\right\}}{1+(x_1-x_2)^2}.
+\end{eqnarray*}
+Quel est l'estimateur du maximum de vraisemblance de $\theta$ dans chacun des cas ? Que constate-on ?
+        \end{exec}
+
+\if\mycmdexo1 \input{reponses/exo1}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+       
+       
+
+       \item Citons également le fait que l'estimateur du maximum de vraisemblance (EMV), considéré généralement comme le plus efficace (atteignant la borne de Cramer-Rao et asymptotiquement sans biais dans la plupart des cas), peut ne pas exister ou être unique. \\
+       
+       \begin{exo} Modèles à paramètre de position, modèles de mélange... \\
+       \end{exo}
+       
+       Par ailleurs, l'usage de l'EMV pose un autre problème, qui contredit le principe de vraisemblance : les régions de confiance de la forme {\it (test du rapport de vraisemblance)}
+\begin{eqnarray*}
+{\cal{C}} & = & \left\{\theta; \ \frac{\ell(\theta|x)}{\ell(\hat{\theta}|x)} \geq c\right\} 
+\end{eqnarray*}
+qui sont les plus petites asymptotiquement, ne dépendront pas uniquement de la fonction de vraisemblance si la borne $c$ doit \^etre choisie de manière à obtenir un niveau de confiance $\alpha$. \\
+       
+       \item Une dernière difficulté théorique posée par les estimateurs fréquentiels appara\^it lorsqu'on cherche à mener une \emph{prévision}. Considérons en effet Soit ${\bf X_n}=(X_1,\ldots,X_n) \overset{iid}{\sim} f(.|\theta)$. On cherche à prévoir le plus précisément possible ce que pourrait \^etre le prochain tirage $X_{n+1}$. Dans l'approche classique, on utilise 
+       \begin{eqnarray*}
+ f(X_{n+1}|X_1,\ldots,X_n,\hat{\theta}_n) & = & \frac{f(X_1,\ldots,X_n,X_{n+1}|\hat{\theta}_n)}{f(X_1,\ldots,X_n|\hat{\theta}_n)}
+\end{eqnarray*}
+et ce faisant on utilise deux fois les données et on risque de sous-estimer les incertitudes (intervalles de confiance) en renfor\c cant arbitrairement la connaissance.
+        
+    \end{enumerate} 
+    
+\item[(c)] Enfin, les difficultés peuvent être {\bf d'ordre conceptuel}. En effet, le sens donné à une probabilité est, dans la statistique bayésienne, celui d'une \emph{limite de fréquence}, et la notion de \emph{confiance} est uniquement fondée sur la répétabilité des expériences peut ne pas \^etre pertinente. \\
+
+\begin{exo} Le premier pari d'une course de chevaux ? \\
+\end{exo}
+
+En prévision, nous souhaiterions connaître parfaitement l'incertitude sur le mécanisme générateur de $X$, mais c'est une t\^ache impossible en pratique. Dans de nombreux contexte, toute variable aléatoire est la représentation mathématique d'une grandeur soumise à deux types d'incertitude :
+\begin{enumerate}
+    \item $\Pp_{\theta}$ représente la partie \emph{aléatoire} du phénomène considéré ; 
+    \item l'estimation de $\theta$ souffre d'une incertitude \emph{épistémique}, réductible si de l'information supplémentaire (données) est fournie (typ. : données). \\
+\end{enumerate}
+
+\end{description}
+
+
+L'approche classique des statistiques souffre donc de difficultés qui limitent son usage à des situations généralement restreintes à l'asymptotisme. Elle constitue en en fait une \emph{approximation} d'un paradigme plus vaste, celui de la \emph{statistique bayésienne}, qui permet notamment de \emph{correctement appréhender la gestion des incertitudes en estimation, prévision, et en aide à la décision}. \\
+
+
+\begin{remark}[\'Ecriture fiduciaire]
+L'écriture fiduciaire $\ell(\theta|x)=f(x|\theta)$ a été proposée au début du XXème siècle pour témoigner du fait qu'on cherche à \emph{mesurer} l'éventail des valeurs possibles de $\theta$ sachant l'observation des $x_i$. Toutefois, il s'agissait d'une confusion entre la définition d'un estimateur statistique et celle d'une véritable variable aléatoire nécessitant l'ajout d'une mesure dominante sur $\theta$. Il vaut mieux ne pas l'utiliser pour ne pas oublier le sens statistique d'une vraisemblance (loi jointe des données). 
+\end{remark}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%
+\subsection{Principes de la statistique bayésienne}
+
+\subsubsection{Paradigme}
+
+Le paradigme de la statistique bayésienne paramétrique part du principe que le {\bf vecteur $\theta$ est une variable aléatoire}, vivant dans un espace probabilisé (on utilisera généralement $(\Theta,\Pi,{\cal{B}}(\Theta))$). \\
+
+En reprenant la formulation {\it L'inférence statistique consiste à estimer "les causes à partir des effets"} au $\S$ \ref{rappel.principes}, cela revient à associer $X$ aux effets, et $\theta$ aux causes, et d'"estimer ces causes" par la mise à jour de la distribution (mesure) $\Pi(\Theta)$ via la \emph{règle de Bayes} : \\
+
+Si $C$ (cause) et $E$ (effet) sont des évènements tels que $P(E)\neq 0$, alors 
+\begin{eqnarray*}
+P(C|E) & = & \frac{P(E|C)P(C)}{P(E|C)P(C) + P(E|C^c)P(C^c)} \\
+       & = & \frac{P(E|C)P(C)}{P(E)}
+\end{eqnarray*} 
+Il s'agit d'un principe d'\emph{actualisation}, décrivant la mise à jour de la vraisemblance de la cause $C$ de $P(C)$ vers $P(C|E)$. \\
+
+Ce paradigme a historiquement été proposé par Bayes (1763) puis Laplace (1795), qui ont supposé que l'\emph{incertitude sur $\theta$} pouvait \^etre décrite par une distribution de probabilité $\Pi$ de densité $\pi(\theta)$ sur $\Theta$, appelée \emph{loi {\it a priori}}. On notera en général
+$$
+\theta \sim \pi
+$$
+
+\noindent {\bf Formulation en densité.} Sachant des données ${\bf x_n}$, la mise à jour de cette loi {\it a priori} s'opère par le conditionnement de $\theta$ à ${\bf x_n}$ ; on obtient la \emph{loi {\it a posteriori}}
+\begin{eqnarray}
+\pi(\theta|{\bf x_n}) & = & \frac{f({\bf x_n}|\theta) \pi(\theta) }{\int_{\Theta} f({\bf x_n}|\theta) \pi(\theta) \ d\theta} \label{bayes.posterior}
+\end{eqnarray}
+
+\begin{definition}
+ Un modèle statistique bayésien est constitué d'un {modèle statistique paramétrique (ou vraisemblance) $f(x|\theta)$} et d'une {mesure {\it a priori} $\pi(\theta)$}  pour les paramètres.
+\end{definition}
+
+En conséquence, là où la statistique classique s'attache à définir des procédures d'estimation ponctuelle de $\theta$, la statistique bayésienne va s'attacher à définir des procédures d'estimation de la loi {\it a posteriori} $\pi(\theta|{\bf x_n})$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exec}[Bayes (1763)]\label{exo2}
+Une boule de billard $Y_1$ roule sur une ligne de longueur $1$, avec une probabilité uniforme de s'arr\^eter n'importe où. Supposons qu'elle s'arr\^ete à la position $\theta$. Une seconde boule $Y_2$ roule alors $n$ fois dans les m\^emes conditions, et on note $X$ le nombre de fois où $Y_2$ s'arr\^ete à gauche de $Y_1$. Connaissant $X$, quelle inférence peut-on mener sur $\theta$ ?
+\end{exec}
+\if\mycmdexo1 \input{reponses/exo2}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exec}[Loi gaussienne / loi exponentielle]\label{exo3}
+Soit une observation $x\sim{\cal{N}}(\theta,\sigma^2)$ où $\sigma^2$ est connu. On choisit {\it a priori}
+\begin{eqnarray*}
+\theta & \sim & {\cal{N}}(m,\rho\sigma^2)
+\end{eqnarray*} 
+Quelle est la loi {\it a posteriori} de $\theta$ sachant $x$ ? Même question en supposant que $X\sim {\cal{E}}(\lambda)$ et
+\begin{eqnarray*}
+\lambda & \sim & {\cal{G}}(a,b).
+\end{eqnarray*}
+\end{exec}
+%\if\mycmdexo1 \input{reponses/exo3}
+%\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[Loi impropre]\label{def.loi.impropre}
+ Une "loi impropre" est une mesure {\it a priori} $\sigma-$finie qui vérifie $\int_{\Theta} \pi(\theta) \ d\theta = \infty$.
+\end{definition}
+
+La mesure de Lebesgue sur un ouvert est un exemple de loi impropre. Le choix de manier ce type de mesure peut sembler étrange, mais ce choix peut s'avérer en fait particulièrement intéressant. Par exemple, travailler avec une loi normale centrée à grande variance pour approcher une "loi uniforme sur $\R$" peut être précieux. Une telle loi {\it a priori } n'a cependant d'intérêt que si la loi {\it a posteriori} correspondante existe. On se limitera donc aux lois impropres telles que la \emph{loi marginale} soit bien définie :
+\begin{eqnarray*}
+m_{\pi}(x) & = & \int_{\Theta} f(x|\theta) \ d\pi(\theta) \ < \ \infty
+\end{eqnarray*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exec}[Loi uniforme généralisée]\label{exo4}
+Soit $X\sim {\cal{N}}(\mu,\sigma^2)$ et $d\pi(\mu) = d \mu$ (mesure de Lebesgue). Que vaut $m_{\pi}(x)$ ? 
+\end{exec}
+\if\mycmdexo1 \input{reponses/exo4}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exec}[Loi d'échelle]\label{exo5}
+Soit $X_1,\ldots,X_n\sim {\cal{N}}(\mu,\sigma^2)$ et $\pi(\mu,\sigma) = 1/\sigma$ avec $\Theta=\R \times \R^+_*$.  Que vaut $m_{\pi}(x_1,\ldots,x_n)$ ? La mesure $\pi(\mu,\sigma)$ peut-elle être utilisable ?
+\end{exec}
+\if\mycmdexo1 \input{reponses/exo5}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Dans le cas où $\pi$ est une mesure impropre $\sigma-$finie, on considère $\pi^*(\theta)=c\pi(\theta)$ où $c$ est une constante arbitraire. Elle doit être sans influence pour l'usage du modèle bayésien. On peut facilement voir que c'est bien le cas dans le calcul {\it a posteriori} (exercice), puisqu'elle apparaît aussi bien au numérateur qu'au dénominateur de l'expression (\ref{bayes.posterior}) : on a bien
+\begin{eqnarray*}
+d\pi^*(\theta|X) & = & d\pi(\theta|X).
+\end{eqnarray*}
+
+Ainsi, l'usage de lois impropres {\it a priori} est justifié si la loi {\it a posteriori} est propre\footnote{C'est-à-dire intégrable : une loi de probabilité qui \emph{mesure} les informations une fois les données connues.} car cette dernière ne dépend pas de la constante multiplicative $c$ inconnue. C'est à rapprocher du principe de vraisemblance énoncé précédemment. 
+
+
+\subsubsection{Fondations théoriques}
+
+Les fondations théoriques de la statistique bayésienne seront progressivement investiguées durant le cours, notamment en lien avec la section consacrée à la théorie de la décision ($\S$ \ref{decision}), mais il est important de connaître un premier résultat, dû originellement à De Finetti. Il s'agit d'un \emph{théorème de représentation}, c'est-à-dire un théorème qui permet de justifier un choix de représentation probabiliste des variations de $\theta$ dans $\Theta$. \\
+
+\begin{theorem}[De Finetti (1931)]
+Soit $X_1,\ldots, X_n,\ldots$ une séquence \emph{échangeable} de variables aléatoires binaires (0-1) de probabilité jointe $P$. Alors il existe une mesure de probabilité unique  $\pi(\theta)$ telle que 
+\begin{eqnarray*}
+P(X_1=x_1,\ldots,X_1=x_n,\ldots) & = & \int_{\Theta} f(x_1,\ldots,x_n,\ldots|\theta) \pi(\theta) \ d \theta
+\end{eqnarray*}
+où $f(x_1,\dots,x_n|\theta)$ est la vraisemblance d'observations  \emph{iid} de Bernoulli (également notée $\ell(\theta|x_1,\ldots,x_n,\ldots)$.
+\end{theorem}
+
+Nous admettrons ce théorème ainsi que ses nombreux dérivés. En effet, il a été généralisé successivement par Hewitt, Savage (1955), Diaconis, Freedman (1980) pour l'ensemble des distributions discrétisées puis continues. \\
+
+Selon ce théorème, la modélisation bayésienne apparaît comme une modélisation statistique naturelle de \emph{variables corrélées mais échangeables}.  L'existence formelle d'une mesure {\it a priori} (ou \emph{prior} dans la suite de ce cours) $\pi(\theta)$ est assurée en fonction du mécanisme d'échantillonnage, qui apparaît dès lors comme une simplification d'un mécanisme par essence mal connu ou inconnu. \\
+
+Un autre théorème fondamental qui nous permet de justifier l'usage du cadre bayésien est le \emph{théorème de Cox-Jaynes}, qui sera introduit plus tard dans le cours (Section \ref{representation}). Il est fondé sur une \emph{axiomatique de la représentation de l'information} et il constitue aujourd'hui à la fois une autre fa\c con de défendre le choix de la théorie des probabilités et l'un des théorèmes fondamentaux de l'intelligence artificielle.\\
+
+Le prior correspond donc à une mesure d'information incertaine à propos de $\theta$, et (comme on le verra) un \emph{pari probabiliste} pour certains théoriciens des probabilités. Cette probabilisation de $\theta$ va permettre de répondre de fa\c con pratique :
+\begin{itemize}
+%\item de répondre de fa\c con unique au problème du choix d'une méthode d'estimation {\tiny (quand celles-ci peuvent \^etre mises en oeuvre avec succès)}
+\item  à la nécessité de \emph{satisfaire le principe de vraisemblance} ;
+\item   à la nécessité de \emph{tenir compte de toutes les incertitudes épistémiques} s'exprimant sur $\theta$, en particulier dans un objectif de \emph{prévision} ;
+\item  de distinguer ces incertitudes de l'incertitude \emph{aléatoire}, intrinsèque au modèle $f(.|\theta)$ ;
+\item  à la possibilité d'intégrer de la connaissance {\it a priori} sur le phénomène considéré, autre que celle apportée par les données ${\bf x_n}$ ;
+%\begin{itemize}
+%\item {Exemple} : par le biais d'experts techniques 
+%\end{itemize}
+\item à la nécessité de faire des choix de modèles en évitant les difficultés des tests statistiques classiques ; 
+\item  l'invariance $\pi(\theta|{\bf x_n})=\pi(\theta)$ permet en outre d'identifier des problèmes d'\emph{identifiabilité} du modèle d'échantillonnage $X\sim f(x|\theta)$
+\end{itemize}
+
+\subsubsection{Plan du cours}
+
+Ce cours va considérer successivement plusieurs aspects du choix et de la mise en {\oe}uvre du cadre statistique bayésien. Il cherche à fournir les éléments nécessaires pour répondre aux questions fondamentales suivantes :
+\begin{description}
+\item[(a) Quand le paradigme bayésien est-il préférable ?] Hors du contexte spécifique des petits échantillons, pour lesquels la statistique classique apporte des réponses limitées, cette question revient d'abord à comprendre que la statistique bayésienne est d'abord une \emph{théorie de la décision, centrale en apprentissage statistique} et dans la formalisation du travail du statisticien. Le cadre décisionnel proposé par la statistique bayésienne améliore la vision fréquentielle du monde, et s'accorde avec elle lorsque l'information apportée par les données augmente. Ces deux aspects sont considérés dans les Sections \ref{decision} et \ref{proprietes}. 
+\item[(b) Comment construire une ou plusieurs mesures {\it a priori} $\pi(\theta)$ ?] Cette partie importante du cours est traitée plusieurs sections. La section \ref{representation} propose d'abord de formuler les principes généraux de compréhension et de représentation probabiliste de l'information incertaine. Sur la base de ces principes, issus d'une axiomatique, la section \ref{modelisation-prior} proposera un panorama des méthodes et outils de la modélisation bayésienne. 
+\item[(b) Comment faire du calcul bayésien ?] La mise en oeuvre concrète des outils et méthodes de la statistique bayésienne suppose de pouvoir manipuler les lois {\it a posteriori} $\pi(\theta|{\bf x_n})$. Les méthodes par simulation (échantillonnage) et les approches par approximation variationnelle font aujourd'hui partie des outils courants pour ce faire. Elles seront abordées dans la section \ref{calcul}.  
+\end{description}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%
+\subsection{Liens avec le \emph{machine learning}}\label{estimation.MAP.ML}
+
+Dans une optique de \emph{régression supervisée}, le paradigme du \emph{machine learning} propose de produire un estimateur (ou \emph{prédicteur}) de la fonction inconnue $g:\R^{d_1}\to \R^{d_2}$ (plus généralement vers un espace euclicien de dimension $d_2$) telle que
+\begin{eqnarray*}
+Y & =& g(X)
+\end{eqnarray*}
+à partir de couples connus ${\bf z_n}=(x_i,y_i)_{1\leq i \leq n}$, où chaque $x_i$ est un ensemble de $d_1 $\emph{covariables}  et chaque $y_i$ est un \emph{label} de dimension $d_2$. La recette est la suivante :
+\begin{enumerate}
+\item Faire un choix $g_{\theta}$ pour "mimer" $g$ en régression, tel que
+\begin{eqnarray*}
+\E[Y|X] & = & g_{\theta}(X)
+\end{eqnarray*}
+\begin{itemize}
+    \item Dans un problème de régression linéaire, $\theta$ (noté généralement $\beta$) est le vecteur des coefficients de la régression).
+    \item  Si $g_{\theta}$ est un réseau de neurones d'architecture choisie, alors $\theta$ constitue un vecteur de paramètres structurant pour ce réseau (poids, biais, nombre de neurones par couche, éventuellement les choix de fonctions d'activation, etc.).
+\end{itemize}
+
+\item Décider d'une \emph{fonction de coût}\footnote{On retrouvera ce terme plus tard dans la partie du cours consacré à la théorie de la décision (Section \ref{decision}).} souvent définie comme la somme d'un regret quadratique et d'une pénalité 
+\begin{eqnarray}
+L(\theta|{\bf z_n}) & = & \sum\limits_{i=1}^n \|y_i-g_{\theta}(x_i))\|^2_2 + \mbox{pen}(\theta) \label{cout.1}
+\end{eqnarray}
+où $\mbox{pen}(\theta)$ dépend de la complexité du problème.
+\item Définir l'estimateur $\hat\theta_n$ par
+\begin{eqnarray}
+\hat{\theta}_n & = & \arg\min\limits_{\theta\in\Theta} L(\theta|{\bf z_n}) \label{min.cout.1}
+\end{eqnarray}
+et choisir une méthode pour minimiser la fonction de coût (exemple : rétropropagation du gradient).
+\end{enumerate}
+On peut alors réécrire l'équation (\ref{min.cout.1}) de la fa\c con suivante :
+\begin{eqnarray*}
+\hat{\theta}_n & = & \arg\max\limits_{\theta\in\Theta} \left\{- L(\theta|{\bf z_n})\right\}, \\
+& = & \arg\max\limits_{\theta\in\Theta} \log\left\{f_g({\bf z_n}|\theta)\pi(\theta)\right\}, \\
+& = & \arg\max\limits_{\theta\in\Theta}\log \pi(\theta|{\bf z_n}), \\
+& = & \arg\max\limits_{\theta\in\Theta} \pi(\theta|{\bf z_n})
+\end{eqnarray*}
+où  $f_g(({\bf z_n}|\theta)$ est une vraisemblance de forme gaussienne de ${\bf z_n}$ et 
+\begin{eqnarray*}
+\pi(\theta) & \propto & \exp(-2\mbox{pen}(\theta)).
+\end{eqnarray*}
+Le cadre bayésien explique le sens d'une pénalisation comme celui d'une transformation d'une mesure {\it a priori}, et l'optimisation en \emph{machine learning} consiste à estimer le mode d'une distribution {\it a posteriori} (calcul simplificateur de la véritable inférence, qui serait celle de la loi $\pi(\theta|{\bf z_n})$ toute entière). \\
+
+\begin{exo}
+La régression \emph{lasso} propose un choix de pénalisation 
+$\mbox{pen}(\theta)=\lambda\|\theta\|_1$, qui correspond à l'action d'un prior $\pi(\theta)\propto\exp(-2\lambda\|\theta\|_1)$. De même, la régularisation \emph{ridge} est similaire à l'action d'un prior $\pi(\theta)\propto\exp(-2\lambda\|\theta\|^2_2)$.
+\end{exo}
+
+%%%%%%%%%%%%%%%%%
+\subsection{Quelques lectures conseillées}
+
+
+Ce cours s'inspire de plusieurs ouvrages et résultats publiés ces dernières années. L'étudiant intéressé par une vision générale du cadre pourra approfondir les aspects théoriques à partir de l'ouvrage de référence \cite{Robert2007}. Une démarche plus appliquée de la statistique bayésienne bénéficie d'une présentation pédagogique dans l'ouvrage \cite{Parent2007}. Les aspects computationnels historiques sont au coeur des ouvrages de référence \cite{Robert2004,Marin2007}. Le cadre décisionnel de la théorie bayésienne, dans un contexte d'usage concret (et relié à l'industrie), fait l'objet de l'article (fran\c cais) \cite{Keller2012}. \\
+
+L'article de revue récent \cite{Schoot2021} offre enfin une vision générale du cadre statistique bayésien, et complète utilement les lectures précédentes.

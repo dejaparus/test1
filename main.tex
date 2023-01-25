@@ -1,0 +1,117 @@
+\documentclass[10pt]{article}
+\include{formatting}
+
+
+\title{{\bf Modélisation et statistique bayésienne computationnelle} \\ \vspace{1cm} Notes de cours MAJ}
+\date{\today}
+\author{\url{nicolas.bousquet@sorbonne-universite.fr}}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+\vspace{0.5cm} 
+\begin{center}
+%\large {\it nicolas.bousquet@sorbonne-universite.fr} \\ 
+\vspace{2cm} 
+  {\large {\bf Master 2,  Sorbonne Universit\'e, 2023}} \\
+  \vspace{1cm}
+  \includegraphics[height=25mm]{logos/lpsm.jpg}
+  \includegraphics[height=25mm]{logos/isup.jpg}
+  \end{center}
+%%%%%%%%%%%%%%%%%%  
+ 
+
+\include{abstract}
+
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Condition d'insertion des explications et preuves
+% 
+% placer 0 pour ôter les preuves
+% placer 1 pour les replacer dans le texte
+%
+\def\mycmdexo{0}  % Solutions des exercices (partie 1)
+\def\mycmdexotwo{0} % Solutions des exercices (partie 2)
+\def\mycmdexothree{0} % Solutions des exercices (partie 3)
+\def\mycmdproof{0} % Preuves techniques partie 1
+\def\mycmdprooftwo{0} % Preuves techniques partie 2
+\def\mycmdproofthree{0} % Preuves techniques partie 3
+\def\mycmdtpone{0} % Corrigés du TP 1
+\def\mycmdtpthree{0} % Corrigés du TP 2
+\def\mycmdannalesenonce{0} % Annales sans la correction
+\def\mycmdannales{0} % Annales incluant la correction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% NOTATIONS
+\include{notations}
+
+
+%%%%%%%%%%%%%% INTRODUCTION ET RAPPELS
+\include{introduction}
+
+%%%%%%%%%%%%%% ELEMENTS DE THEORIE DE LA DECISION
+\include{decision}
+
+%%%%%%%%%%%%%% PRINCIPALES PROPRIETES
+\include{proprietes}
+
+
+%%%%%%%%%%%%%% AXIOMATIQUE DE LA REPRESENTATION
+\include{representation}
+
+
+%%%%%%%%%%%%%% MODELISATION A PRIORI
+\include{modelisation-prior}
+\include{modelisation-prior2}
+\include{elicitation-prior-deep-learning}
+
+%%%%%%%%%%%%%% INCORPORATION D'EXPERTISE
+\include{connaissance-a-priori} % a peut-être enlever
+
+%%%%%%%%%%%%%% CALCUL BAYESIEN
+\include{computationel}
+
+
+%%%%%%%%%%%%%% ANNEXES
+\appendix
+\vfill
+\begin{center}
+    {\bf \Huge ANNEXES}
+\end{center}
+ \vfill
+\addcontentsline{toc}{section}{ANNEXES}
+%==========================
+\include{annexes/concepts} % revue des principaux concepts de l'aléatoire - Rappels
+\include{annexes/modeles} % revue des principaux modèles paramétriques
+\include{annexes/pseudoaleatoire} % Explications sur la simulation pseudo-aléatoire
+\include{annexes/markovtheory} % Détails sur la théories des chaînes de Markov
+\include{annexes/openbugs-jags} % Explications sur OpenBUGS et JAGS
+
+%%%%%%%%%%%%% ANNALES CORRIGEES
+
+\if\mycmdannales1  \input{annexes/annales1} 
+\fi
+\if\mycmdannales1  \input{annexes/annales2} 
+\fi
+
+
+\clearpage
+%================= BIBLIOGRAPHIE =======================
+\addcontentsline{toc}{section}{R\'eférences}
+\bibliographystyle{plain}
+\bibliography{bibliographie}
+
+%\addcontentsline{toc}{section}{Index}
+%\printindex
+
+\end{document} 

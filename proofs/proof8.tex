@@ -1,0 +1,38 @@
+\begin{proof}%[Preuve] % Théorème de Bernstein von Mises
+Le théorème \ref{consistance.post} montre qu'on peut concentrer l'étude sur un voisinage de $\theta_0$. Obtenir la loi limite requiert deux étapes :
+\begin{itemize}
+    \item montrer que le mode {\it a posteriori} est consistant, c'est-à-dire qu'il se situe dans le voisinage de $\theta_0$ où se situe presque toute la masse ;
+    \item montrer l'approximation gaussienne centrée en le mode {\it a posteriori}. 
+\end{itemize}
+Pour simplifier, le schéma de preuve donné ici considère que $\theta$ est un scalaire. Notons $\tilde{\theta}_n$ le mode {\it a posteriori}
+$$
+\tilde{\theta}_n = \arg\max\limits_{\theta\in\Theta} \left\{\log f(x_1,\ldots,x_n|\theta) + \log \pi(\theta)\right\}.
+$$
+La preuve de consistance du MLE peut être adaptée pour montrer que $\tilde{\theta}_n\to\theta_0$ quand $n\to\infty$, presque sûrement. On peut alors approximer la log-densité {\it a posteriori} par un développement de Taylor centré autour de $\tilde{\theta}_n$ (approximation quadratique de $\log \pi(\theta|x_1,\ldots,x_n)$) :
+\begin{eqnarray}
+\log \pi(\theta|x_1,\ldots,x_n) & = & \log \pi(\tilde{\theta}_n|x_1,\ldots,x_n) + \frac{1}{3}(\theta-\tilde{\theta}_n)^2 \frac{\partial^2}{\partial \theta^2}\left[\log \pi(\theta|x_1,\ldots,x_n)\right]_{\theta=\tilde{\theta}_n} \\
+& & \ \ + \  \frac{1}{6} (\theta-\tilde{\theta}_n)^3 \frac{\partial^3}{\partial \theta^3}\left[\log \pi(\theta|x_1,\ldots,x_n)\right]_{\theta=\tilde{\theta}_n} + \ldots \label{deploiement}
+\end{eqnarray}
+Le terme linéaire est nul car par définition du mode :
+\begin{eqnarray*}
+\frac{\partial }{\partial \theta}\left[\log \pi(\theta|x_1,\ldots,x_n)\right]_ {\theta=\tilde{\theta}_n} & = & 0.
+\end{eqnarray*}
+Le premier terme de (\ref{deploiement}) est constant. Le coefficient du second terme (sous l'hypothèse iid) est 
+\begin{eqnarray*}
+\frac{\partial^2}{\partial \theta^2}\left[\log \pi(\theta|x_1,\ldots,x_n)\right]_{\theta=\tilde{\theta}_n} & = & \frac{\partial^2}{\partial \theta^2}\left[\log \pi(\theta)\right]_{\theta=\tilde{\theta}_n} + \sum\limits_{i=1}^n \frac{\partial^2}{\partial \theta^2} \left[\log f(x_i|\theta)\right]_{\theta=\tilde{\theta}_n}, \\
+& = & cte + \sum\limits_{i=1}^n Y_i
+\end{eqnarray*}
+où les $Y_i$ sont des variables aléatoires iid d'espérance négative sous l'hypothèse $X\sim \tilde{f}(x)$. En effet,  si $\tilde{\theta}_n=\theta_0$, on a 
+\begin{eqnarray*}
+\E\left[Y_i\right] & = & \E\left[\frac{\partial^2}{\partial \theta^2} \log f(x_i|\theta_0)\right] \ = \ - I_{\theta_0}
+\end{eqnarray*}
+et sinon
+\begin{eqnarray*}
+\E\left[Y_i\right] & = & - -\frac{\partial^2}{\partial \theta^2} KL\left(\theta\right)_{\theta=\tilde{\theta}_n} \ < \ 0 
+\end{eqnarray*}
+par convexité. Ainsi, le coefficient du second terme converge vers $-\infty$ à la vitesse $n$. Quand $n\to\infty$, $|\tilde{\theta}_n-\theta_0|\to 0$, et les termes suivants du développement de Taylor tendent vers 0. On a donc
+\begin{eqnarray*}
+\log \pi(\theta|x_1,\ldots,x_n) & \sim & -\alpha (\theta-\tilde{\theta}_n)^2
+\end{eqnarray*}
+et la loi limite de $\pi(\theta|x_1,\ldots,x_n)$ est donc une gaussienne.
+\end{proof}

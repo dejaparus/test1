@@ -1,0 +1,20 @@
+\begin{rep} %[Exercice \ref{exo6}]
+Calculons le risque fréquentiste pour $\delta_1$. On obtient :
+\begin{eqnarray*}
+R(\theta,\delta_1) & = & \E_{\theta}\left[L(\theta,\delta_1(X))\right], \\
+& = & \int_{\Omega} L(\theta,\delta_1(x)) f(x|\theta) \ dx.
+\end{eqnarray*}
+La fonction $L(\theta,\delta_1(x))$ vaut 0 si $\delta=\theta$ (bonne décision) et 1 sinon. On en déduit que 
+\begin{eqnarray*}
+R(\theta,\delta_1) & = & \int_{\{\theta-1,\theta+1\}} \left(1-\1_{\theta}((x_1+x_2)/2\right) f(x_1,x_2|\theta) \ dx_1 d x_2, \\
+& = & \frac{1}{4}\left\{\left(1-\1_{\theta}((\theta-1+\theta-1)/2)\right) + \left(1-\1_{\theta}((\theta+1+\theta-1)/2)\right) + \right. \\
+& & \ \left. \ \left(1-\1_{\theta}((\theta+1+\theta+1)/2)\right) + \left(1-\1_{\theta}((\theta-1+\theta+1)/2)\right)\right\}, \\
+& = & \frac{1}{4}(1+1) \ = \ 1/2.
+\end{eqnarray*}
+(l'estimateur est correct la moitié du temps). 
+On trouve alors, similairement,
+\begin{eqnarray*}
+R(\theta,\delta_1) & = & R(\theta,\delta_2) \ = \ R(\theta,\delta_3) \ = \ 1/2
+\end{eqnarray*}
+ce qui signifie qu'on ne peut pas classer les estimateurs sous le coût fréquentiste 0-1.
+\end{rep}

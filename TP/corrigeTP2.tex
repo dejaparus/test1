@@ -1,0 +1,99 @@
+\paragraph{\bf Réponses.} \\
+
+\paragraph{1. Loi jointe {\it a posteriori}.}
+On a 
+\begin{eqnarray*}
+\pi(\mu,\sigma^2|x_1,\ldots,x_n) & \propto & \sigma^{-(n+2)} \exp\left(-\sum\limits_{i=1}^n \frac{(x_i-\mu)^2}{2\sigma^2}\right), \\
+& = & \sigma^{2(-(n/2+1)} \exp \left(-\sum\limits_{i=1}^n \frac{x^2_i}{2\sigma^2} +\frac{2\mu\sum\limits_{i=1}^n x_i}{2\sigma^2} - n\mu^2/2\sigma^2 \right), \\
+& = & \sigma^{2(-(n/2+1)} \exp \left( - \frac{n\left(\mu-\bar{x}_n\right)^2}{2\sigma^2}
+\right) \exp \left( -\frac{1}{2\sigma^2} S_n^2\right)
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+S^2_n & = & -\sum\limits_{i=1}^n \left(\bar{x}^2_n-x^2_i\right) \ = \  \sum\limits_{i=1}^n \left(\bar{x}_n-x_i\right)^2 \ \geq \ 0.
+\end{eqnarray*}
+\paragraph{2. Loi marginale {\it a posteriori} de $\mu$.}
+On obtient alors,
+%\begin{eqnarray*}
+%\pi(\mu|\sigma^2,x_1,\ldots,x_n) & \propto & \exp\left(-\frac{n}{2\sigma^2}\left(\mu-\bar{x}_n\right)^2 \right) \ \equiv \ {\cal{N}}\left(\bar{x}_n, \sigma^2/n\right)
+%\end{eqnarray*}
+%et, 
+par intégration,
+\begin{eqnarray*}
+\pi(\mu|x_1,\ldots,x_n) & = & \int_{\R^+} \pi(\mu,\sigma^2|x_1,\ldots,x_n) \ d\sigma^2, \\
+& \propto & \int_{\R^+} \sigma^{2(-(n/2+1)} \exp \left( - \frac{n\left(\mu-\bar{x}_n\right)^2}{2\sigma^2} -\frac{1}{2\sigma^2} S_n^2
+\right) \ d\sigma^2.
+\end{eqnarray*}
+En reconnaissant dans l'intégrande le terme général d'un loi inverse gamma ${\cal{IG}}(n/2,(S^2_n + n(\mu-\bar{x}_n)^2)/2)$, on a alors
+\begin{eqnarray*}
+\pi(\mu|x_1,\ldots,x_n) & \propto & \Gamma(n/2)\left(S^2_n + n(\mu-\bar{x}_n)^2\right)^{-n/2}, \\
+& \propto & \left(1+k_n u^2\right)^{-(k-1)/2}
+\end{eqnarray*}
+avec $k=n+1$ et $u=\sqrt{k k_n}(\mu-\bar{x}_n)$ et $k_n=n/S^2_n$. %On peut alors réécrire plus simplement
+%\begin{eqnarray*}
+%\pi(\mu|x_1,\ldots,x_n) & \propto & \left(1+u^2/k\right)^{-(k-1)/2}
+%\end{eqnarray*}
+%qui définit le terme général d'une loi de Student en $u$ à $k$ degrés de liberté. 
+Posons alors formellement le changement de variable 
+$$
+u = \frac{\sqrt{n(n+1)}}{S_n}(\mu-\bar{x}_n) \ = \ g(\mu)
+$$
+et procédons à un changement de variable (cf. Proposition \ref{changement.var}) pour connaître la loi de $u$. On a 
+\begin{eqnarray*}
+g^{-1}(u) & = & u \frac{S_n}{\sqrt{n(n+1)}} + \bar{x}_n, \\
+(g'(u))^{-1} & = &  \left(\frac{\sqrt{n(n+1)}}{S_n}\right)^{-1}.
+\end{eqnarray*}
+Donc
+\begin{eqnarray*}
+\pi_U(u) & \propto & \pi_{\mu}(g^{-1}(u)), \\
+& \propto & (1+u^2/k)^{-\frac{k+1}/2}.
+\end{eqnarray*}
+Donc la loi {\it a posteriori} de la variable $u$ est une Student à $k=n+1$ degrés de liberté :
+\begin{eqnarray*}
+u|x_1,\ldots,x_n & = & \frac{\sqrt{n(n+1)}}{S_n}(\mu-\bar{x}_n) \ \sim \ {\cal{S}}_t(n+1).
+\end{eqnarray*}
+On dit alors que la loi de $\mu$ est une \emph{Student décentrée} à $k$ degrés de liberté. 
+
+\paragraph{3. Région HPD pour $\mu$.}
+On veut alors déterminer 
+\begin{eqnarray*}
+{\cal{A}}_{\alpha,\pi} & = & \left\{\mu, \ \pi(\mu|x_1,\ldots,x_n ) \geq 1-\alpha\right\}.
+\end{eqnarray*}
+Donc en notant $t_{n+1}(\alpha)$ le quantile de seuil $\alpha$ de la loi ${\cal{S}}_t(n+1)$, on a (par symmétrie de cette loi autour de 0)
+\begin{eqnarray*}
+\Pi\left(-t_{n+1}(1-\alpha/2) \leq u \leq (t_{n+1}(1-\alpha/2)|x_1,\ldots,x_n\right) & = & 1-\alpha
+\end{eqnarray*}
+soit, de fa\c con équivalente,
+\begin{eqnarray*}
+\Pi\left(\bar{x}_n-\frac{S_n}{\sqrt{n(n+1)}}t_{n+1}(1-\alpha/2) \leq \mu \leq \bar{x}_n+\frac{S_n}{\sqrt{n(n+1)}}t_{n+1}(1-\alpha/2)|x_1,\ldots,x_n\right) & = & 1-\alpha.
+\end{eqnarray*}
+Rappelons que la région fréquentiste de seuil $1-\alpha$ connue pour l'estimation du maximum de vraisemblance (EMV), dès qu'on a pris conscience que l'EMV de $\sigma^2$ est
+\begin{eqnarray*}
+\hat{\sigma}^2_n & = & S^2_n/n,
+\end{eqnarray*}
+est :
+\begin{eqnarray*}
+\left[\bar{x}_n-\frac{S_n}{n}t_{n+1}(1-\alpha/2) \ ; \ \bar{x}_n+\frac{S_n}{n}t_{n+1}(1-\alpha/2)\right].
+\end{eqnarray*}
+Avec $n<\sqrt{n(n+1)}$ on voit que la région bayésienne est légèrement plus étroite que la région fréquentiste (il y a apport d'information avec l'ajout du prior), mais qu'il y a équivalence asymptotique (ce qui est logique). 
+
+
+\paragraph{4. Loi marginale {\it a posteriori} de $\sigma^2$.} De la même fa\c con que précédemment, on a 
+\begin{eqnarray*}
+\pi(\sigma^2|x_1,\ldots,x_n) & \propto & \frac{1}{\sigma^{n+2}}   \exp\left(-S^2_n/2\sigma^2\right) \int_{\R} \exp\left(-\frac{n(\mu-\bar{x}_n)^2}{2\sigma^2}\right) \ d\mu, \\
+ & \propto & \frac{1}{\sigma^{n+2}}   \exp\left(-S^2_n/2\sigma^2\right) \frac{\sqrt{2\pi}}{\sqrt{n}}\sigma, \\
+ & \propto &  \frac{1}{\left(\sigma^2\right)^{n/2+1/2}} \exp\left(-S^2_n/2\sigma^2\right)
+\end{eqnarray*}
+et on reconnaît ici le terme général d'une loi inverse gamma :
+\begin{eqnarray*}
+\sigma^2|x_1,\ldots,x_n  & \sim & {\cal{IG}}(n/2-1/2,S^2_n/2)
+\end{eqnarray*}
+qui n'est définie que si $n>1$ (ce qui semble logique : il faut au moins avoir deux données pour inférer sur la variance $\sigma^2$). De plus, pour avoir $S^2_n\neq 0$ si $n=2$, il faut que $x_1\neq x_2$. Comme cette loi est explicite, déterminer ses régions HPD peut être fait formellement. 
+
+
+\begin{proposition}{Changement de variable (rappel).}\label{changement.var}
+Soit $X\sim f_X$ sur $\R$ et $Y=g(X)\sim f_Y$ avec $g$ bijectif. Alors
+\begin{eqnarray*}
+f_Y(y) & = & \left|g'(g^{-1}(y))\right|^{-1} f_X(g^{-1}(y)).
+\end{eqnarray*}
+\end{proposition}

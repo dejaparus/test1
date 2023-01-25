@@ -1,0 +1,76 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{myBeamerTemplate}[29/03/10 M. Couplet, v0.1]
+
+% extensions : le minimum
+ 
+% encodage du fichier texte
+% (permet d'utiliser des caractères particuliers comme 'é'
+% dans le fichier texte source
+%\RequirePackage[utf8]{inputenc}
+\RequirePackage[latin1]{inputenc}
+
+% Polices : Latin Modern fonts
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern} % paquets 'ae', 'aecompl' et 'aeguill' : obsolètes
+
+% Configuration en Français par défaut, possibilité de passer en Anglais
+% (pour les césures, intitulé 'Table des matières', ...)
+\RequirePackage[english,french]{babel}
+
+% inclusion de graphiques
+\RequirePackage{graphicx}
+\graphicspath{{fig/}}
+
+% symboles, caractères et accents divers
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+%\usepackage{textcomp}
+%\usepackage[official]{eurosym} % pour l'euro
+
+% extensions : les extras
+
+%\RequirePackage{fancyhdr}
+\RequirePackage{fancybox}
+%\RequirePackage{amscd}
+%\RequirePackage[bookmarks, colorlinks=true, urlcolor=green, linkcolor=red, filecolor=blue, citecolor=magenta]{hyperref}
+%\RequirePackage{color}
+%\RequirePackage{epsfig}
+%\RequirePackage{beamerfoils}
+%\RequirePackage{array}
+%\RequirePackage{epic}
+%\RequirePackage{subfigure}
+%\RequirePackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps}
+%\RequirePackage{bbm}
+
+\mode<presentation> {
+
+  %\usetheme[secheader]{Boadilla}
+  %\usecolortheme{whale}
+  %\setbeamercovered{transparent}
+  %\setbeamertemplate{navigation symbols}{} % supprime la barre de navigation
+
+  \usetheme{default}
+  \setbeamercovered{transparent}
+  \useoutertheme{infolines}
+  \useinnertheme{rounded}
+  \setbeamertemplate{navigation symbols}{}
+  \definecolor{yellowgreen2}{rgb}{0.75,0.8,0.}
+  \definecolor{yellowgreen}{rgb}{0.85,0.9,0.}
+   %\definecolor{yellowgreen}{rgb}{0.4,0.4,0.2}
+  \definecolor{bleucool}{rgb}{0.,0.3,0.7}
+  \setbeamercolor{section in head/foot}{fg=bleucool}
+  \setbeamercolor{subsection in head/foot}{fg=bleucool}
+  \setbeamercolor{frametitle}{bg=yellowgreen,fg=bleucool}
+  \setbeamercolor{date}{fg=white}
+  \setbeamercolor{date in head/foot}{fg=white}
+  \setbeamercolor{author in head/foot}{fg=white}
+  \setbeamercolor{title in head/foot}{fg=blue}
+  \setbeamertemplate{background canvas}[vertical shading]
+                    [top=yellowgreen,middle=white,midpoint=0.6,bottom=white]
+  %\addtobeamertemplate{footline}{\scriptsize%\hspace*{10cm}\vspace*{-0.35cm}
+\addtobeamertemplate{footline}{\insertframenumber/\inserttotalframenumber}
+
+}
+

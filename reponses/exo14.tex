@@ -1,0 +1,37 @@
+\begin{rep}
+Si on connaissait $x_n$, le modèle bayésien serait conjugué et
+\begin{eqnarray*}
+\theta|{\bf x_n} & \sim & {\cal{N}}\left(\frac{1}{n}\left(\mu + \sum\limits_{i=1}^n x_i\right),(n+1)^{-1}\right)
+\end{eqnarray*}
+ On considère alors la donnée manquante $x_{n}$ comme un paramètre inconnu et aléatoire.  Sachant $\theta$ et ${\bf x_n}$, on peut montrer par la règle de Bayes que la loi de la variable aléatoire manquante $X_n$ est la normale tronquée
+\begin{eqnarray*}
+{\cal{N}}(\theta,1)\cdot \1_{\{x_n\geq y\}}.
+\end{eqnarray*}
+En effet, la fonction de répartition de $X_n$ est conditionnelle : $P(X_n<x|X_n>y)$. Par la règle de Bayes
+\begin{eqnarray*}
+P(X_n<x|X_n>y) & = & \frac{P(X_n<x \cap X_n>y)}{P(X_n>y)} \ = \ \frac{P(y<X_n<x)}{P(X_n>y)}.
+\end{eqnarray*}
+Le dénominateur est une constante (indépendante de $x$). Donc
+\begin{eqnarray*}
+P(X_n<x|X_n>y) & \propto & \int_{y}^x f_X(u) \ du \ = \ \int_{-\infty}^x f_X(u) \1_{\{y\leq u\}} \ du
+\end{eqnarray*}
+où $f_X$ est la densité d'un $X$ non-contraint (ici gaussienne). On en déduit que la densité de $X_n$ est
+\begin{eqnarray*}
+f_{X_n}(x) & = & \frac{f(x)\1_{\{y\leq x\}}}{\int_{-\infty}^{\infty} f(u)\1_{\{y\leq u\}} \ du}.
+\end{eqnarray*}
+
+L'algorithme de Gibbs à mettre en oeuvre est donc le suivant :
+\texttt{
+\begin{itemize}
+\item On part d'une valeur $\theta^{(0)}$
+\item Itération $i\geq 1$ :
+\begin{enumerate}
+\item on simule $x^{(i)}_{n} \sim {\cal{N}}\left(\theta^{(i-1)},1\right)\cdot \1_{\{x_n\geq y\}}$
+\item on simule $\theta^{(i)} \sim  {\cal{N}}\left(\frac{1}{n}\left(\mu + \sum\limits_{i=1}^{n-1} x_i + x^{(i)}_{n}\right),(n+1)^{-1}\right)$
+\end{enumerate}
+\end{itemize}
+}
+
+\end{rep}
+
+

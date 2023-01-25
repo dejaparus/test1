@@ -1,0 +1,59 @@
+\begin{rep} %pb de Neyman-Scott
+La loi jointe des données, qui est aussi la vraisemblance, s'écrit 
+\begin{eqnarray}
+f(x_1,\ldots,x_n| \theta) & = & \frac{\sigma^{-n}}{(2\pi)^{n/2}} \exp\left(-\sum\limits_{i=1}^n \frac{(x_i-\mu_i)^2}{2\sigma^2}\right). \label{vraistoto}
+\end{eqnarray}
+La matrice d'information de Fisher s'écrit, dans ce cas régulier, comme 
+$$
+I=-\E\left[\begin{array}{llll}
+\frac{\partial^2}{\partial \theta^2_{i_1}} \log f(x | \theta) & \frac{\partial^2}{\partial \theta_{i_1}\theta_{i_2}} \log f(x | \theta) & \ldots & \frac{\partial^2}{\partial \theta_{i_1}\theta_{i_d}} \log f(x | \theta) \\
+\frac{\partial^2}{\partial \theta_{i_1}\theta_{i_2}} \log f(x | \theta) & \frac{\partial^2}{\partial \theta^2_{i_2}} \log f(x | \theta) & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots 
+\end{array}\right]
+$$
+où $x=(x_1,\ldots,x_n)$ et $d=n$. Or
+\begin{eqnarray*}
+\frac{\partial^2}{\partial \sigma^2} \log f(x | \theta) & = & \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\sum\limits_{i=1}^n (x_i-\mu_i)^2, \\
+\frac{\partial^2}{\partial \mu_i \partial \mu_j} \log f(x | \theta) & = & 0 \ \ \ \text{si $i\neq j$,} \\
+\frac{\partial^2}{\partial \mu^2_i} \log f(x | \theta) & = & -\frac{1}{2\sigma^2}
+\end{eqnarray*}
+et
+\begin{eqnarray*}
+\frac{\partial^2}{\partial \sigma \partial \mu_i }\log f(x | \theta) & = & -\frac{1}{\sigma^4} (x_i-\mu_i).
+\end{eqnarray*}
+Avec $\E[X_i-\mu_i]=0$ et $\E[(X_i-\mu_i)^2]=\sigma^2$, il vient donc
+$$
+I=-\E\left[\begin{array}{lllll}
+\frac{1}{2\sigma^2} & \\
+&  \frac{1}{2\sigma^2}  & \\
+&&  \ldots & {\bf (0)} \\
+& {\bf (0)} && \ldots & \\
+&&&& \frac{n}{2\sigma^2} 
+\end{array}\right]
+$$
+et donc
+\begin{eqnarray*}
+\pi^J(\theta) & \propto & \sigma^{-n-1}.
+\end{eqnarray*}
+\end{rep}
+
+\begin{rep}${}^{}${\bf (suite)}
+En utilisant (\ref{vraistoto}), la loi {\it a posteriori} s'écrit sous une forme condensée comme 
+\begin{eqnarray*}
+\pi^J(\theta|x_1,\ldots,x_n) & \propto & \sigma^{-2n-1} \exp\left(-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right).
+\end{eqnarray*}
+En opérant le changement de variable $\sigma \to \sigma^2$, on obtient alors
+\begin{eqnarray*}
+\pi^J(\sigma^2|x_1,\ldots,x_n,\mu_1,\ldots,\mu_n) & \propto & \sigma^{-1} \pi^J(\theta|x_1,\ldots,x_n), \\
+& \propto &  \sigma^{-2(n+1)} \exp\left(-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right)
+\end{eqnarray*}
+et on reconnaît le terme général  d'une loi inverse gamma ${\cal{IG}}\left(n,\frac{1}{2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right)$ pour la variable aléatoire $\sigma^2$. On déduit du résultat précédent que
+\begin{eqnarray*}
+\E[\sigma^2|x_1,\ldots,x_n] & =  & \frac{1}{2(n-1)}\sum\limits_{i=1}^n (x_i-\mu_i)^2.
+\end{eqnarray*}
+Or, avec $X_i-\mu_i|\sigma^2\sim{\cal{N}}(0,\sigma^2)$, par indépendance des $X_i$ il vient que $\sigma^{-2}\sum_{i=1}^n (x_i-\mu_i)^2|\sigma^2 \sim \chi^2_{n}$ et donc que 
+\begin{eqnarray*}
+\E_X\left[\frac{1}{2(n-1)}\sum\limits_{i=1}^n (x_i-\mu_i)^2|\sigma^2\right] & = & \frac{n \sigma^2}{2(n-1)} \ \xrightarrow[]{n\to\infty} \ \sigma^2/2.
+\end{eqnarray*}
+Ainsi, dans un cadre asymptotique, l'estimateur bayésien $\E[\sigma^2|x_1,\ldots,x_n]$ est assimilable à un estimateur fréquentiste non consistant. 
+\end{rep}

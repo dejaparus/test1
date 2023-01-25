@@ -1,0 +1,11 @@
+\begin{rep} % Fonction de coût sur les fonctions de coût
+Si $\tilde{L}(\theta,\ell,\delta)=(\ell-L(\theta,\delta))^2$ et $L(\theta,\delta)=(\theta-\delta)^2$, alors l'estimateur bayésien est
+\begin{eqnarray*}
+\ell^{\pi}  & = & \E_{\pi}\left[L(\theta,\delta)|X \right] \\
+& = &  \E_{\pi}\left[(\theta-\delta)^2|X\right].
+\end{eqnarray*}
+En choisissant en toute logique $\delta=\delta^{\pi}=\E[\theta|X]$ il vient donc
+$$
+\ell^{\pi}  = \mbox{Var}_{\pi}[\theta|X].
+$$
+\end{rep}

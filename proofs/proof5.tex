@@ -1,0 +1,13 @@
+ 
+ \begin{proof}%[Preuve] % Admissibilité d'un estimateur bayésien
+ 
+Supposons que $\delta^{\pi}$ est non admissible. Alors, d'après la Définition \ref{inadmin}, $\exists \delta_0\in{\cal{D}}$ tel que $\forall \theta\in\Theta$, $R(\theta,\delta^{\pi})\geq R(\theta,\delta_0)$, et  $\exists \theta_0\in\Theta$ tel que $R(\theta_0,\delta^{\pi})>R(\theta_0,\delta_0)$. En intégrant la première inégalité, il vient :
+\begin{eqnarray*}
+\int_{\Theta} R(\theta,\delta_0) \ d\Pi(\theta) & \leq & \int_{\Theta} R(\theta,\delta^{\pi}) \ d\Pi(\theta) \ = \ R_B(\delta|\pi)
+\end{eqnarray*}
+donc $\delta_0$ est aussi un estimateur bayésien associé à $L$ et $\pi$, et $\delta_0\neq \delta^{\pi}$ d'après la seconde inégalité. Ce qui contredit à l'hypothèse du théorème. Par contraposée, on en déduit le résultat de ce thèorème. Remarquons que l'unicité de l'estimateur impliqué la finitude du risque :
+\begin{eqnarray*}
+\int_{\Theta} R(\theta,\delta^{\pi}) \ d\Pi(\theta) & < & \infty
+\end{eqnarray*}
+sinon tout estimateur minimise le risque.
+\end{proof}

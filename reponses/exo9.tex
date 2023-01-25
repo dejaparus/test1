@@ -1,0 +1,37 @@
+\begin{rep}% Non invariance Régions HPD
+
+En général, on peut constater que $\tilde{A}_{\alpha,\pi}\neq g\left(A_{\alpha,\pi}\right)$. En effet,
+$$
+\pi(\eta|X) = \pi(\theta(\eta)|X) \left| \frac{d\theta}{d\eta} \right|
+$$
+donc 
+\begin{eqnarray*}
+\left\{\theta \ ; \ \pi(\eta|X)\geq \tilde{h}_{\alpha}\right\} &= & \left\{\theta \ ; \ \pi(\theta(\eta)|X)\geq \tilde{h}_{\alpha}  \left| \frac{d\theta}{d\eta} \right|^{-1}\right\} 
+\end{eqnarray*}
+et on a donc égalité si et seulement si
+\begin{eqnarray*}
+\tilde{h}_{\alpha}  \left| \frac{d\theta}{d\eta} \right|^{-1} & = & {h}_{\alpha}.
+\end{eqnarray*}
+Si l'on suppose par exemple que $X\sim{\cal{N}}(\theta,1)$ et $\pi(\theta)\propto 1$, alors
+\begin{eqnarray*}
+\theta|X & \sim & {\cal{N}}(X,1).
+\end{eqnarray*}
+Posons alors $\eta=\exp(\theta)$. 
+Comme $\pi(\theta|X)\geq h_{\alpha} \Leftrightarrow (\theta-X)^2 \leq \left(\phi^{-1}(1-\alpha)\right)^2$, alors
+\begin{eqnarray*}
+A_{\alpha,\pi} & = & \left[X-\phi^{-1}(1-\alpha) \ ; \ X+\phi^{-1}(1-\alpha)\right].
+\end{eqnarray*}
+Par ailleurs, 
+\begin{eqnarray*}
+\pi(\eta|X) & \propto & \frac{1}{\eta} \exp\left(-\frac{1}{2}\left(X-\log \eta \right)^2 \right).
+\end{eqnarray*}
+Donc
+\begin{eqnarray*}
+\pi(\eta|X)  \geq  \tilde{h}_{\alpha}  & \Leftrightarrow & \frac{1}{2}\left(X-\log \eta \right)^2 + \log \eta \leq {h}_{\alpha}, \\
+&  \Leftrightarrow & \frac{1}{2}\left(2X-\log \eta\right)^2 - \frac{1}{2} X^2 \leq {h}_{\alpha}, \\
+& \Leftrightarrow & \left(2X-\log \eta\right)^2 \leq 2{h}_{\alpha}, \\
+& \Leftrightarrow &  \log\eta \in \left[2X-\phi^{-1}(\alpha/2) \ , \ 2X+\phi^{-1}(\alpha/2)\right]
+\end{eqnarray*}
+Ainsi, le lien entre $\tilde{A}_{\alpha,\pi}$ et $A_{\alpha,\pi}$ ne correspond pas à
+la transformation initiale (exponentielle). 
+\end{rep}

@@ -1,0 +1,18 @@
+\begin{rep}% Régions HPD
+La vraisemblance des données $X$ est binomiale :
+$$
+f(x|\theta) = \left(\begin{array}{l} 200 \\ 115 \end{array}\right) \theta^{115}(1-\theta)^{85}
+$$
+ce qui permet de calculer
+\begin{eqnarray*}
+P(X|M_0) & = & \left(\begin{array}{l} 200 \\ 115 \end{array}\right) (1/2)^{200} \ \simeq \ 0.006
+\end{eqnarray*}
+alors que pour $M_1$ on a
+\begin{eqnarray*}
+P(X|M_1) & = & \int_0^1 \left(\begin{array}{l} 200 \\ 115 \end{array}\right) \theta^{115}(1-\theta)^{85} \ d\theta \ = \ 1/201 \ \simeq \ 0.005.
+\end{eqnarray*}
+Le facteur de Bayes vaut alors 1.2, ce qui indique uniquement que la certitude que $H_0$ est vraie est faible (on pointe très légèrement vers le modèle $M_0$). 
+
+Un test d'hypothèse fréquentiste de $M_0$ indiquerait que $M_0$ doit être rejeté par exemple au niveau de signification 5\%, car la probabilité d'obtenir 115 succès ou plus à partir d'un échantillon de 200 si $\theta=1/2$ est de 0.02. On en conclut qu'un test classique donnerait des résultats significatifs permettant de rejeter $H_0$ tandis qu'un test bayésien ne pourrait considérer le résultat comme extrême.
+
+\end{rep}

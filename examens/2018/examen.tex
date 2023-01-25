@@ -1,0 +1,176 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Examen 2018 : Modélisation et statistique bayésienne computationnelle }
+\date{13 avril 2018}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+
+
+
+{\it L'examen dure 3h et est noté sur 30. Tous les supports de cours sont autorisés. Il est attendu un code R commenté {\it a minima} pour les parties computationnelles, et un support papier peut être utilisé pour la partie formelle. Lisez bien tout le document, certaines questions peuvent être traitées indépendamment du reste de l'exercice.} \\
+
+
+\section{Fonction de coût (9 pts) }
+
+Soit $\theta\in\Theta=\R$ le paramètre d'un modèle, sur lequel on dispose d'une loi {\it a priori} $\pi(\theta)$ et de données $x_1,\ldots,x_n$. On suppose que la loi a posteriori de densité  $\pi(\theta|x_1,\ldots,x_n)$ est propre et telle que $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. On considère la fonction de coût pour l'estimation $\delta$ de $\theta$ définie sur $\R$ par
+\begin{eqnarray*}
+L_a(\theta,\delta) & = & \exp(a(\theta-\delta) - a(\theta-\delta) - 1
+\end{eqnarray*}
+où $a$ est un réel.
+\begin{enumerate}
+\item Montrer que $L_a(\theta,\delta)\geq 0$ pour tout $\theta\in\Theta$ et pour tout $a$ et qu'elle est convexe en $\theta$ ; représenter cette fonction de coût comme une fonction de $(\theta-\delta)$ lorsque $a=\{0.1, 0.5, 1,2\}$. 
+\item On suppose que $a>0$. \`A quelles conditions cette fonction pénalise-t-elle les coûts de sous-estimation et de surestimation de $\theta$ de fa\c con similaire ? Au contraire, à quelles conditions cette fonction pénalise-t-elle les coûts de sous-estimation et de surestimation de $\theta$ de fa\c con très dissymétrique ? 
+\item On suppose que $a\neq 0$. Donner l'expression de l'estimateur de Bayes $\hat{\delta}_a$ sous cette fonction de coût.
+\item Supposons que les données sont issues de ${\cal{N}}(\theta,1)$ et que $\pi(\theta)\propto 1$ ; donnez l'estimateur de Bayes associé.
+\end{enumerate}
+
+
+\section{\'Elicitation d'{\it a priori} non informatif (7 pts)}
+
+On considère le problème suivant
+\begin{eqnarray*}
+x_i & {\sim} & {\cal{N}}(\mu_i,\sigma^2) \ \ \ \text{pour $i=1,\ldots,n$}
+\end{eqnarray*}
+où les $x_i$ sont indépendants. 
+
+\begin{enumerate}
+\item Quelle est la densité jointe des données $x_1,\ldots,x_n$ ?
+\item Calculer la matrice d'information $I$ de Fisher pour ce jeu de données
+\item En déduire la mesure {\it a priori} de Jeffreys $\pi^J(\theta)$ pour $\theta=(\mu_1,\ldots,\mu_n,\sigma)$
+\item Que peut-on dire de $\pi^J(\sigma^2|x_1,\ldots,x_n,\mu_1,\ldots,\mu_n)$ ? Est-ce une loi vue en cours ? 
+%\item  Calculer l'estimateur bayésien $\E[\sigma^2|x_1,\ldots,x_n]$
+\end{enumerate}
+
+\section{\'Elicitation et calcul bayésien pour un problème de Gumbel (14 pts)}
+
+La loi de Gumbel, de fonction de r\'epartition
+\begin{eqnarray*}
+P(X<x|\theta) & = & \exp\left\{-\exp\left(-\frac{x-\mu}{\sigma}\right)\right\} \ \ \ \text{avec $\sigma>0$, $\mu\in\R$ et $x\in\R$}
+\end{eqnarray*}
+et $\theta=(\mu,\sigma)$,  est souvent utilis\'ee en météorologie  pour modéliser le comportement d'un échantillon de {\it maxima} d'une variable environnementale. Son espérance vaut $\E[X|\theta]=\mu + \sigma \gamma$ où $\gamma$ est la constante d'Euler. On suppose connaître un échantillon de données de pluies (en mm) ${\bf x_n}=(x_1,\ldots,x_n)$ suivant cette loi. Elles sont fournies dans la table \ref{data} et correspondent aux années 1987 à 2013. Par ailleurs on dispose d'une expertise {\it a priori} qui s'exerce sur la loi {\it a priori} prédictive de $X$, et est spécifiée statistiquement sous la forme
+$P(X<75)=25\%$, $P(X<100)=50\%$, $P(X<150)=75\%$. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllllllll}
+\hline
+107.6  &  72.4 &    204.5   &  83.8 &    142 &    95.5  &   316.1 &  177.9 &    87.3 \\
+81.9   & 109.1 &   89.5      & 150.7  & 122.1 & 98.2      & 113.2    & 104.4  & 66.9  \\
+136.4 & 275.4 & 125         & 199.8 & 51.2 &75     & 168.2    & 106       & 72.8 \\
+\hline
+\end{tabular}
+\caption{Données de pluviométrie extrême.}
+\label{data}
+\end{table}
+
+
+On considère la mesure {\it a priori}
+\begin{eqnarray*}
+\pi(\mu,\sigma) & \propto & \sigma^{-m}\exp\left(m\frac{(\mu-\bar{\bf\tilde{x}}_m)}{\sigma}-\sum\limits_{i=1}^{m} \exp\left\{-\frac{\tilde{x}_i-\mu}{\sigma}\right\}\right)
+\end{eqnarray*} 
+o\`u les hyperparam\`etres $(m,\bar{\bf\tilde{x}}_m,\tilde{x}_1,\ldots,\tilde{x}_m)$ correspondent respectivement \`a la taille d'un \'echantillon de donn\'ees {\it a priori} (virtuelles), sa moyenne et les donn\'ees elles-m\^emes (supposées calibrables). 
+\begin{enumerate}
+\item Ecrivez la densité de la loi {\it a posteriori} conditionnelle aux donn\'ees r\'eelles ${\bf x_n}$. La loi {\it a priori} est-elle conjuguée ? 
+\item Produisez un algorithme qui simule la loi {\it a priori} prédictive de $X$ en fonction des hyperparamètres et estime les quantiles prédictifs {\it a priori}. En fixant $m=3$ et $(\tilde{x}_1,\tilde{x}_2)=(81,93)$, testez les valeurs de $\tilde{x}_3$ suivantes : 97,101,110,120. Quelle calibration vous semble la plus adéquate vis-à-vis de l'expertise {\it a priori} ? 
+\item Pour les calibrations des hyperparamètres précédentes, écrivez un algorithme qui produit un tirage de la loi {\it a posteriori} de $\theta$ ainsi qu'une représentation (densité empirique) de la loi {\it a posteriori prédictive} sur $X$. Comparez avec un histogramme des données ${\bf x_n}$. 
+\item {\bf Cette question peut être traitée indépendamment du reste.} On pose à présent $\mu>0$ et on cherche à définir une nouvelle loi {\it a priori} $\pi_2(\theta)$ par maximum d'entropie qui est telle que les contraintes linéaires suivantes soient respectées :
+\begin{eqnarray*}
+\E[X] & = & 100, \\
+\E_{\pi}[\log \sigma] & = & 1.
+\end{eqnarray*}
+Formalisez et résolvez numériquement (possiblement graphiquement) le problème de maximum d'entropie en supposant que la mesure de référence est la mesure de Jeffreys $\pi_0(\theta) \propto \sigma^{-2}$ (valable pour le modèle de Gumbel). Sous quelles contraintes sur les multiplicateurs de Lagrange pouvez-vous trouver une loi jointe propre ? Celle-ci appartient-elle à une classe de lois connues ? \\
+
+{\bf Rappel} : {\it Si $Y$ suit une loi gamma ${\cal{G}}(a,b)$, alors $\E[Y]=\Psi(a)-\log(b)$ où $\Psi$ est la fonction digamma (\texttt{digamma} en R). } \\
+
+\item Adaptez le code produit à la question 3 pour produire un nouveau calcul {\it a posteriori}, en utilisant $\pi_2(\theta)$.
+\end{enumerate}
+
+
+\end{document} 

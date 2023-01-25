@@ -1,0 +1,8 @@
+\begin{rep} % loi de Wishart
+Les lois {\it a posteriori} peuvent s'écrire directement sous la forme conditionnelle
+\begin{eqnarray*}
+\mu|\Sigma,x_1,\ldots,x_n & \sim & {\cal{N}}_p\left( \frac{n_0 \mu_0 + n \bar{x}_n}{n_0 + n}, \frac{1}{n_0+n} \Sigma\right) \\
+\Sigma| x_1,\ldots,x_n & \sim & {\cal{IW}}\left(\alpha + n, V^{-1} + S_n + \frac{nn_0}{n+n_0} (\bar{x}_n-x_0)(\bar{x}_n-x_0)^T\right).
+\end{eqnarray*}
+Elle est donc bien conjuguée et se réduit à un mélange gaussien - inverse gamma en dimension 1.
+\end{rep}

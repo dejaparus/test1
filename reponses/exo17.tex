@@ -1,0 +1,18 @@
+\begin{rep}
+Soit $x$ un nombre de boules tirées dans une urne en contenant $n$ avec probabilité $\theta$. Alors $x\sim {\cal{B}}(n,\theta)$ et
+\begin{eqnarray*}
+f(x|\theta) & = & \left(\begin{array}{c} n \\ x \end{array}\right) \theta^x (1-\theta)^{n-x}, \\
+\frac{\partial^2 \log f(x|\theta)}{\partial \theta^2} & = & \frac{x}{\theta^2} + \frac{n-\theta}{(1-\theta)^2} \\
+\text{et $I(\theta)$} & = & n\left[\frac{1}{\theta} + \frac{1}{1-\theta}\right] \ = \frac{n}{\theta(1-\theta)}
+\end{eqnarray*}
+Donc la loi de Jeffreys est
+\begin{eqnarray*}
+\pi(\theta) & \propto & [\theta(1-\theta)]^{-1/2}
+\end{eqnarray*}
+et elle est propre, il s'agit de la distribution ${\cal{B}}_e(1/2,1/2)$ de densité générale
+\begin{eqnarray*}
+\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{a-1}(1-\theta)^{b-1}
+\end{eqnarray*}
+avec $\Gamma(a)=\int_{0}^{\infty} t^{a-1} \exp(-t) \ dt$. 
+La mesure de Jeffreys est en effet défavorable dans le sens où elle privilégie fortement des valeurs de $\theta$ très proches de 0 ou de 1, peu probables. %Comme on le verra en cours, cela fait écho à la notion de risque minimax. 
+\end{rep}

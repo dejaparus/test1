@@ -1,0 +1,29 @@
+\begin{rep}
+Il est aisé de vérifier qu'on connaît parfaitement la loi {\it a posteriori} de $\theta$ :
+\begin{eqnarray*}
+\theta|x_1,\ldots,x_n %& \sim & \pi(\theta|x_1,\ldots,x_n) \ \propto \ \\
+& \sim & {\cal{G}}\left(c+an,d+\sum\limits_{i=1}^n x_i\right).
+\end{eqnarray*}
+On peut donc vérifier l'accord entre un échantillon iid simulé par AR et cette loi, via des tests statistiques classiques comme Kolmogorov-Smirnov, Cramer-von Mises ou Anderson-Darling. Pour construire cet algorithme d'AR, faisons par exemple le choix d'une loi instrumentale lognormale (qui est bien à support positif, car $\theta>0$) :
+\begin{eqnarray*}
+\rho(\theta|\mu,\sigma) & = & \frac{1}{\theta\sigma \sqrt{2\pi}} \exp\left(-\frac{1}{2\sigma^2}\left(\mu-\log\theta\right)^2\right).
+\end{eqnarray*}
+Il vient alors 
+\begin{eqnarray*}
+\kappa(\theta|\mu,\sigma)  \ = \  \frac{f(x_1,\ldots,x_n|\theta)\pi(\theta)}{\rho(\theta)} & = & {\displaystyle \frac{\sqrt{2\pi} \sigma \theta^{c+an} \exp\left(-\theta(d+\sum_{i=1}^n x_i)\right)}{\exp\left(-\frac{1}{2\sigma^2}\left(\mu-\log\theta\right)^2\right)}}
+\end{eqnarray*}
+et 
+\begin{eqnarray*}
+\frac{\partial }{\partial \theta} \log \kappa(\theta|\mu,\sigma) & = & \frac{c+an}{\theta} - \left(d+\sum\limits_{i=1}^n x_i\right) - \frac{1}{\sigma^2\theta}\left(\mu-\log(\theta)\right), \\
+\frac{\partial^2 }{\partial \theta^2} \log \kappa(\theta|\mu,\sigma) & = & \frac{1}{\theta^2}\left(-(c+an) + \frac{1}{\sigma^2}(1+\mu - \log(\theta)\right).
+\end{eqnarray*}
+Notons $\theta_0(\mu,\sigma)=\exp(-(c+an)+(1+\mu)/\sigma^2)$. Si $0\leq \theta\leq \theta_0$, alors $\frac{\partial }{\partial \theta} \log \kappa(\theta|\mu,\sigma)$ est croissante. Si $\theta>\theta_0$, elle est décroissante vers $-(d+\sum_{i=1}^n x_i)<0$. Pour permettre à $\kappa(\theta|\mu,\sigma)$ d'être maximisable sur $\theta>0$, il faut donc que 
+$$
+\frac{\partial }{\partial \theta} \log \kappa(\theta_0(\mu,\sigma)|\mu,\sigma) = -\left(d+\sum\limits_{i=1}^n x_i\right) + 1/\sigma^2\theta_0 \ > \ 0.
+$$
+Sous cette contrainte, on peut résoudre numériquement en $\theta=\theta_1(\mu,\sigma)>\theta_0(\mu,\sigma)$ l'équation $\frac{\partial }{\partial \theta} \log \kappa(\theta|\mu,\sigma)=0$, et $\theta_1(\mu,\sigma)$ maximise alors $\kappa(\theta|\mu,\sigma)$. Dans ce cas, on peut définir 
+\begin{eqnarray*}
+K & = & \arg\min\limits_{\mu,\sigma} \kappa(\theta_1(\mu,\sigma)|\mu,\sigma). 
+\end{eqnarray*}
+et mettre en place l'algorithme AR.
+\end{rep}

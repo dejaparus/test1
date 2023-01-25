@@ -1,0 +1,12 @@
+\begin{proof}%[Preuve] % IS optimal
+On note d'abord que
+\begin{eqnarray*}
+\V_{\rho}\left[\frac{h(\theta)\pi(\theta|x)}{\rho(\theta)}\right] & = & \E_{\rho}\left[\frac{h^2(\theta)\pi^2(\theta|x)}{\rho^2(\theta)}\right]-  \left(\E_{\rho}\left[\frac{h(\theta)\pi(\theta|x)}{\rho(\theta)}\right]\right)^2
+\end{eqnarray*}
+et que le second terme ne dépend pas de $\rho$. Il suffit donc de minimiser le premier terme. D'après l'inégalité de Jensen,  on a donc,
+\begin{eqnarray*}
+\E_{\rho}\left[\frac{h^2(\theta)\pi^2(\theta|x)}{\rho^2(\theta)}\right] & \geq & \left(\E_{\rho}\left[\frac{|h(\theta)|\pi(\theta|x)}{\rho(\theta)}\right]\right)^2, \\
+& \geq & \left(\int_{\Theta} |h(\theta)|\pi(\theta|x) \ d\theta\right)^2
+\end{eqnarray*}
+qui est une borne inférieure indépendante de $\rho$, qui est atteinte en $\rho^*$.
+\end{proof}

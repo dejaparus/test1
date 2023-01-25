@@ -1,0 +1,9 @@
+\subsection{L'importance du prior en {\it deep learning}}
+
+Les approches de {\it deep learning bayésien}, où les paramètres (typiquement les poids d'un réseau de neurones) sont supposés aléatoires, prennent de plus en plus d'importance dans la littérature scientifique, et commencent à être régulièrement déployés. Deux problèmes importants limitent encore leur usage :
+\begin{enumerate}
+    \item Le calcul {\it a posteriori}, qui nécessite de nombreux calculs en très grande dimension ; ces limitations ont notamment mené à l'usage de techniques variationnelles pour approximer ce calcul. Le lecteur intéressé pourra regarder l'article de revue \cite{Gawlikowski2021ASO} pour s'informer sur les techniques de calcul des incertitudes bayésiennes pour l'usage des réseaux de neurones.
+    \item Le choix {\it a priori}, qui est souvent le parent pauvre de la démarche. En général, des lois gaussiennes standard sont utilisées. La revue \cite{Fortuin2022} souligne cependant l'importance du choix des priors pour l'apprentissage profond bayésien et présente un aperçu des différents priors qui ont été proposés pour les processus gaussiens (profonds), les auto-encodeurs variationnels et les réseaux neuronaux bayésiens.
+\end{enumerate}
+
+

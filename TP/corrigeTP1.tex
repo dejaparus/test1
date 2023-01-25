@@ -1,0 +1,89 @@
+\paragraph{\bf Réponses.} \\
+{\bf 1.} Dans un cadre bayésien, probabilisons l'espace $\Theta= \Theta_0 \oplus \Theta_1$ et nommons $\Pi$ la mesure de probabilité associée. On note également $P$ la mesure de probabilité associée à l'espace $\chi$ supposé probabilisé. On souhaite prévoir la probabilité que $\theta\in\Theta_0$ sachant $x$ et $e_n$. {\it Via} une règle de Bayes, on produit le classifieur classique (dit {\it classifieur de Bayes})
+\begin{eqnarray*}
+\Pi(\theta\in\Theta_0|x,e_n) & = & \frac{P(X=x|\theta\in\Theta_0,e_n)\Pi(\theta\in\Theta_0|e_n)}{P(X=x|e_n)}, \\
+& = & \frac{P(X=x|\theta\in\Theta_0,e_n)\Pi(\theta\in\Theta_0|e_n)}{P(X=x|\theta\in\Theta_0)\Pi(\theta\in\Theta_0|e_n) + P(X=x|\theta\notin\Theta_0)\left[1-\Pi(\theta\in\Theta_0|e_n)\right]}
+\end{eqnarray*} 
+Le terme de vraisemblance $P(X=x|\theta\in\Theta_0,e_n)$ peut être estimé de nombreuses manières (ex : par  la fréquence d'observation de l' évènement $X=x$ dans les situations recensées pour lesquelles $\theta\in\Theta_0$). Le classifieur de Bayes {\it naïf} repose ainsi sur une simplification de cette vraisemblance, etc. (voir cours d'apprentissage statistique). \\
+
+\vspace{1cm}
+
+{\bf 2.}  Le calcul de la probabilité $\Pi(\theta\in\Theta_0|x,e_n)$ ne suffit cependant pas pour prendre une décision opérationnelle. Intuitivement, on souhaiterait pourtant choisir de mener une intervention si
+\begin{eqnarray*}
+\Pi(\theta\in\Theta_0|X=x,e_n) \ \geq \  \Pi(\theta\notin\Theta_0|X=x,e_n) & = & \Pi(\theta\in\Theta_1|X=x,e_n), \\
+& = & 1 - \Pi(\theta\in\Theta_0|X=x,e_n)
+\end{eqnarray*}
+et donc à  choisir (ou recommander) d'intervenir si
+\begin{eqnarray}
+\Pi(\theta\in\Theta_0|X=x,e_n) \geq 1/2. \label{regle.simpliste}
+\end{eqnarray}
+Mais cette règle est en fait simpliste, car elle n'intègre pas les risques d'erreur liés au fait qu'on utilise un échantillon de taille finie $n$ pour mener le calcul de cette probabilité. Une bonne fa\c con de faire est de placer le problème de classification dans un problème de décision plus vaste. \\
+
+La décision qu'un possible intervenant sur le réseau routier souhaite prendre est binaire : sachant $X=x$, on intervient ou non. \`A partir des données $e_n$, il tente donc de définir un estimateur statistique $\hat{\delta}_n(x)$ d'une décision {\it idéale} $\delta(x)$ vivant dans un espace de décision ${\cal{D}}=\{0,1\}$ où : \\
+
+\begin{itemize}
+\item[$\bullet$] $\delta(x) = 0$ $\Leftrightarrow$ pas d'intervention, 
+\item[$\bullet$] $\delta(x)=1 $ $\Leftrightarrow$ intervention. \\
+\end{itemize}
+
+
+Pourquoi parle-t-on d'estimateur statistique ? Parce que la décision idéale $\delta(x)$ est inaccessible par nature -- elle sous-entend que le possible intervenant est omniscient, que $\theta$ est parfaitement connu et que nécessairement $n=\infty$. \\
+
+ On construit tout estimateur statistique comme le minimiseur d'une {\it fonction de coût} $$\delta(x)\in{\cal{D}}\mapsto L(\theta,\delta(x))$$ que l'on cherche à  définir si la vérité sur $\theta$ pouvait être connue. Dans le cas qui nous intéresse, on aurait : \\
+ 
+\begin{itemize}
+\item[$\bullet$] $L(\theta,\delta(x))=C_1 =$ le coût prévisionnel d'une intervention à  raison, donc si $\theta\in\Theta_1$ (ou $\theta\notin\Theta_0$) et $\delta(x)=1$ ; \\
+
+\item[$\bullet$] $L(\theta,\delta(x))=C_2 = $ le coût prévisionnel d'une non-intervention à  tort ({\it erreur de 1ère espèce}),  si $\theta\in\Theta_1$ et $\delta(x)=0$ ; \\
+
+\item[$\bullet$] $L(\theta,\delta(x))=C_3 = $ le coût prévisionnel d'une intervention à  tort ({\it erreur de 2ème espèce}), si $\theta\in\Theta_0$ et $\delta(x)=1$ ; \\
+
+\item[$\bullet$] $L(\theta,\delta(x))=C_4 = 0 $ le coût (nul) d'une non-intervention à  raison, si  $\theta\in\Theta_0$ et $\delta(x)=0$. \\
+\end{itemize}
+
+On peut alors écrire, de fa\c con plus condensée :
+\begin{eqnarray}
+L(\theta,\delta(x)) & = & %\left[C_1\delta(x) + C_2(1-\delta(x))\right]\1_{\{\theta\in\Theta_0\}} + C_3\delta(x)\1_{\{\theta\notin\Theta_0\}}.
+C_1\delta(x)\1_{\{\theta\in\Theta_1\}}  + C_2(1-\delta(x))\1_{\{\theta\in\Theta_1\}} + C_3\delta(x)\1_{\{\theta\in\Theta_0\}}. \label{f.cout}
+\end{eqnarray}
+Or la vérité sur $\theta$ ne peut être parfaitement connue. On dispose simplement de la connaissance {\it a posteriori} $\Pi(\theta\in\Theta|X=x,e_n)$. Si l'on souhaite prendre une décision qui prenne en compte l'incertitude épistémique sur $\theta$, il faut définir un {\it risque} $R(\delta(x),\Pi,e_n)$ qui puisse intégrer la connaissance de $\Pi(\theta\in\Theta|X=x,e_n)$, la construction de $L(\theta,\delta(x))$ et qui soit minimisable en un choix unique d'estimateur de $\delta(x)$. Pour obtenir un {\it ordre total} sur l'espace des applications $\delta(x)\mapsto R(\delta(x),\Pi,e_n)$, il faut nécessairement définir ce risque comme le {\it risque de Bayes} 
+\begin{eqnarray*}
+R(\delta(x),\Pi,e_n) & = & \int_{\Theta} L(\theta,\delta(x)) d\Pi(\theta\in\Theta|X=x,e_n)
+\end{eqnarray*}
+et d'en déduire donc la {\it décision optimale} (et non pas {\it idéale})
+\begin{eqnarray*}
+\hat{\delta}_n(x) & = & \arg\min\limits_{\delta(x)\in{\cal{D}}} R(\delta(x),\Pi,e_n).
+\end{eqnarray*}       
+%\textcolor{blue}{A vous de produire le résultat ! Comment calibrer le classifieur ?} 
+
+Après intégration,
+\begin{eqnarray*}
+R(\delta(x),\Pi,e_n) & = & C_1\delta(x)\Pi(\theta\in\Theta_1|X=x,e_n) + C_2(1-\delta(x))\Pi(\theta\in\Theta_1|X=x,e_n)  \\
+& & \ + C_3\delta(x)\left[1-\Pi(\theta\in\Theta_1|X=x,e_n)\right].
+\end{eqnarray*}
+On en déduit la règle de décision (ou de recommandation) suivante : ayant observé l'évènement $X=x$, on décide d'intervenir ($\hat{\delta}_n(x)=1$) si le risque associé à cette décision est moins élevé que le risque associé à la décision contraire ($\hat{\delta}_n(x)=0$), soit si 
+\begin{eqnarray*}
+R(0,\Pi,e_n) \ = \ C_2 \Pi(\theta\in\Theta_1|X=x,e_n)  &  \geq & R(1,\Pi,e_n) \ = \ C_1\Pi(\theta\in\Theta_1|X=x,e_n) \\
+& & \hspace{2cm} + C_3\left[1-\Pi(\theta\in\Theta_1|X=x,e_n)\right],
+\end{eqnarray*}
+c'est-à-dire quand 
+\begin{eqnarray}
+\Pi(\theta\in\Theta_1|X=x,e_n) & \geq & \frac{C_3}{C_2-C_1+C_3} \label{bonne.regle}
+\end{eqnarray}
+
+%et pour $\delta(x)\in{\cal{D}}=\{0,1\}$, il vient (en notant que $\Pi(\theta\in\Theta_1|X=x,e_n)=1-\Pi(\theta\in\Theta_0|X=x,e_n)$)
+%\begin{eqnarray*}
+%R(0,\Pi,e_n) \ \geq \ R(1,\Pi,e_n) & \Leftrightarrow & \Pi(\theta\in\Theta_0|X=x,e_n) \ \geq \ \frac{C_3}{C_2-C_1+C_3}.
+%\end{eqnarray*}
+
+
+\vspace{1cm}
+
+Finissons par quelques remarques importantes :
+\begin{itemize}
+\item[$\bullet$] il n'est pas utile de disposer des coûts absolus $C_i$ pour prendre une décision, car des rapports de coûts suffisent, ce qui est en général plus simple à  estimer dans une vraie démarche opérationnelle ;
+\item[$\bullet$] on peut légitimement supposer que $C_1\leq  C_3 < C_2$, car le coût $C_1$ d'une intervention utile peut être réduit par l'effet d'assurances, tandis que le coût $C_3$ d'une intervention inutile ne l'est pas. Enfin, le coût (prévisionnel) $C_2$ d'une non-intervention qui aurait pu être utile peut éventuellement intégrer celui de vies humaines ; remarquons qu'en toute rigueur, $C_2=C_2(t)$ où $t$ représente le temps depuis l'occurence de l'événement, et que cette fonction est très certainement croissante. 
+\item[$\bullet$] Il faut que $C_3=C_2$ et $C_1=0$ pour obtenir l'équivalent décisionnel de la règle (\ref{regle.simpliste}). On per\c coit bien qu'une décision purement intuitive est à  rejeter, car elle pré-suppose une contradiction forte avec la deuxième remarque.
+\item[$\bullet$] Cette règle de décision prend intégralement en compte les incertitudes sur la véritable nature de l'événement $\theta$, conditionnellement à  la validité des hypothèses. 
+\item[$\bullet$] Le choix de la fonction de coût (\ref{f.cout}) est arbitraire ; mais retenons qu'en l'absence d'arguments permettant de rationaliser ce choix, les coûts sont généralement assemblés de fa\c con additive
+\end{itemize}  

@@ -1,0 +1,23 @@
+\begin{proof}%[Preuve] % Fonction de coût L1
+Considérons la situation générique où 
+\begin{eqnarray}
+L_{c_1,c_2}(\theta,\delta) & = & \left\{\begin{array}{ll} c_2(\theta-\delta) & \text{si $\theta>\delta$} \\ c_1(\delta-\theta) & \text{sinon} 
+\end{array} \right. \label{cout.lin}
+\end{eqnarray}
+Le risque {\it a posteriori} s'écrit
+\begin{eqnarray*}
+R_P(\delta|\pi) & = & \int_{-\infty}^\delta c_1(\delta-\theta)\pi(\theta|x) \ d\theta +  \int_{\delta}^{\infty} c_2(\theta-\delta)\pi(\theta|x) \ d\theta.
+\end{eqnarray*}
+En raisonnant par intégration par parties (IPP), il vient :
+\begin{eqnarray*}
+R_P(\delta|\pi) & = & \left[c_2(\theta-\delta) \Pi(\theta|x)\right]^{\delta}_{-\infty} + c_2 \Pi(\theta<\delta|x) +   
+\left[c_1(\delta-\theta) \Pi(\theta\right]^{\infty}_{\delta} - c_1\Pi(\theta>\delta|x), \\
+& = & c_2 \Pi(\theta<\delta|x) + c_1\left(1-\Pi(\theta<\delta|x)\right)
+\end{eqnarray*}
+car $\lim_{\theta\to-\infty} \Pi(\theta\x) = \lim_{\theta\to\infty} \Pi(\theta\x) = 0$. 
+Ce risque est minimum lorsque $R_P(\delta|\pi)=0$ soit lorsque
+\begin{eqnarray*}
+\Pi(\theta<\delta^{\pi}|x) & = & \frac{c_1}{c_1+c_2}
+\end{eqnarray*}
+ ce qui confère donc à l'estimateur $\delta^{\pi}$ le sens du quantile de seuil  $\frac{c_1}{c_1+c_2}$.
+\end{proof}

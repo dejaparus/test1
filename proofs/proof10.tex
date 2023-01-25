@@ -1,0 +1,10 @@
+\begin{proof}%[Preuve] % Acceptation-rejet
+Soit ${\theta}$ la variable aléatoire dont les tirages sont acceptées par le test. Alors, en définissant $P$ la mesure de probabilité usuelle sur $[0,1]$, et $\tilde{\Pi}$ la mesure de probabilité produit sur $\Theta\times[0,1]$, d'après la formule de Bayes,
+\begin{eqnarray*}
+\Pi\left(\tilde{\theta}\leq y | U \leq \frac{f({\bf x_n}|\theta)\pi(\theta)}{K\rho(\theta)} \right) & = & \frac{\tilde{\Pi}\left(\tilde{\theta}\leq y \ , \ U \leq \frac{f({\bf x_n}|\theta)\pi(\theta)}{K\rho(\theta)}\right)}{\tilde{\Pi}\left(U \leq \frac{f({\bf x_n}|\theta)\pi(\theta)}{K\rho(\theta)}\right)}, \\
+& = & \frac{\int_{-\infty}^y \int_0^1 \frac{f({\bf x_n}|\theta)\pi(\theta)}{K\rho(\theta)} \ du \rho(\theta) \ d\theta}{\int_{-\infty}^{\infty} \int_0^{\frac{f({\bf x_n}|\theta)\pi(\theta)}{K\rho(\theta)}} \ du \rho(\theta) \ d\theta}, \\
+& = & \frac{\int_{-\infty}^y f({\bf x_n}|\theta)\pi(\theta) \ d\theta}{K\int_{-\infty}^{\infty} \frac{1}{K}f({\bf x_n}|\theta)\pi(\theta) \ d\theta}, \\
+& = & \Pi(\theta\leq y|{\bf x_n}).
+\end{eqnarray*}
+\end{proof}
+

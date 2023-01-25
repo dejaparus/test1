@@ -1,0 +1,17 @@
+\begin{proof} % Prior de Jeffreys
+On propose une preuve pour $\dim\Theta=1$. On pose $\eta=g(\theta)$. On rappelle que
+\begin{eqnarray*}
+I(g(\theta)) & = & \E_{g(\theta)}\left[\left(\frac{\partial}{\partial g(\theta)}\log f(x|g(\theta)\right)^2\right], \\
+& = & \E_{g(\theta)}\left[\left(\frac{\partial}{\partial \theta}\log f(x|g(\theta)\right)^2\right] \left(\frac{\partial \theta}{\partial g(\theta)}\right)^2, \\
+& = & \E_{g(\theta)}\left[\left(\frac{\partial}{\partial \theta}\log f(x|\theta\right)^2\right] \frac{1}{\left(g'(\theta)\right)^2} \ \ \ \text{car $g$ est bijective,} \\
+& = & I(\theta)  \frac{1}{\left(g'(\theta)\right)^2} \ = \ I(\theta)  \frac{1}{\left(\frac{\partial \eta}{\partial \theta}\right)^2}.
+\end{eqnarray*}
+On en déduit, en utilisant la règle du changement de variable, 
+\begin{eqnarray*}
+\pi_{\eta}(\eta) & = & \pi_{\theta}\left(g^{-1}(\eta)\right) \left| \det \frac{\partial \theta}{\partial \eta}\right|, \\
+& \propto & \sqrt{I(g^{-1}(\eta)} \left|  \frac{\partial \theta}{\partial \eta}\right|, \\
+& \propto & \sqrt{I(\eta)} \left| \frac{\partial \eta}{\partial \theta} \frac{\partial \theta}{\partial \eta}\right|, \\
+& \propto & \sqrt{I(\eta)}
+\end{eqnarray*}
+(dans ce cas unidimensionnel $\det I(\theta)=I(\theta)$).
+\end{proof}

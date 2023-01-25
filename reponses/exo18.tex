@@ -1,0 +1,83 @@
+\begin{rep}
+Faisons le calcul pour le cas
+\begin{eqnarray*}
+f(x|\mu,\beta) & = & \beta \mu x^{\beta-1} \exp\left(-\mu x^{\beta}\right) \1_{\{x\geq 0\}}. 
+\end{eqnarray*}
+Pour ce modèle régulier, l'information de Fisher s'écrit
+\begin{eqnarray*}
+I(\mu,\beta)  = & -\E\left[
+\begin{array}{ll}
+\frac{\partial^2 \log f(x|\mu,\beta)}{\partial \mu^2} & \frac{\partial^2 \log f(x|\mu,\beta)}{\partial \mu \partial \beta} \\
+\frac{\partial^2 \log f(x|\mu,\beta)}{\partial \mu \partial \beta} & \frac{\partial^2 \log f(x|\mu,\beta)}{\partial \beta^2}
+\end{array}
+\right] \ = \ 
+ -\E\left[ 
+\begin{array}{ll}
+-\frac{1}{\mu^2} & - x^{\beta} (\log x) \\
+- x^{\beta} (\log x) &  -\frac{1}{\beta^2} - \mu x^{\beta} (\log^2 x)
+\end{array}
+\right], \\
+ = & \hspace{-6cm} \left[ 
+\begin{array}{ll}
+\frac{1}{\mu^2} & \E[ x^{\beta} (\log x)] \\
+\E[ x^{\beta} (\log x)]  &  \frac{1}{\beta^2} + \mu \E[x^{\beta} (\log^2 x)]
+\end{array}
+\right]. \\
+\end{eqnarray*}
+Si $X\sim{\cal{W}}(\mu,\beta)$ alors $Y=\mu X^{\beta} \sim {\cal{E}}(1)$. Donc 
+\begin{eqnarray*}
+\E[ X^{\beta} (\log X)] & = & \frac{1}{\beta\mu} \E_Y[Y(\log Y - \log \mu)], \\
+& = &  \frac{1}{\beta\mu} \int_{0}^{\infty} y(\log y - \mu)\exp(-y) \ dy \ = \ \frac{1}{\beta\mu} \left(\psi(2) - \log\mu\right)
+\end{eqnarray*}
+où $\psi$ est la fonction digamma, avec $\psi(2)=1-\gamma$ où $\gamma$ est la constante d'Euler. Par ailleurs,
+\begin{eqnarray*}
+\E[ \mu X^{\beta} (\log^2 X)] & = & \frac{1}{\beta^2}\E_Y[ Y (\log^2 Y/ \mu)], \\
+& = & \frac{1}{\beta^2}\E_Y[ Y (\log^2 Y)] - \frac{2\log \mu}{\beta^2} \int_{0}^{\infty} y(\log y - \mu)\exp(-y) \ dy + \frac{\log^2 \mu}{\beta^2}, \\
+& = & \frac{1}{\beta^2}\E_Y[ Y (\log^2 Y)] - \frac{\log \mu}{\beta^2}\left(2(1-\gamma) - \log \mu\right). \\
+\end{eqnarray*}
+On note $C=\E_Y[ Y (\log^2 Y)]$ la constante ne dépendant pas des paramètres $(\mu,\beta)$ (qui vaut $\pi^2/6+\gamma^2-2\gamma$). Alors 
+\begin{eqnarray*}
+I(\mu,\beta)  & = & \displaystyle \left[ 
+\begin{array}{ll}
+\frac{1}{\mu^2} & \frac{1}{\beta\mu} \left(1-\gamma - \log\mu\right) \\
+\frac{1}{\beta\mu} \left(1-\gamma - \log\mu\right)  &  \frac{1+C}{\beta^2} - \frac{\log \mu}{\beta^2}\left(2(1-\gamma) - \log \mu\right)
+\end{array}
+\right]. \\
+\end{eqnarray*}
+On en déduit donc que
+%\begin{eqnarray*}
+$\det I(\mu,\beta)   =  \frac{1}{\beta^2 \mu^2} \left[-(1-\gamma)^2 + (1+C)\right]$
+%\end{eqnarray*}
+et donc que la mesure de Jeffreys pour la paramétrisation $(\mu,\beta)$ s'écrit
+\begin{eqnarray*}
+\pi_1(\mu,\beta) & \propto & \frac{1}{\mu\beta}.
+\end{eqnarray*}
+Lorsqu'on effectue le changement de variable $(\eta,\beta)=\psi(\mu,\beta)$ défini par
+%\begin{eqnarray*}
+$\eta  =  \mu^{-\beta}$ et $\beta  =  \beta$,
+%\end{eqnarray*}
+la mesure de Jeffreys pour la paramétrisation $(\eta,\beta)$ s'écrit
+\begin{eqnarray*}
+\pi_2(\eta,\beta) & = & \pi_1(\eta^{-\beta},\beta) \left| \mbox{Jac}(\psi^{-1}(\eta,\beta)) \right| \ \propto \ 
+\frac{\eta^{\beta}}{\beta} \left| \mbox{Jac}(\psi^{-1}(\eta,\beta)) \right|
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+\mbox{Jac}(\psi^{-1}(\eta,\beta)) & = & \left(\begin{array}{ll}
+\frac{\partial \mu}{\partial \eta} & \frac{\partial \mu}{\partial \beta} \\
+\frac{\partial \beta}{\partial \eta} & \frac{\partial \beta}{\partial \beta} 
+\end{array}\right) \ = \ 
+\left(\begin{array}{ll}
+-\beta \eta^{-\beta-1} & \frac{\partial \mu}{\partial \beta} \\
+0 & 1 
+\end{array}\right).
+\end{eqnarray*}
+Donc 
+%\begin{eqnarray*}
+$\left| \mbox{Jac}(\psi^{-1}(\eta,\beta)) \right|  =  \beta \eta^{-\beta-1}$
+%\end{eqnarray*}
+et la mesure de Jeffreys pour la paramétrisation $(\eta,\beta)$ s'écrit donc
+%\begin{eqnarray*}
+$\pi_2(\eta,\beta)  \propto  1/\eta$.
+%\end{eqnarray*}
+\end{rep}

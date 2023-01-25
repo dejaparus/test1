@@ -1,0 +1,51 @@
+\begin{rep}
+\begin{enumerate}
+\item Avec $f(x|\theta)   \propto  \theta^{-1/2} \exp\left(-\frac{(x-\theta)^2}{2\theta} \right)$, on a donc
+\begin{eqnarray*}
+\log f(x|\theta) & = & - \frac{1}{2}\log\theta - (x-\theta)^2/2\theta, \\
+& = & - \frac{1}{2}\log\theta - \frac{x^2}{2\theta} + x - \theta/2
+\end{eqnarray*}
+puis
+\begin{eqnarray*}
+\frac{\partial \log f(x|\theta) }{\partial \theta} & = & -\frac{1}{2\theta}  + \frac{x^2}{2\theta^2} -1/2, \\
+\frac{\partial^2 \log f(x|\theta) }{\partial \theta^2} & = & -\frac{1}{2\theta^2} - \frac{x^2}{\theta^3}.
+\end{eqnarray*}
+Avec $\E[X]=\theta$ et $\E[X^2] = \V[X]+\E^2[X]= \theta+ \theta^2$, l'information de Fisher vaut, puisque la densité est absolument continue par rapport à $\theta\in\R^+_*$,
+\begin{eqnarray*}
+-\E\left[\frac{\partial^2 \log f(x|\theta) }{\partial \theta^2}(\theta)\right] & \propto & \frac{1}{\theta} + \frac{3}{2\theta^2},
+\end{eqnarray*}
+%qui est strictement positive si et seulement si $\theta>1/2$ 
+et donc
+\begin{eqnarray*}
+\pi^J(\theta) & \propto &\sqrt{ \frac{1}{\theta} + \frac{3}{2\theta^2}}.
+\end{eqnarray*}
+\item  On peut écrire
+\begin{eqnarray*}
+f(x|\theta) & \propto & \theta^{-1/2} \exp\left(-\frac{(x-\theta)^2}{2\theta}\right) \ \propto \  C(\theta) h(x)  \exp\left(R(\theta)\cdot T(X)\right)
+\end{eqnarray*}
+avec
+\begin{eqnarray*}
+R(\theta) & = &  -1/\theta, \ \ \ \   T(x) \ = \ x^2/2, \\ \\
+h(x) & = & \exp(x), \ \ \ \  \ 
+C(\theta)  \ = \  \exp(-\log(\theta)/2 - \theta/2)
+\end{eqnarray*}
+ce qui correspond à l'écriture canonique des lois exponentielles :
+\begin{eqnarray*}
+f(x|\theta) & = & C(\theta) h(x) \exp\left(R(\theta)\cdot T(X)\right).
+\end{eqnarray*}
+Nous souhaiterions arriver à l'écriture suivante : pour une reparamétrisation $z$ de $x$ et une reparamétrisation  $\eta$ de $\theta$, 
+\begin{eqnarray}
+Z|\eta & \sim & f(z|\theta) \ = \ h(z) \exp\left(\eta\cdot z - \psi(\eta) \right) \label{conjugaison}
+\end{eqnarray}
+afin de proposer la  famille de priors  conjugués :
+\begin{eqnarray*}
+\pi(\eta) & \propto & \exp\left(\eta \cdot z_0 - \psi(\eta) \right). 
+\end{eqnarray*}
+Essayons avec la reparamétrisation $\eta  =  1/\theta$ et $z  =  x^2/2$ 
+ (on se restreint donc à $\R^+$) et on peut alors écrire
+\begin{eqnarray*}
+\psi(\eta) & = & \log \int_0^{\infty}  h(z) \exp\left(\eta\cdot z\right) \ dz
+\end{eqnarray*}
+Il faut ici écrire $h(z)$ proprement, puis définir $\pi(\eta)$ puis enfin $\pi(\theta)$. 
+\end{enumerate}
+\end{rep}

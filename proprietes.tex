@@ -1,0 +1,234 @@
+\section{Propriétés fondamentales du cadre bayésien}\label{proprietes}
+
+\subsection{Prédiction (prévision)}\label{predictivite}
+
+Le contexte du problème de la prédiction est le suivant : les observations X sont identiquement distribuées selon $P_{\theta}$, qui est absolument continue par rapport à une mesure dominante $\mu$. Il existe donc une fonction de densité conditionnelle $f(·|\theta)$. Par ailleurs on suppose que $\theta$ suit une loi a priori $\pi$. \emph{Mener une prévision} consiste alors, 
+à partir de $n$ tirages observés $x_1,\ldots,x_n$, de déterminer le plus précisément possible ce que pourrait être le tirage suivant $X_n+1$. \\
+
+Dans l’approche fréquentiste, on calcule dans les faits $f(x_{n+1}|x_1,··· ,x_n,\hat{\theta}_n)$, puisqu'on ne connaît pas $\theta$ et qu'on doit l'estimer : on utilise donc deux fois les données (une fois pour l'estimation de $\theta$, et une nouvelle fois pour la prévision). En règle générale, ceci amène   à sous-estimer les intervalles de confiance. \\
+
+La stratégie du paradigme bayésien consiste à intégrer la prévision suivant la loi courante {\it a posteriori} sur $\theta$ et ce, afin d’avoir la meilleure prévision compte-tenu à la fois de notre savoir et de notre ignorance sur le paramètre. La loi prédictive s’écrit ainsi :
+\begin{eqnarray*}
+f(X_{n+1}|x_1,\ldots,x_n) & = & \int_{\Theta} f(X_{n+1}|x_1,\ldots,x_n,\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta
+\end{eqnarray*}
+qui s'écrit plus simplement, lorsque \emph{sachant $\theta$} les tirages sont iid :
+\begin{eqnarray*}
+f(x_{n+1}|x_1,\ldots,x_n) & = & \int_{\Theta} f(x_{n+1}|\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta.
+\end{eqnarray*}
+Ainsi, le prédicteur de $X_{n+1}$ sous le coût quadratique est
+\begin{eqnarray*}
+\E[X_{n+1}|x_1,\ldots,x_n] & = & \int_{\Omega} x f(x|x_1,\ldots,x_n) \ dx. 
+\end{eqnarray*}
+
+%\begin{exec}{Régression gaussienne}
+%Supposons avoir $n$ v.a. iid  $Y_1,\ldots,Y_n\sim{\cal{N}}(\mu,\sigma^2)$ et choisissons $\pi(\mu,\sigma)\propto 1/\sigma$ (mesure de Haar). 
+%\end{exec}
+
+
+\subsection{Propriétés asymptotiques}\label{asymptotique}
+
+Les approches classique et bayésienne de la modélisation et de la décision statistique aboutissent à des résultats similaires à l'asymptotisme, et les principaux théorèmes classiques connaissent leur pendant bayésien. Ainsi, le théorème central limite "classique" devient le théorème de Bernstein-von Mises dans le cadre bayésien (on l'appelle également \emph{théorème central limite bayésien} par abus de langage). Afin de comparer les deux approches, on doit d'abord définir ce que signifie "vraie valeur $\theta_0$ du paramètre $\theta$". \\
+
+%Le théorème de De Finetti nous indique que  la loi jointe des données $x_1,\ldots,x_n$ considérées comme échangeables et indépendantes, pour $n\to\infty$, est la prédictive {\it a priori}
+%\begin{eqnarray*}
+%m_{\pi}(x_1,\ldots,x_n) & = & \int_{\Theta} f(x_1,\ldots,x_n|\theta) \pi(\theta) \ d\theta.
+%\end{eqnarray*}
+%Cette loi est donc ce qui se rapproche le plus de 
+Notons $\tilde{f}(x)$ la "vraie loi" inconnue des données.  Si on fait maintenant le choix d'une loi paramétrique $X\sim f(x|\theta_{0})$ (ou mécanisme génératif), alors la loi $f(x|\theta_0)$ doit être la plus proche possible de $\tilde{f}(x)$. Cette notion de proximité est généralement définie de la fa\c con suivante.
+
+\begin{definition}
+Soit $\tilde{f}(x)$ la loi inconnue des données. On  définit $\theta_0$ par
+\begin{eqnarray*}
+\theta_0 & = & \arg\min\limits_{\theta\in\Theta}  KL\left(\tilde{f}(x) || f(x|\theta)\right)
+\end{eqnarray*}
+où KL est la divergence de Kullback-Leibler. On notera par la suite plus simplement ce terme $KL(\theta)$.
+\end{definition}
+
+\begin{theorem}{Consistance}\label{consistance.post}
+Si $f(.|\theta)$ est suffisamment régulière et \textcolor{black}{identifiable}, soit si $\theta_1\neq\theta_2 \Rightarrow f(x|\theta_1)\neq f(x|\theta_2)$ $\forall x\in\Omega$, alors pour tout échantillon $\bf x_n$ iid
+\begin{eqnarray*}
+\pi(\theta|{\bf x_n}) & \xrightarrow{p.s.}{} & \delta_{\theta_0}.
+\end{eqnarray*}
+Par ailleurs, si $g:\Theta\to\R$ est mesurable et telle que $\E[g(\theta)]<\infty$, alors sous les mêmes hypothèses
+\begin{eqnarray*}
+\lim\limits_{n\to\infty} \E\left[g(\theta)|X_1,\ldots,X_n\right] & = & g(\theta) \ \ \ \text{p.s.}
+\end{eqnarray*}
+\end{theorem}
+
+Un résultat utile, intermédiaire entre la consistance et la convergence en loi (Théorème \ref{von.mises}), est la convergence en probabilité.  
+
+\begin{theorem}
+Si $\Theta$ est fini et discret et $\Pi(\theta=\theta_0)>0$, alors pour tout échantillon iid $X_1,\ldots,X_n|\theta\sim f(X|\theta)$,
+\begin{eqnarray*}
+\Pi\left(\theta=\theta_0|X_1,\ldots,X_n\right) & \xrightarrow[\Pp]{n\to\infty} & 1.
+\end{eqnarray*}
+\end{theorem}
+
+\if\mycmdprooftwo1 \input{proofs/proof7}
+\fi
+\vspace{1cm}
+
+Si $\Theta$ est continu, alors $\pi(\theta_0|x)$ vaut toujours 0 pour tout échantillon fini $x$, et on ne peut appliquer les outils menant au résultat précédent. Pour adapter cette preuve, il faut définir un voisinage $V_{\theta_0}$ qui est un ensemble ouvert de points de $\Theta$ à une distance maximum fixée de $\theta_0$ ($\Theta$ étant un espace métrique). 
+
+\begin{theorem}
+Si $\Theta$ est un ensemble compact et si $V_{\theta_0}$ est tel que $\Pi(\theta\in V_{\theta_0})>0$ avec
+\begin{eqnarray*}
+\theta_0 & = & \arg\min\limits_{\theta\in\Theta} KL(\theta)
+\end{eqnarray*}
+alors 
+\begin{eqnarray*}
+\Pi(\theta\in V_{\theta_0}|x_1,\ldots,x_n) & \xrightarrow[\Pp]{n\to\infty} & 1.
+\end{eqnarray*}
+\end{theorem}
+
+%\if\mycmdproof1 %\input{proofs/proof9}
+%\fi
+%\vspace{1cm}
+
+
+Le théorème de Bernstein-von Mises suppose l'existence de l'information de Fisher $I_{\theta}$. Il n'existe pas d'ensemble de conditions de régularité minimal nécessaire pour l'existence de $I_{\theta}$ ; cependant, la plupart des auteurs s'accordent sur les conditions suffisantes suivantes d'existence, de positivité et de continuité dans un sous-espace de $\Theta$ :
+\begin{itemize}
+    \item $f(x|\theta)$ est  absolument continue en $\theta$ ;
+    \item sa dérivée doit exister pour tout $x\in\Omega$.
+\end{itemize}
+Alors
+\begin{eqnarray*}
+I_{\theta} & = & \E\left[\left(\frac{\partial }{\partial \theta} \log f(X|\theta)\right)^2\right] \ 
+ = \ - \E\left[\frac{\partial^2 }{\partial \theta^2} \log f(X|\theta)\right]
+\end{eqnarray*}
+si $\log f(x|\theta)$ est deux fois différentiable en $\theta$. 
+
+
+\begin{theorem}{Normalité asymptotique (\textbf{Bernstein-von Mises})}\label{von.mises}
+Soit $I_{\theta}$ la matrice d'information de Fisher du modèle $f(.|\theta)$ et soit $g(\theta)$ la densité de la gaussienne ${\cal{N}}(0,I^{-1}_{\theta_0})$. Soit $\hat{\theta}_n$ le maximum de vraisemblance. Alors, dans les conditions précédentes,
+\begin{eqnarray*}
+\int_{\Theta}\left|\pi\left(\sqrt{n}\left\{\theta - \hat{\theta}_n\right\}|{\bf x_n}\right) - g(\theta)\right| \ d\theta & \rightarrow & 0.
+\end{eqnarray*}
+\end{theorem}
+
+\if\mycmdprooftwo1 \input{proofs/proof8}
+\fi
+\vspace{1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Régions de crédibilité et régions HPD}\label{crédibilité}
+
+Soit $x\sim f(.|\theta)$ une (ou plusieurs) observations. 
+
+\begin{definition}{Région $\alpha-$crédible}
+Une région $A$ de $\Theta$ est dite \textcolor{black}{$\alpha-$crédible} si $\Pi(\theta\in A|x)\geq 1-\alpha$.
+\end{definition}
+
+Notons que le paradigme bayésien permet une nouvelle fois de s’affranchir d’un inconvénient de l’approche fréquentiste.
+Rappelons qu'au sens fréquentiste, $A$ est une \textcolor{black}{région de confiance $1-\alpha$} si, en refaisant l'expérience (l'observation d'un $X\sim f(.|\theta)$) un nombre de fois tendant vers $\infty$,
+\begin{eqnarray*}
+P_{\theta}(\theta\in A) & \geq & 1-\alpha.
+\end{eqnarray*}
+% En refaisant l’expérience un grand nombre de fois, la probabilité que $\theta$ soit dans $A$ est plus grande que $1 − \alpha$. 
+Une région de confiance n’a donc de sens que pour un très grand nombre d’expériences tandis que la définition bayésienne exprime que la probabilité que $\theta$ soit dans $A$ au vue des celles déjà réalisées est plus grande que $1-\alpha$. Il n’y a donc pas besoin ici d’avoir recours à un nombre infini d’expériences pour définir une région $\alpha$-crédible, seule compte l’expérience effectivement réalisée. \\
+ 
+ 
+
+
+
+\begin{remark}
+On distingue bien ici la probabilité "fréquentiste" $P_{\theta}$ de la probabilité bayésienne $\Pi$. Dans le premier cas, l'aléatoire concerne la région $A$, qui est un estimateur statistique dépendant d'un estimateur classique $\hat\theta(X_1,\ldots,X_n)$ et $\theta$ est considéré comme fixe. Dans le second cas, c'est bien $\theta$ qui est une aléatoire.
+\end{remark}
+
+Il y a une infinité de régions $\alpha-$crédibles, il est donc logique de s’intéresser
+à la région qui a le volume minimal. Le volume étant défini par $\mbox{vol}(A) = \int_A d\mu(\theta)$, si $\pi(\theta|x)$ est absolument continue par rapport à une mesure de 
+référence $\mu$.
+
+\begin{definition}{\bf Région HPD.}
+$A_{\alpha,\pi}$ est une région HPD (\textit{highest posterior density}) si et seulement si 
+\begin{eqnarray*}
+A_{\alpha,\pi} & = & \left\{\theta\in\Theta, \  \pi(\theta|x)\geq h_{\alpha}\right\}
+\end{eqnarray*}
+où $h_{\alpha}$ est défini par 
+\begin{eqnarray*}
+h_{\alpha} &  = & \sup_h\left\{ \Pi\left(\theta | \pi(\theta|x)\geq h, X\right) \geq 1-{\alpha}\right\}.
+\end{eqnarray*}
+\end{definition}
+
+$A_{\alpha,\pi}$ est parmi les régions qui ont une probabilité supérieure à $1-{\alpha}$ de contenir $\theta$ (et qui sont donc $\alpha$-crédibles) et sur lesquelles la densité {\it a posteriori} ne descend pas sous un certain niveau (restant au dessus de la valeur la plus élevée possible). \\
+
+\begin{theorem}
+$A_{\alpha,\pi}$ est parmi les régions $\alpha$-crédibles celle de volume minimal si et seulement si elle est HPD.
+\end{theorem}
+
+
+
+\begin{exec}
+Soit $x_1,\ldots,x_n$ des réalisations iid de loi ${\cal{N}}(\mu,\sigma^2)$. On choisit la mesure {\it a priori} (non probabiliste) jointe
+\begin{eqnarray*}
+\pi(\mu,\sigma^2) & \propto & 1/\sigma^2.
+\end{eqnarray*}
+\begin{enumerate}
+\item Déterminez la loi {\it a posteriori} jointe $\pi(\mu,\sigma^2|x_1,\ldots,x_n)$ 
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\mu|x_1,\ldots,x_n)$ 
+\item Calculez la région HPD de seuil $\alpha$ pour $\mu$ et comparez-la à la région de confiance fréquentiste, de même seuil, qu'on pourrait calculer par l'emploi du maximum de vraisemblance.
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\sigma^2|x_1,\ldots,x_n)$ ; le calcul de la région HPD est-il simple ?
+\end{enumerate}
+\paragraph{Remarque.} ``Déterminez" signifie indiquer si la loi appartient à une famille connue, par exemple largement implémentée sur machines. La connaissance des lois gamma, inverse gamma et Student est peut-être nécessaire pour répondre aux questions.
+\end{exec}
+
+\if\mycmdexo1 \input{reponses/exo8}
+\fi
+
+Les régions HPD sont à manier avec précaution, car elles  ne sont pas indépendantes de la paramétrisation. \\
+
+\begin{exec}
+Soit $A_{\alpha,\pi}=\left\{\theta\in\Theta  \ , \ \pi(\theta|x)\geq h_{\alpha}\right\}$ une région HPD et soit 
+$$
+\eta = g(\theta)
+$$
+un $C^1-$diffémorphisme (bijection). On définit alors la région HPD correspondante pour $\pi(\eta|x)$ :
+\begin{eqnarray*}
+\tilde{A}_{\alpha,\pi} & = & \left\{\eta\in g(\Theta)  \ , \ \pi(\eta|x)\geq \tilde{h}_{\alpha}\right\}
+\end{eqnarray*}
+\begin{itemize}
+    \item Sous quelle condition peut-on écrire que $\tilde{A}_{\alpha,\pi}=g\left(A_{\alpha,\pi}\right)$ ?
+    \item Illustrons cela en supposant $X\sim{\cal{N}}(\theta,1)$ et $\pi(\theta)\propto 1$, puis en posant $\eta=\exp(\theta)$.
+\end{itemize}
+\end{exec}
+
+\if\mycmdexotwo1 \input{reponses/exo9}
+\fi
+
+\vspace{1cm}
+
+Nous pouvons comprendre pourquoi une région de confiance n’est pas invariante par reparamétrisation. En effet, cette région se définit comme une solution du problème de minimisation suivant :
+$$
+A_{\alpha,\pi} = \arg\min\limits_{A, \Pi(A|X)\geq 1-\alpha} \mbox{Vol}(A)
+$$
+où $\mbox{Vol}(A)=\int_A d\mu(\theta)$. Or la mesure de Lebesgue n’est 
+pas invariante par reparamétrisation. Une idée pour lever cette difficulté est donc logiquement d’abandonner la mesure de Lebesgue et de considérer pour une mesure $s$ :
+\begin{eqnarray*}
+A_{\alpha,\pi,s} = \arg\min\limits_{A, \Pi(A|X)\geq 1-\alpha} \int_A d s(\theta).
+\end{eqnarray*}
+
+\subsubsection*{Calcul de régions HPD}
+
+Pour calculer les régions HPD, il y a plusieurs méthodes :
+\begin{enumerate}
+\item \emph{Méthode analytique et numérique} : c’est ce qui a été fait lors de l’exemple précédent. Précisons une nouvelle fois que cette méthode ne peut s’appliquer que dans des cas assez rares.
+
+\item \emph{Méthode par approximation} : cette méthode peut être appliquée si le modèle est régulier. L'usage du théorème de Bernstein-von Mises permet d'approximer la loi {\it a posteriori} par une gaussienne. On retombe peu ou prou sur des régions HPD proches de celles du maximum de vraisemblance.
+\item \emph{Méthode par simulation}. En effet, une région $\alpha-$crédible peut génériquement \^etre estimée par les quantiles empiriques de la \textcolor{black}{simulation {\it a posteriori}} (voir plus loin).
+
+\begin{theorem}
+Supposons avoir un échantillon iid $\theta_1,\ldots,\theta_m\sim \pi(\theta|x_1,\ldots,x_n)$ avec $\theta\in\R$. Alors les intervalles de quantiles empiriques de la forme $[\theta^{(\alpha/2)},\theta^{(1-\alpha/2)}]$ sont tels que
+\begin{eqnarray*}
+\Pi\left(\theta\in\left[\theta^{(\alpha/2)},\theta^{(1-\alpha/2)}\right]|x_1,\ldots,x_n\right) & \xrightarrow[]{m\to\infty} 1-\alpha.
+\end{eqnarray*}
+\end{theorem}
+
+Il n'est cependant pas garanti qu'une telle région soit HPD.
+Pour $m$ grand, $\theta^{(\alpha/2)}$ s’approche du quantile d’ordre $\alpha/2$ de la loi {\it a posteriori}. Cette région n’est pas nécessairement HPD mais reste $\alpha-$crédible. Cette méthode est particulièrement adaptée lorsque la loi {\it a priori} est unimodale. Il est toujours utile de représenter graphiquement les sorties pour fixer les idées. Enfin, il est aussi envisageable d’avoir recours à une estimation non paramétrique par noyaux.
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%% TP avec correction %%%%%%%%%%%%%%%
+\clearpage
+ \input{TP/tp2}

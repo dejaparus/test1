@@ -1,0 +1,115 @@
+\section{Rappels sur les chaînes de Markov}\label{markovtheory}
+
+Rappelons les deux définitions exprimées dans le cours. \\
+
+\begin{definition}{\bf Noyau de transition.}
+Une chaîne de Markov homogène est déterminée par un \emph{noyau de transition}, défini sur $\Theta\times {\cal{B}}(\Theta)$ à l'itération $i$ par 
+\begin{eqnarray*}
+{\cal{K}}(\theta|A) & = & P(\theta^{(i)}\in A | \theta^{(i-1)}=\theta) \ = \ \int_{A} \underbrace{{\kappa}(\theta,\tilde{\theta})}_{\text{\tiny densité de transition sur $\tilde{\theta}$}} \ d\tilde{\theta},
+\end{eqnarray*} 
+telle que ${\cal{K}}(.|A)$ est mesurable $\forall A \in {\cal{B}}(\theta)$. Cette notion de noyau généralise au cadre continu celle de matrice de transition d'un état à un autre dans un cadre discret. 
+\end{definition}
+
+\noindent Toute la structure d'une chaîne de Markov, que l'on considèrera toujours d'ordre 1 dans ce cours, dépend seulement du choix d'un noyau de transition et de l'état initial (ou la distribution initiale) de la chaîne, comme l'exprime la définition suivante. 
+
+\begin{definition}{\bf Chaîne de Markov.}
+ Sachant un noyau de transition ${\cal{K}}$, une suite $\theta_0,\ldots,\theta_n,\ldots$ de variables aléatoires est une chaîne de Markov d'ordre 1 si, $\forall n\geq 0$, la distribution de $\theta_n$ conditionnelle à la $\sigma-$algèbre (filtration) générée par $\theta_{n-1},\theta_{n-2},\ldots,\theta_0$ est la même que celle de $\theta_{n}|\theta_{n-1}$ :
+ \begin{eqnarray*}
+ \pi\left(\theta_n\in {\cal{A}} | \theta_{n-1},\theta_{n-2},\ldots,\theta_0\right) & = & \pi\left(\theta_n\in {\cal{A}} | \theta_{n-1}\right), \ 
+ = \  {\cal{K}}(\theta_{n-1}|{\cal{A}}).
+ \end{eqnarray*}
+\end{definition}
+
+\begin{exo}{\bf Marche aléatoire.}
+Soit $\Theta\in\R^p$. La marche aléatoire (\emph{random walk}) gaussienne est une chaîne de Markov de noyau ${\cal{K}}(\theta|.)$ associé à la distribution ${\cal{N}}_p(\theta,\tau^2 I_p)$ :
+\begin{eqnarray*}
+\theta_{n+1} & = & \theta_n + \tau\epsilon_n \ \ \ \text{avec $\epsilon_n\sim {\cal{N}}(0,1)$.}
+\end{eqnarray*}
+\end{exo}
+
+\emph{L'irréductibilité} est une mesure de la sensibilité de la chaîne de Markov aux conditions initiales, qui fournit une garantie de convergence de cette chaîne : tout ensemble de $\Theta$ a une chance d'être visité par la chaîne de Markov.
+
+\begin{proposition}{\bf Irréductibilité.}
+\begin{itemize}
+\item Si $\Theta$ est discret, la chaîne est irréductible si tous les états communiquent :
+\begin{eqnarray*}
+P_{\theta}\left(\tau_{\theta'} < \infty\right) & > & 0  \ \ \forall (\theta,\theta')\in\Theta^2
+\end{eqnarray*}
+où $\tau_{\theta'}$ est le premier temps ($>0$) de visite de $\theta'$.
+\item Si $\Theta$ est continu, la chaîne est irréductible pour une mesure $\psi$ si, $\forall \theta\in\Theta$ et pour presque tout ${\cal{A}}\in{\cal{B}}(\Theta)$ avec $\psi({\cal{A}})>0$, $\forall n<\infty$
+$$
+ {\cal{K}}^n(\theta|{\cal{A}})  >  0.
+$$
+\end{itemize}
+\end{proposition}
+
+%La condition de minoration précédente peut être induite par le résultat suivant : supposons qu'il existe une mesure de probabilité $\nu$ et un $\varepsilon>0$ tels que, $\forall \theta\in\Theta$ et pour presque tout ${\cal{A}}\in{\cal{B}}(\Theta)$, on ait $
+% {\cal{K}}(\theta|{\cal{A}})  >  \epsilon \nu({\cal{A}})$. Si ${\cal{K}}$ est le noyau d'une chaîne de Markov sur un espace d'état discret, 
+
+L'irréductibilité est une condition trop faible pour être sûr que $(\theta_n)_n$ visite suffisament de fois n'importe quel sous-ensemble ${\cal{A}}\in {\cal{B}}(\Theta)$. Il faut également vérifier des conditions de stabilité pour garantir une approximation acceptable de la distribution-cible : la notion de \emph{réccurence} formalise de telles conditions. \\
+
+Pour un espace d'état $\Theta$ discret, la récurrence d'un état est équivalent à une probabilité 1 de retour certain en cet état. Elle est dite {\bf récurrente positive} lorsque le temps moyen de retour est fini (récurrente nulle sinon).  Lorsque les chaînes sont irréductibles et si $\Theta$ est fini (borné), l'irréductibilité implique la récurrence positive. De manière plus générale, on oppose la \emph{Harris-récurrence} à la \emph{transcience} : 
+
+\begin{definition}{\bf Harris-récurrence et transcience.}
+Un ensemble ${\cal{A}}$ est \emph{Harris-récurrent} si
+\begin{eqnarray}
+P_{\theta}\left(\eta_{\cal{A}} = \infty\right) & = & 1 \ \ \ \forall \theta\in\Theta \label{reccurence}
+\end{eqnarray}
+où $\eta_{\cal{A}}$ désigne le nombre de visites dans un ensemble ${\cal{A}}$. La propriété (\ref{reccurence}) implique que 
+\begin{eqnarray*}
+\E[\eta_{\cal{A}}] & = & \infty.
+\end{eqnarray*}
+La \emph{transcience} correspond à la propriété contraposée :
+\begin{eqnarray*}
+\E[\eta_{\cal{A}}] & < & \infty.
+\end{eqnarray*}
+\end{definition}
+
+L'étude d'une chaîne de Markov est aussi l'étude de son éventuelle \emph{mesure invariante} $\pi$ :
+\begin{eqnarray*}
+\theta_{n+1} \sim \pi & \text{si} & \theta_{n} \sim \pi. \end{eqnarray*}
+
+
+\begin{definition}{\bf Mesure invariante.}
+$\pi$ est invariante par ${\cal{K}}(\theta|{\cal{A}}) $ si
+$$
+\pi({\cal{A}}) = \int_{\Theta} {\cal{K}}\left(\theta,{\cal{A}}\right) \ d\Pi(\theta) \ \ \ \forall {\cal{A}}\in{\cal{B}}(\Theta).
+$$
+\end{definition}
+
+On peut comprendre l'invariance de $\pi$ de la fa\c con suivante : soit $\pi_{\mu}(\theta_n\in \cdot)$ la loi de $\theta$ à l'étape $n$ de la chaîne, $\mu$ désignant la loi de départ de cette chaîne. Si une mesure limite $\gamma_{\mu}$ existe telle que,  $\forall {\cal{A}}\in{\cal{B}}(\Theta)$,
+$$
+\pi_{\mu}(\theta_n\in {\cal{A}}) \xrightarrow[{\cal{L}}]{n\to\infty} \gamma_{\mu}({\cal{A}}),
+$$
+alors
+\begin{eqnarray*}
+\gamma_{\mu}({\cal{A}}) & = & \lim\limits_{n\to\infty} \int_{\Theta}  \mu(d\theta) {\cal{K}}^n\left(\theta,{\cal{A}}\right), \\
+& = & \lim\limits_{n\to\infty} \int_{\Theta} \int {\cal{K}}^{n-1}\left(\theta,d\theta\right) {\cal{K}}\left(\theta,{\cal{A}}\right), \\
+& = & \int_{\Theta}  \gamma_{\mu}(d\theta) {\cal{K}}\left(\theta,{\cal{A}}\right)
+\end{eqnarray*}
+car la convergence de $\int_{\Theta}  \mu(d\theta) {\cal{K}}^n\left(\theta,.\right)$ implique la convergence des intégrales de fonctions mesurables bornées. Ainsi, si la chaîne de Markov converge vers une distribution limite, il s'agit d'une mesure invariante. \\
+
+\noindent Cette mesure-limite, invariante (dite aussi \emph{stationnaire}), peut présenter une propriété tout à fait intéressante : elle peut être \emph{\bf ergodique}, c'est-à-dire indépendante de la loi initiale $\mu$. Cette propriété se traduit de fa\c con générale par une {\bf convergence en norme en variation totale} entre la mesure ${\cal{K}}^n\left(\theta,\theta\right)$ et la loi stationnaire $\pi(\theta|...)$, qui peut être raffinée dans le cas où $\Theta$ est discret. Dans le cas discret et fini, les équations de Chapman-Kolmogorov permettent d'obtenir la mesure-limite. \\
+
+\begin{definition}{\bf Norme en variation totale entre mesures.}
+Soit $(\mu_1,\mu_2)$ deux mesures sur ${\cal{A}}$. Alors la norme en variation totale entre $\mu_1$ et $\mu_2$ est
+\begin{eqnarray*}
+\|\mu_1-\mu_2\|_{TV} & = & \sup\limits_{\cal{A}} |\mu_1(x)-\mu_2(x)|.
+\end{eqnarray*}
+\end{definition}
+
+\begin{theorem}{\bf Ergodicité d'une chaînes de Markov.}
+Si $(\theta_n)_n$ est Harris récurrente positive et apériodique, alors, pour presque toute distribution initiale $\mu$,
+\begin{eqnarray*}
+\lim\limits_{n\to\infty} \left\| \int_{\Theta} {\cal{K}}^n\left(\theta,.\right)\mu(d\theta) - \pi(.) \right\|_{TV} & = & 0
+\end{eqnarray*}
+Cette converenge en variation totale implique que pour presque toute fonction bornée $h:\Theta\to\R$, 
+\begin{eqnarray*}
+\lim\limits_{n\to\infty} \left| \E_{\mu}\left[h(\theta_n)\right] - \E_{\pi}\left[h(\theta)\right]\right| & = & 0.
+\end{eqnarray*}
+\end{theorem}
+
+On déduit de ce résultat le théorème ergodique (théorème \ref{theorem.ergogique}), qui pour permettre l'obtention d'un théorème de limite centrale nécessite que la chaîne de Markov soit \emph{réversible} :
+\begin{eqnarray*}
+\theta_{n+1}|\theta_{n+2}=x & \sim & \theta_{n+1}|\theta_{n}=x.
+\end{eqnarray*}

@@ -1,0 +1,245 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Exam 2020 : Bayesian modelling and computational statistics  }
+\date{March 30, 2020}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+
+
+
+{\it The exam lasts in theory 3 hours and is marked out of 30. All course materials are allowed. A commented R or Python code is expected for the computational parts, and a paper medium can be used for the formal part. Read the whole document carefully, some questions can be dealt with formally independently of the rest of the exercise that contains them.} \\
+
+{\it You can submit this work by email to the following address} 
+\begin{center}
+ \texttt{nicolas.bousquet@sorbonne-universite.fr} 
+ \end{center} 
+{\it or }
+ \begin{center}
+ \texttt{nbousquet@gmail.com} 
+  \end{center} 
+{\it before {\bf March 31, à 12h00 (am)}. If you can't scan your writings, take pictures, make a zipped folder with your photos sorted in order} \\
+
+ {\it You can write in either English or French.} \\ 
+
+
+\section{Prior elicitation (5 pts)}
+
+Let $X$ be a Poisson variable ${\cal{P}}(\theta)$ with $\theta\in\R^+_*$, and $x_1,\ldots,x_n$ be a sample of this distribution.
+\begin{enumerate}
+\item Determine Jeffreys' prior $\pi^J(\theta)$.
+\item From the point of view of the existence of posterior distributions, assess if this prior measure should be preferred or not to  the scale-invariant measure $\pi_0(\theta)\propto1/\theta$.
+\item Let be $\pi_{\alpha}(\theta) \propto \theta^{-\alpha}$ with $\alpha\in\R^+$. Give the expression of the posterior predictive mass function  $P_{\alpha}(X=k|x_1,\ldots,x_n)$ with its mean, variance, under conditions of existence.
+%\item Donner la loi {\it a priori} d'entropie maximale définie pour la mesure de référence $\pi_{\alpha}(\theta)$ et les contraintes $\E_{\pi_0}[\theta]=1$, $\V_{\pi_0}[\theta]=1$. Discuter l'existence d'une vraie densité {\it a priori} en fonction de $\alpha$
+\end{enumerate}
+
+
+
+\section{Risk of an estimator (6 pts)}
+
+Consider a binomial distribution $X\sim{\cal{B}}(n,p)$ with probability $p\in[0,1]$. Denote $L(\delta,p)$ the quadratic loss function. Ones call  {\it Bayesian risk of an estimator $\delta(x)$} the quantity $\E_{\pi}[L(\delta(x),p)|x]$, and  {\it frequentist risk of $\delta(x)$}  the quantity $\E_{X}[L(\delta(x),p)]$.
+\begin{enumerate}
+\item Let $\pi(p)$ be Laplace's prior. Define the  MAP ({\it maximum a posteriori}) estimator $\delta_1(x)$ of $p$.
+\item Rather, choosing $\pi(p)$ as Jeffreys' prior, calculate the Bayesian and frequentist risks $R_b(x)$ et $R_f(p)$ of  $\delta_1(x)$.
+\item Compare $r_f = \sup_p R_f(p)$ to 
+$r_b  =  \sup_x R_b(x)$. 
+\end{enumerate}
+
+
+\section{Maximum entropy (11 pts)}\label{max.entropie}
+
+We define a new prior building methodology as follows. Given a sampling model $X|\theta \sim p(x|\theta)$, with $x\in S$ and $\theta\in\Theta\in\R^d$, and a reference benchmark prior $\pi^J(\theta)$, we define
+\begin{eqnarray}
+\pi^*(\theta) & = & \arg\max\limits_{\pi(\theta)\geq 0} G(\Theta) \label{mdiprior}
+\end{eqnarray}
+where $G(\Theta)$ is the average information yielded by the  density $p$ relative to the prior $\pi(\theta)$ :
+\begin{eqnarray*}
+G(\Theta) & = & \E_{\theta}\left[H^J(\Theta) - H(X|\theta)\right],
+\end{eqnarray*}
+where $H(X|\theta)$ and
+$H^J(\Theta)$ are respectively the entropy (with respect to Lebesgue's measure) of the sampling model and the entropy (with respect to $\pi^J(\theta)$) of $\pi(\theta)$. 
+\begin{enumerate}
+\item Prove that if $Y\sim f(y)$ on a normed, measured space $\Omega\in\R^q$ with $q<\infty$ and $f\in L^2(\Omega)$, then the entropy with respect to Lebesgue's measure is bounded. 
+\item Prove that the problem  (\ref{mdiprior}), under the constraint that  $p(x|\theta)$ and $\pi(\theta)$ be respectively $L^4$ ($\forall \theta\in\Theta$) on $S$ and on $\Theta$,  implies that  $\pi(\theta)$ solves the usual maximum entropy problem of  s $\pi(\theta)$ under the linear constraint 
+\begin{eqnarray}
+\int_{\Theta} Z(\theta) \pi(\theta) \ d\theta & = & c \ < \ \infty \label{contr2}
+\end{eqnarray}
+where $Z(\theta)$ is Shannon's information (or negative differential entropy)  of $p$ 
+\begin{eqnarray*}
+Z(\theta) & = & \int_{S} p(x|\theta) \log p(x|\theta) \ dx
+\end{eqnarray*}
+and $c$ is a finite maximal value. 
+\item For $S=\R^+$ et $(\beta,\eta)\in\R^+_* \times \R^+_*$, consider now the Weibull cumulative distribution function 
+\begin{eqnarray*}
+P(X<x|\theta) & = & 1-\exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right).
+\end{eqnarray*}
+\begin{enumerate}
+\item Compute $Z(\eta,\beta)$ for this model.
+\item Using Berger-Bernardo's prior $\pi^J(\eta,\beta)\propto (\eta,\beta)^{-1}$ as a reference measure, give the formal solution  $\pi^*(\eta,\beta)$  of the maximum entropy problem under constraints  (\ref{contr2}) and
+\begin{eqnarray}
+\int_S x m_{\pi}(x) \ dx & = & x_e \label{cons2}
+\end{eqnarray}
+where $m_{\pi}(x)$ is the prior predictive density. 
+\item Provide the results under the hierarchical form  
+\begin{eqnarray*}
+\pi^*(\theta) & = & \pi^*(\eta|\beta)\pi^*(\beta).
+\end{eqnarray*}
+and prove that the prior distribution on $\beta$ can be written as
+\begin{eqnarray*}
+\pi^*(\beta) & \propto & \tilde{\pi}^*(\beta) 
+\end{eqnarray*}
+with
+\begin{eqnarray}
+\tilde{\pi}^*(\beta) & = & \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}\label{pistar}
+\end{eqnarray}
+where $\lambda_1$ is a Lagrange multiplier. 
+\item Placing constraints on Lagrange multipliers in the general writing of   $\pi^*(\eta,\beta)$, can you recognize a specific known form for   $\pi^*(\eta|\beta)$ and $\pi^*(\beta)$? Is the law $\pi^*(\eta|\beta)$ conjugated conditionally to $\beta$ ? 
+\item Is this joint law $\pi^*(\theta)$ proper (integrable)  ? Under which conditions on Lagrange multipliers?
+\item Link formally Lagrange multipliers to  $x_e$ from Equation (\ref{cons2}). Is it mandatory to know the integration constant  of  $\pi^*(\beta)$ to do so? 
+\item Propose, encode and validate a numerical method allowing to sample from  $\pi^*(\theta)$ (Formula (\ref{pistar})), by setting $\lambda_1=1$. For the validation task, use rather a plot and histogram of $Y=1/beta$ by operating a variable change
+\end{enumerate}
+\end{enumerate}
+
+\textit{
+\paragraph{\bf Indications.}
+\begin{itemize}
+\item It may be useful to prove in advance of Question 1 that $\log y \leq 1 + y$ $\forall y\in \R^+_*$
+\item It is recalled that the expectancy of Weibull distribution is 
+\begin{eqnarray}
+\E[X|\theta] & = & \eta\Gamma(1+1/\beta) \label{weibu}
+\end{eqnarray}
+and when $\beta>0$ 
+\begin{eqnarray}
+\Gamma(1+1/\beta) & \geq & \frac{\sqrt{\pi}}{3}  \label{borne.min}
+\end{eqnarray}
+\item Following formulas are useful:
+\begin{eqnarray}
+\int_0^{\infty} (\log x) \exp(-x) \ dx & = & -\gamma \label{aide1} \\
+\int_0^{\infty} x \exp(-x) \ dx & = & \Gamma(2) \label{aide2}
+\end{eqnarray}
+where $\gamma$ is Euler's constant (close to 0.5772157)
+\end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bayesian computation (5 pts)}
+
+We reuse the Weibull ${\cal{W}}(\eta,\beta)$ distribution from Exercice (\ref{max.entropie}) and we use the following prior 
+\begin{eqnarray*}
+\eta & \sim & {\cal{G}}(m,m/\eta_0) \\
+\beta & \sim & \tilde{\pi}^*(\beta)  = \ \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}
+\end{eqnarray*}
+which is the prior (\ref{pistar}) on $\beta$. \\
+
+Consider the sample
+\begin{eqnarray*}
+{\bf x_n} & = & \left\{ 103, 157 , 39 ,145 , 24  ,22 ,122, 126 , 66 , 97\right\},
+\end{eqnarray*}
+\begin{enumerate}
+\item Propose and implement a method to generate a posterior sample of  $(\eta,\beta)$. 
+\item Estimate numerically the expectancy of the predictive posterior distribution 
+\begin{eqnarray*}
+p(x|{\bf x_n}) & = & \iint_{\R^+\times\R^+} p(x|\eta,\beta) \pi(\eta,\beta|{\bf x_n}) \ d\eta d\beta,,
+\end{eqnarray*}
+ en prenant $m=2$, $\eta_0=100$ et $\lambda_1=1$ 
+\end{enumerate}
+
+
+
+\section{Bonus exercise (3 pts)}
+
+Let $f(x|\theta) = h(x)\exp\left(\theta\cdot x - \psi(\theta)\right)$ be a distribution belonging to the exponential family, with $\theta\in\Theta$. For all prior density $\pi$, prove that the posterior expectancy of $\theta$ is given by
+\begin{eqnarray*}
+\E[\theta|x] & = & \nabla \log m_{\pi}(x) - \nabla \log h(x)
+\end{eqnarray*}
+where $\nabla$ is the gradient operator and  $m_{\pi}$ is the prior marginal distribution for $x$.
+
+
+\end{document} 

@@ -1,0 +1,24 @@
+\begin{rep}
+\begin{enumerate}
+    \item Il existe une constante inconnue $\gamma >0$ telle que %(le donner pour $i=1$, plus simple)
+\begin{eqnarray*}
+B_{12}({\bf x_n}) & = & \gamma \frac{\int_{0}^{\infty} \frac{\lambda^{\sum_{i} (x_i-1)}}{\prod_i x_i !} \exp\left(-n \lambda\right) \ d\lambda}
+{\frac{1}{M}\sum\limits_{m=1}^M \int_{0}{\infty} 
+\left(\prod_i\left(\begin{array}{l} m \\ x_i-1\end{array}\right) \right) p^{\sum_i x_i} (1-p)^{m\cdot n - \sum_i x_i} \ dp}, \\
+& = & \gamma M\left(\sum_{m=1}^M  \left(\begin{array}{l} m \\ x-1\end{array}\right) \frac{x!(m-x)!}{m!}\right)^{-1} \ \ \text{si $n=1$ et $x_i=x$}\\
+& = & \gamma M\left(\sum_{m=1}^M  x/(m-x+1)\right)^{-1}
+\end{eqnarray*}
+Impossible de faire un choix car $\gamma$ n'est pas connu ! 
+\item Si on remplace $\pi_1(\lambda)$ par un {\it a priori} {\bf vague}
+$$
+\pi_1(\lambda)  \equiv  {\cal{G}}(\alpha,\beta)
+$$
+avec $\alpha(\beta)$ ou/et $\beta(\alpha) \to 0$, 
+on obtient après quelques calculs (pour $n=1$ et $x_i=x$)
+\begin{eqnarray*}
+B_{12} & = & \frac{\Gamma(\alpha+x)}{x!\Gamma(\alpha)} \beta^{-x}\left[\frac{1}{M}\sum\limits_{m=1}^M \frac{x}{m-x+1}\right]^{-1} \\
+& = & \frac{(x+\alpha-1)\ldots \alpha}{x(x-1)\ldots 1} \beta^{-x} \left[\frac{1}{M}\sum\limits_{m=1}^M \frac{x}{m-x+1}\right]^{-1}  
+\end{eqnarray*}
+qui dépend fortement du choix de $\alpha(\beta)$ ou/et $\beta(\alpha) \to 0$. On ne résout donc pas le problème...
+\end{enumerate}
+\end{rep}

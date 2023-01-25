@@ -1,0 +1,357 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Examen 2018 : Modélisation et statistique bayésienne computationnelle \\ -- Corrig\'e -- }
+\date{13 avril 2018}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+
+
+
+{\it L'examen dure 3h et est noté sur 30. Tous les supports de cours sont autorisés. Il est attendu un code R commenté {\it a minima} pour les parties computationnelles, et un support papier peut être utilisé pour la partie formelle. Lisez bien tout le document, certaines questions peuvent être traitées formellement indépendamment du reste de l'exercice qui les contient.} \\
+
+
+\section{Fonction de coût (9 pts) }
+
+Soit $\theta\in\Theta=\R$ le paramètre d'un modèle, sur lequel on dispose d'une loi {\it a priori} $\pi(\theta)$ et de données $x_1,\ldots,x_n$. On suppose que la loi a posteriori de densité  $\pi(\theta|x_1,\ldots,x_n)$ est propre et telle que $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. On considère la fonction de coût pour l'estimation $\delta$ de $\theta$ définie sur $\R$ par
+\begin{eqnarray*}
+L_a(\theta,\delta) & = & \exp(a(\theta-\delta) - a(\theta-\delta) - 1
+\end{eqnarray*}
+où $a$ est un réel.
+\begin{enumerate}
+\item Montrer que $L_a(\theta,\delta)\geq 0$ pour tout $\theta\in\Theta$ et pour tout $a$ et qu'elle est convexe en $\theta$ ; représenter cette fonction de coût comme une fonction de $(\theta-\delta)$ lorsque $a=\{0.1, 0.5, 1,2\}$. 
+\item On suppose que $a>0$. \`A quelles conditions cette fonction pénalise-t-elle les coûts de sous-estimation et de surestimation de $\theta$ de fa\c con similaire ? Au contraire, à quelles conditions cette fonction pénalise-t-elle les coûts de sous-estimation et de surestimation de $\theta$ de fa\c con très dissymétrique ? 
+\item On suppose que $a\neq 0$. Donner l'expression de l'estimateur de Bayes $\hat{\delta}_a$ sous cette fonction de coût.
+\item Supposons que les données sont issues de ${\cal{N}}(\theta,1)$ et que $\pi(\theta)\propto 1$ ; donnez l'estimateur de Bayes associé.
+\end{enumerate}
+
+\paragraph{\bf Réponses.}
+\begin{enumerate}
+\item Avec 
+\begin{eqnarray*}
+\frac{\partial L_a}{\partial \delta}(\theta,\delta) & = & a\left(1-\exp(a(\theta-\delta)\right)
+\end{eqnarray*}
+qui s'annule en $\delta=\theta$, et 
+\begin{eqnarray*}
+\frac{\partial^2 L_a}{\partial \delta^2}(\theta,\delta) & = & a^2\exp(a(\theta-\delta) \ \geq \ 0,
+\end{eqnarray*}
+on a clairement que $\delta\to L_a(\theta,\delta)$ est convexe et de minimum 0 en $\delta=\theta$. Un petit tableau de variations peut achever de nous en convaincre.
+Un code R minimal pour représenter le comportment de la fonction est le suivant :
+\begin{verbatim}
+f <- function(a) {
+    curve(exp(a*x)-a*x-1, xlim=c(-10,10))
+}
+
+par(mfrow=c(2,2))
+f(0.1)
+f(0.5)
+f(1)
+f(2)
+\end{verbatim} 
+\item Pour $a>0$, $L_a(\theta,\delta)$ se comporte comme une fonction linéaire pour des grandes valeurs négatives de l'écart $\theta-\delta$, soit pour des surestimations de $\theta$. Elle se comporte comme une fonction exponentielle pour des grandes valeurs positives de l'écart $\theta-\delta$, soit pour des sous-estimation de $\theta$. Elle pénalise donc bien plus fortement les sous-estimations de $\theta$ que les surestimations de $\theta$. Elle se comporte similairement comme $a(\theta-\delta)^2$ pour $\delta\to\theta$ (à gauche comme à droite). On en déduit que cette fonction de coût est appropriée dans les cas où les petites erreurs de sous-estimation et de surestimation ne provoquent pas un coût très différent, mais où les grandes erreurs amènent à des coûts très différents. 
+\item L'estimateur de Bayes est défini par
+\begin{eqnarray*}
+\hat{\delta}_a & = & \arg\min\limits_{\delta} \underbrace{\int_{\Theta} L_a(\theta,\delta) \pi(\theta|x_1,\ldots,x_n) \ d\theta}_{J(\delta)}.
+\end{eqnarray*}
+Comme la fonction de coût est convexe, l'estimateur est donc défini comme la valeur de $\delta$ qui annule la dérivée du terme $J(\delta)$. Alors
+\begin{eqnarray*}
+J'(\hat{\delta}) = 0 & \Leftrightarrow & \int_{\Theta} \frac{\partial L_a}{\partial \delta}(\theta,\hat{\delta}) \pi(\theta|x_1,\ldots,x_n) \ d\theta = 0, \\
+& \Leftrightarrow & \exp(-a\hat{\delta}) \int_{\Theta} \exp(a\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta = 1,
+\end{eqnarray*}
+le terme de droite étant bien défini car on suppose $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. Il vient alors (avec $a\neq 0$) 
+\begin{eqnarray}
+\hat{\delta} & = & \frac{1}{a}\log  \int_{\Theta} \exp(a\theta) \pi(\theta|x_1,\ldots,x_n) \ d\theta. \label{estimateur}
+\end{eqnarray}
+\item Avec $x_1,\ldots,x_n\sim{\cal{N}}(\theta,1)$ et $\pi(\theta)\propto 1$, il vient
+\begin{eqnarray*}
+\pi(\theta|x_1,\ldots,x_n) & \propto & \exp\left(- \frac{n}{2}\theta^2 + \theta \sum\limits_{i=1}^n x_i \right), \\
+ & \propto & \exp\left(- \frac{n}{2}\left\{\theta^2 - \frac{n}{2} 2\theta \bar{x}_n\right\} \right), \\
+ & \propto &  \exp\left(- \frac{n}{2}\left\{\theta - \bar{x}_n\right\}^2\right)
+\end{eqnarray*}
+et donc $\pi(\theta|x_1,\ldots,x_n)$ est la densité de la loi ${\cal{N}}(\bar{x}_n,1/n)$. En appliquant (\ref{estimateur}), on déduit alors 
+\begin{eqnarray*}
+\hat{\delta} & = & \frac{1}{a}\log  \int_{\Theta} \frac{n}{2\pi} \exp\left(a\theta -  \frac{n}{2}\left\{\theta - \bar{x}_n\right\}^2\right) \ d\theta, \\
+ & = & \frac{1}{a}\log  \int_{\Theta} \frac{n}{2\pi} \exp\left(-\frac{n}{2}\theta^2 -  \frac{n}{2}\bar{x}^2_n + 2 \frac{n}{2}\theta (\bar{x}_n + a/n) \right) \ d\theta, \\
+ & = & \frac{1}{a}\log  \exp\left (-  \frac{n}{2}\bar{x}^2_n + \frac{n}{2}(\bar{x}_n + a/n)^2\right)\int_{\Theta} \frac{n}{2\pi}  \exp\left(-\frac{n}{2} \left\{\theta - (\bar{x}_n + a/n)\right\}^2\right) 
+\end{eqnarray*}
+On reconnaît dans le terme intégral la densité d'une loi ${\cal{N}}(\bar{x}_n + a/n,1/n)$. Avec $\Theta=\R$, cette intégrale vaut donc 1, et 
+\begin{eqnarray*}
+\hat{\delta} & = & \frac{1}{a} \left (-  \frac{n}{2}\bar{x}^2_n + \frac{n}{2}(\bar{x}_n + a/n)^2\right), \\
+& = & \bar{x}_n + a/2n.  
+\end{eqnarray*}
+
+\end{enumerate}
+
+\paragraph{Remarque.} Cette fonction de coût alternative aux fonctions classiques (coûts absolu, quadratique...) est dite LINEX ({\it linear-exponential}) et a été introduite par Varian en 1974 puis très utilisée par Zellner en 1986.  
+
+\section{\'Elicitation d'{\it a priori} non informatif (7 pts)}
+
+On considère le problème suivant
+\begin{eqnarray*}
+x_i & {\sim} & {\cal{N}}(\mu_i,\sigma^2) \ \ \ \text{pour $i=1,\ldots,n$}
+\end{eqnarray*}
+où les $x_i$ sont indépendants. 
+
+\begin{enumerate}
+\item Quelle est la densité jointe des données $x_1,\ldots,x_n$ ?
+\item Calculer la matrice d'information $I$ de Fisher pour ce jeu de données
+\item En déduire la mesure {\it a priori} de Jeffreys $\pi^J(\theta)$ pour $\theta=(\mu_1,\ldots,\mu_n,\sigma)$
+\item Que peut-on dire de $\pi^J(\sigma^2|x_1,\ldots,x_n,\mu_1,\ldots,\mu_n)$ ? Est-ce une loi vue en cours ? 
+%\item  Calculer l'estimateur bayésien $\E[\sigma^2|x_1,\ldots,x_n]$
+\end{enumerate}
+
+\paragraph{\bf Réponses.}
+\begin{enumerate}
+\item La loi jointe des données, qui est aussi la vraisemblance, s'écrit 
+\begin{eqnarray}
+f(x_1,\ldots,x_n| \theta) & = & \frac{\sigma^{-n}}{(2\pi)^{n/2}} \exp\left(-\sum\limits_{i=1}^n \frac{(x_i-\mu_i)^2}{2\sigma^2}\right). \label{vrais}
+\end{eqnarray}
+\item La matrice d'information de Fisher s'écrit, dans ce cas régulier, comme 
+$$
+I=-\E\left[\begin{array}{llll}
+\frac{\partial^2}{\partial \theta^2_{i_1}} \log f(x | \theta) & \frac{\partial^2}{\partial \theta_{i_1}\theta_{i_2}} \log f(x | \theta) & \ldots & \frac{\partial^2}{\partial \theta_{i_1}\theta_{i_d}} \log f(x | \theta) \\
+\frac{\partial^2}{\partial \theta_{i_1}\theta_{i_2}} \log f(x | \theta) & \frac{\partial^2}{\partial \theta^2_{i_2}} \log f(x | \theta) & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots 
+\end{array}\right]
+$$
+où $x=(x_1,\ldots,x_n)$ et $d=n$. Or
+\begin{eqnarray*}
+\frac{\partial^2}{\partial \sigma^2} \log f(x | \theta) & = & \frac{n}{2\sigma^4} - \frac{1}{\sigma^6}\sum\limits_{i=1}^n (x_i-\mu_i)^2, \\
+\frac{\partial^2}{\partial \mu_i \partial \mu_j} \log f(x | \theta) & = & 0 \ \ \ \text{si $i\neq j$,} \\
+\frac{\partial^2}{\partial \mu^2_i} \log f(x | \theta) & = & -\frac{1}{2\sigma^2}
+\end{eqnarray*}
+et
+\begin{eqnarray*}
+\frac{\partial^2}{\partial \sigma \partial \mu_i }\log f(x | \theta) & = & -\frac{1}{\sigma^4} (x_i-\mu_i).
+\end{eqnarray*}
+Avec $\E[X_i-\mu_i]=0$ et $\E[(X_i-\mu_i)^2]=\sigma^2$, il vient donc
+$$
+I=-\E\left[\begin{array}{lllll}
+\frac{1}{2\sigma^2} & \\
+&  \frac{1}{2\sigma^2}  & \\
+&&  \ldots & {\bf (0)} \\
+& {\bf (0)} && \ldots & \\
+&&&& \frac{1}{\sigma^2} (n/2-1)
+\end{array}\right]
+$$
+et donc
+\begin{eqnarray*}
+\pi^J(\theta) & \propto & \sigma^{-n-1}.
+\end{eqnarray*}
+\item En utilisant (\ref{vrais}), la loi {\it a posteriori} s'écrit sous une forme condensée comme 
+\begin{eqnarray*}
+\pi^J(\theta|x_1,\ldots,x_n) & \propto & \sigma^{-2n-1} \exp\left(-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right).
+\end{eqnarray*}
+En opérant le changement de variable $\sigma \to \sigma^2$, on obtient alors
+\begin{eqnarray*}
+\pi^J(\sigma^2|x_1,\ldots,x_n,\mu_1,\ldots,\mu_n) & \propto & \sigma^{-1} \pi^J(\theta|x_1,\ldots,x_n), \\
+& \propto &  \sigma^{-2(n+1)} \exp\left(-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right)
+\end{eqnarray*}
+et on reconnaît le terme général  d'une loi inverse gamma ${\cal{IG}}\left(n,\frac{1}{2}\sum\limits_{i=1}^n (x_i-\mu_i)^2\right)$ pour la variable aléatoire $\sigma^2$. 
+
+% A LAISSER OTER
+%\item On déduit du résultat précédent que
+%\begin{eqnarray*}
+%\E[\sigma^2|x_1,\ldots,x_n] & =  & 
+%\end{eqnarray*}
+
+%\item Il s'agit du problème de {\it Neyman-Scott} (1948). 
+\end{enumerate}
+
+\section{\'Elicitation et calcul bayésien pour un problème de Gumbel (14 pts)}
+
+La loi de Gumbel, de fonction de r\'epartition
+\begin{eqnarray*}
+P(X<x|\theta) & = & \exp\left\{-\exp\left(-\frac{x-\mu}{\sigma}\right)\right\} \ \ \ \text{avec $\sigma>0$, $\mu\in\R$ et $x\in\R$}
+\end{eqnarray*}
+et $\theta=(\mu,\sigma)$,  est souvent utilis\'ee en météorologie  pour modéliser le comportement d'un échantillon de {\it maxima} d'une variable environnementale. Son espérance vaut $\E[X|\theta]=\mu + \sigma \gamma$ où $\gamma$ est la constante d'Euler. On suppose connaître un échantillon de données de pluies (en mm) ${\bf x_n}=(x_1,\ldots,x_n)$ suivant cette loi. Elles sont fournies dans la table \ref{data} et correspondent aux années 1987 à 2013. Par ailleurs on dispose d'une expertise {\it a priori} qui s'exerce sur la loi {\it a priori} prédictive de $X$, et est spécifiée statistiquement sous la forme
+$P(X<75)=25\%$, $P(X<100)=50\%$, $P(X<150)=75\%$. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lllllllll}
+\hline
+107.6  &  72.4 &    204.5   &  83.8 &    142 &    95.5  &   316.1 &  177.9 &    87.3 \\
+81.9   & 109.1 &   89.5      & 150.7  & 122.1 & 98.2      & 113.2    & 104.4  & 66.9  \\
+136.4 & 275.4 & 125         & 199.8 & 51.2 &75     & 168.2    & 106       & 72.8 \\
+\hline
+\end{tabular}
+\caption{Données de pluviométrie extrême.}
+\label{data}
+\end{table}
+
+
+On considère la mesure {\it a priori}
+\begin{eqnarray*}
+\pi(\mu,\sigma) & \propto & \sigma^{-m}\exp\left(m\frac{(\mu-\bar{\bf\tilde{x}}_m)}{\sigma}-\sum\limits_{i=1}^{m} \exp\left\{-\frac{\tilde{x}_i-\mu}{\sigma}\right\}\right)
+\end{eqnarray*} 
+o\`u les hyperparam\`etres $(m,\bar{\bf\tilde{x}}_m,\tilde{x}_1,\ldots,\tilde{x}_m)$ correspondent respectivement \`a la taille d'un \'echantillon de donn\'ees {\it a priori} (virtuelles), sa moyenne et les donn\'ees elles-m\^emes (supposées calibrables). 
+\begin{enumerate}
+\item Ecrivez la densité de la loi {\it a posteriori} conditionnelle aux donn\'ees r\'eelles ${\bf x_n}$. La loi {\it a priori} est-elle conjuguée ? 
+\item Produisez un algorithme qui simule la loi {\it a priori} prédictive de $X$ en fonction des hyperparamètres et estime les quantiles prédictifs {\it a priori}. En fixant $m=3$ et $(\tilde{x}_1,\tilde{x}_2)=(81,93)$, testez les valeurs de $\tilde{x}_3$ suivantes : 97,101,110,120. Quelle calibration vous semble la plus adéquate vis-à-vis de l'expertise {\it a priori} ? 
+\item Pour les calibrations des hyperparamètres précédentes, écrivez un algorithme qui produit un tirage de la loi {\it a posteriori} de $\theta$ ainsi qu'une représentation (densité empirique) de la loi {\it a posteriori prédictive} sur $X$. Comparez avec un histogramme des données ${\bf x_n}$. 
+\item {\bf Cette question peut être traitée indépendamment du reste.} On pose à présent $\mu>0$ et on cherche à définir une nouvelle loi {\it a priori} $\pi_2(\theta)$ par maximum d'entropie qui est telle que les contraintes linéaires suivantes soient respectées :
+\begin{eqnarray*}
+\E[X] & = & 100, \\
+\E_{\pi}[\log \sigma] & = & 1.
+\end{eqnarray*}
+Formalisez et résolvez numériquement (possiblement graphiquement) le problème de maximum d'entropie en supposant que la mesure de référence est la mesure de Jeffreys $\pi_0(\theta) \propto \sigma^{-2}$ (valable pour le modèle de Gumbel). Sous quelles contraintes sur les multiplicateurs de Lagrange pouvez-vous trouver une loi jointe propre ? Celle-ci appartient-elle à une classe de lois connues ? \\
+
+{\bf Rappel} : {\it Si $Y$ suit une loi gamma ${\cal{G}}(a,b)$, alors $\E[Y]=\Psi(a)-\log(b)$ où $\Psi$ est la fonction digamma (\texttt{digamma} en R). } \\
+
+\item Adaptez le code produit à la question 3 pour produire un nouveau calcul {\it a posteriori}, en utilisant $\pi_2(\theta)$.
+\end{enumerate}
+
+
+\paragraph{\bf Réponses.}
+\begin{enumerate}
+\item Sachant des donn\'ees r\'eelles ${\bf x_n}$, la loi {\it a posteriori} s'\'ecrit
+\begin{eqnarray*}
+\pi(\mu,\sigma|{\bf x_n}) & \propto & {\displaystyle \sigma^{-m-n}\exp\left(\{m+n\}\frac{\left(\mu-\frac{m\bar{\bf\tilde{x}}_m + n\bar{\bf x_n}}{m+n}\right)}{\sigma} \right. }\\
+& & {\displaystyle \ \ \ \left. - \ \sum\limits_{i=1}^{m} \exp\left\{-\frac{\tilde{x}_i-\mu}{\sigma}\right\}-\sum\limits_{k=1}^{n} \exp\left\{-\frac{x_k-\mu}{\sigma}\right\}\right).}
+\end{eqnarray*}
+Elle est donc en effet conjuguée, car on retrouve la même forme que la loi {\it a priori}. 
+\item Pour simuler selon la loi {\it a priori} marginale, le plus simple est d'utiliser l'algorithme ci-dessous :
+\begin{enumerate}
+\item simuler $\mu_i,\sigma_i$ {\it a priori} ;
+\item simuler $X_i$ selon la loi de Gumbel en  $\mu_i,\sigma_i$.
+\end{enumerate}
+Pour réaliser la première simulation (la seconde peut être faite très facilement par inversion), on peut tenter de procéder de plusieurs fa\c cons : acceptation-rejet, échantillonnage d'importance, MCMC... En regardant la forme de la loi {\it a priori}, on privilégie l'approche par échantillonnage d'importance en utilisant (par exemple) une loi instrumentale de densité
+$$
+g(\mu,\sigma) \equiv {\cal{IG}}_{\sigma}(m-1,m \bar{\bf\tilde{x}}_m) {\cal{E}}_{\mu}(\lambda)
+$$
+avec $m>1$, où ${\cal{IG}}$ est une loi inverse gamma. Les poids d'importance s'écrivent alors (à un coefficient près)
+\begin{eqnarray*}
+\omega_k & = & \frac{\pi(\mu_k,\sigma_k)}{g(\mu_k,\sigma_k)}, \\
+& \propto & \exp\left(\mu_k\left[m/\sigma_k + \lambda\right] - \sum\limits_{i=1}^{m} \exp\left\{-\frac{\tilde{x}_i-\mu_k}{\sigma_k}\right\}\right)
+\end{eqnarray*}
+où  $(\mu_k,\sigma_k)\sim g(\mu,\sigma)$. Le logarithme de ces poids non normalisés est aisé à calculer, ce qui permet une approche numérique plus stable (en jouant éventuellement sur le $\lambda$).  La valeur la plus adéquate était 110 (c'est elle qui permet un meilleur {\it matching} avec les requis de l'expertise). 
+
+\item La loi {\it a posteriori} étant connue explicitement, on peut utiliser le même type d'algorithme pour mener le calcul {\it a posteriori}. 
+\item On a 
+\begin{eqnarray*}
+\E[X] & = & \E_{\pi}[\E[X|\theta]] \ = \ \E_{\pi}[\mu+\sigma\gamma]
+\end{eqnarray*}
+Sous cette contrainte, et sous l'autre contrainte $\E_{\pi}[\log \sigma]  =  1$, la solution du problème classique de maximisation d'entropie est
+\begin{eqnarray*}
+\pi_2(\theta) & \propto & \pi_0(\theta) \exp(\lambda_1(\mu + \sigma\gamma) + \lambda_2 \log \sigma), \\
+& \propto & \sigma^{\lambda_2-2} \exp(\lambda_1 \gamma \sigma) \exp(\lambda_1\mu).
+\end{eqnarray*}
+Avec $\mu>0$, pour avoir une loi {\it a posteriori} intégrable, il nous faut avoir $\lambda_1=-\tilde{\lambda}_1<0$ et $\lambda_2=\tilde{\lambda}_2 + 1$ avec $\tilde{\lambda}_2>0$. Dans ce cas, on reconnaît aisément un mélange de loi gamma ${\cal{G}}(\tilde{\lambda}_2,\gamma\tilde{\lambda}_1)$ pour $\sigma$, et de loi exponentielle ${\cal{E}}(\tilde{\lambda}_1)$ pour $\mu$. Dans ce cas, on a 
+\begin{eqnarray}
+\E[X] & = & \E_{\pi}[\mu+\sigma\gamma], \nonumber \\
+         & =  & \frac{1}{\tilde{\lambda}_1} + \gamma\frac{\tilde{\lambda}_2}{\gamma\tilde{\lambda}_1}, \nonumber \\
+         & = &  \frac{1}{\tilde{\lambda}_1}(1 + \tilde{\lambda}_2),\nonumber \\
+         & = & 100. \label{constraint1}
+\end{eqnarray}
+et 
+\begin{eqnarray*}
+\E_{\pi}[\log \sigma] & = & \Psi(\tilde{\lambda}_2)-\log(\gamma\tilde{\lambda}_1) \ = \ 1.
+\end{eqnarray*}
+Ce système de deux équations à deux inconnues peut se résoudre numériquement. D'après (\ref{constraint1}), on a
+\begin{eqnarray*}
+\tilde{\lambda}_1 & = & (1 + \tilde{\lambda}_2)/100
+\end{eqnarray*}
+et
+\begin{eqnarray*}
+\Psi(\tilde{\lambda}_2) -  \log(1 + \hat{\lambda}_2) + \log 100 - 1 & = & 0.
+\end{eqnarray*}
+Il suffit de tracer la courbe de l'équation précédente pour obtenir 
+\begin{eqnarray*}
+\tilde{\lambda}_2 & \simeq & 0,3155, \\
+\tilde{\lambda}_1 & \simeq & 0,013155.
+\end{eqnarray*}
+\item On produit ici un algorithme MCMC, car on perd la propriété de conjugaison. Voici un lien vers un code R permettant de répondre à la question : \\
+\begin{center}
+\url{http://www.lsta.upmc.fr/bousquet/coursM2-2018/calcul-MCMC-gumbel.r}
+\end{center}
+
+\end{enumerate}
+
+\end{document} 

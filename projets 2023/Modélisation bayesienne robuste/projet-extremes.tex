@@ -1,0 +1,277 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour ins\'erer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+\def\GEV{{\cal{GEV}}} % raccourci pour la d\'enomination de la loi GEV
+\def\GPD{{\cal{GPD}}} % raccourci pour la d\'enomination de la loi GPD
+\def\EXPO{{\cal{E}}} % raccourci pour la d\'enomination de la loi exponentielle
+\def\GAUSS{{\cal{N}}} % raccourci pour la d\'enomination de la loi gaussienne
+\def\GEV{{\cal{GEV}}} % raccourci pour la d\'enomination de la loi GEV
+\def\BERN{{\cal{B}}_e} % raccourci pour la d\'enomination de la loi de Bernoulli
+\def\BINOM{{\cal{B}}} % raccourci pour la d\'enomination de la loi binomiale
+\def\POIS{{\cal{P}}} % raccourci pour la d\'enomination de la loi de Poisson
+
+
+\def\iid{\textit{iid} } % raccourci pour le terme "i.i.d."
+\def\va{\textit{va} } % raccourci pour le terme "variable al\'eatoire"
+\def\EMV{$\text{EMV}$} % raccourci pour le terme "estimateur du maximum de vraisemblance"
+\def\EMC{$\text{EMC}$} % raccourci pour le terme "estimateur des moindres carr\'es"
+\def\MSY{\mbox{MSY}} 
+\def\msy{\mbox{\small{MSY}}}
+
+\newcommand{\U}{\mathbbm{U}}
+%\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Ss}{\Gamma}
+\newcommand{\RCI}{\mbox{RCI}}
+\newcommand{\LCI}{\Upsilon}
+\newcommand{\LIC}{\Upsilon}
+\newcommand{\tenacite}{K_{IC}}
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Projet de recherche : analyse bay\'esienne robuste de lois d'extr\^emes, application en hydrologie belge et en m\'et\'eorologie corse}
+\date{M2 2023}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+\section{Contexte}
+
+La construction de lois {\it a priori} sur les param\`etres des distributions de valeurs extr\^emes est une t\^ache difficile. Les experts n'ont en g\'en\'eral aucune intuition sur la signification des param\`etres et pr\'ef\`erent faire des \'evaluations sur des quantit\'es observables. Leurs jugements sont fond\'es sur l'exp\'erience pass\'ee, o\`u des \'ev\'enements int\'eressants se sont rarement produits, ce qui entraîne une incertitude importante dans les \'evaluations. La transformation de ces expertises en lois {\it a priori} peut \^etre fortement affect\'ee par l'arbitraire introduit par le statisticien, par exemple dans le choix de leurs formes fonctionnelles. \\
+
+La robustesse bay\'esienne (ou analyse de sensibilit\'e bay\'esienne : \cite{Rios1995,Rios2000}) est une approche visant \'a lutter contre l'impossibilit\'e pratique de sp\'ecifier exactement les distributions a priori, les mod\`eles statistiques et les fonctions de perte, c'est-\'a-dire les trois ingr\'edients de l'approche bay\'esienne. En particulier, le choix de la distribution a priori est l'aspect le plus critique de cette approche. Son application aux lois issues de la th\'eorie des valeurs extr\^emes, dans des cadres appliqu\'ees o\`u celle-ci est usuellement utilis\'ee (par exemple pour mod\'eliser le comportement de variables m\'et\'eorologiques extr\^emes, telle la temp\'erature, la pluviom\'etrie, l'humidit\'e relative, etc.), n'a \'a ce jour pas encore \'et\'e men\'ee. \\
+
+Dans la pratique, l'approche bay\'esienne robuste se fonde sur la m\'ethodologie suivante : on consid\`ere  une classe de distribution {\it a priori}, et une gamme de valeur couverte par la quantit\'e d'int\'er\^et (ici, principalement les quantiles {\it a posteriori} et des p\'eriodes de retour) quand la loi {\it a priori} (prior) varie dans cette classe.  Si l'intervalle est petit, alors tout prior dans la classe peut \^etre choisi puisque le choix n'affecte pas l'estimation de la quantit\'e d'int\'er\^et. Si la fourchette est large, les experts doivent fournir des informations compl\'ementaires afin de r\'eduire la taille de la classe du prior. La proc\'edure doit \^etre r\'ep\'et\'ee jusqu'\'a ce qu'une petite fourchette soit obtenue ou qu'aucun affinement ne soit possible. Dans ce dernier cas, l'analyse doit \^etre effectu\'ee en utilisant un seul prior (peut-\^etre optimal au regard de certains crit\`eres) mais en indiquant la fourchette de la quantit\'e d'int\'er\^et et en reconnaissant comment l'estimation est affect\'ee par ce choix particulier. \\
+
+Ce projet vise donc \'a mettre en place une telle analyse.
+
+
+\section{Applications}
+
+On consid\`ere deux situations faisant intervenir les lois de maxima d'un ph\'enom\`ene naturel : \\
+
+\begin{itemize}
+\item {\bf un jeu de donn\'ees r\'eelles de maxima journaliers annuels de d\'ebits de la Meuse} en une station de mesure situ\'ee pr\`es de la ville de Li\`ege (Belgique), t\'el\'echargeable \'a l'adresse \\
+\begin{center}
+\url{https://perso.lpsm.paris/~bousquet/projets/max-meuse.txt} \\
+\end{center}
+
+\vspace{0.5cm}
+
+Les mesures sont donn\'ees en $m^3/s$. On s'int\'eresse ici \'a l'estimation des niveaux de retour \'a 4 ans, puis aux niveaux correspondant \'a des probabilit\'es de d\'epassement d'au plus 0.1 et 0.001. Une information {\it a priori} est donn\'ee dans la table \ref{expertise-meuse}. Celle-ci est issue d'une expertise produite \'a partir de mod\`eles de simulation qui tentent de prendre en compte la variation pr\'edictive du d\'ebit dans des conditions de changement climatique au cours du 21\`eme si\`ecle. \\
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{cc}
+Percentile order     & Discharge ($m^3/s$) \\
+ \hline
+5\%   &  1250  $(\pm 200)$ \\ 
+50\%  &  2000 $(\pm 100)$ \\
+75\%    & 2100 $(\pm 100)$ \\
+\hline
+\end{tabular}
+\caption{Prior predictive information on daily maxima discharge  per year, extrapolated by numerical analysis of physically-based climate models. }
+\label{expertise-meuse}
+\end{table}
+
+\vspace{1cm}
+ 
+\item {\bf un jeu de donn\'ees r\'eelles de maxima journaliers annuels de la pluviom\'etrie} \'a Penta-di-Casinca (Haute Corse),  t\'el\'echargeable \'a l'adresse \\
+\begin{center}
+\url{https://perso.lpsm.paris/~bousquet/projets/pluviometry-corsica.csv} \\
+\end{center}
+
+\vspace{0.5cm}
+
+Les mesures sont donn\'ees en mm. On s'int\'eresse ici \'a l'estimation des niveaux de retour \'a 50 puis 100 ans. Une information historique {\it a priori}, issue de l'interrogation d'un expert de M\'et\'eo-France, est donn\'ee dans la table \ref{expertise-corsica}.  \\
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{cc}
+Percentile order     & Pluviometry $P$ (mm) \\
+ \hline
+25\%   &  75  $(\pm 20)$ \\ 
+50\%  &  100 $(\pm 20)$ \\
+75\%    & 150 $(\pm 20)$ \\
+\hline
+\end{tabular}
+\caption{Prior predictive information on daily maxima pluviometry  per year, extrapolated by an expert from daily maxima measured at a nearby station. }
+\label{expertise-corsica}
+\end{table}
+
+\end{itemize}
+
+
+
+\section{Formalisation}
+
+\subsection{Principe g\'en\'eral}
+
+On consid\`ere pour une grandeur $X$ d'int\'er\^et la loi des valeurs extr\^emes g\'en\'eralis\'ees (GEV) de fonction de r\'epartition 
+\[
+F(x; \theta)=\exp\left\{-\left[1+\xi \left(
+\frac{x-\mu}{\sigma} \right)\right]_{+}^{-1/\xi} \right\},
+\]
+et de densit\'e
+\[
+f(x; \theta)=\frac{1}{\sigma}\left[1 + \xi \left(
+\frac{x-\mu}{\sigma}\right)\right]_{+}^{-1/\xi-1}
+\exp \left\{-\left[1+\xi \left(\frac{x-\mu}{\sigma} \right)\right]_{+}^{-1/\xi} \right\},
+\]
+avec $\mu \in \mathbb{R}$, $\xi \in \mathbb{R}$ et $\sigma \in \mathbb{R}^{+}$. On note $\theta = (\mu, \sigma, \xi) \in \Theta$. Au regard des cas d'\'etude, on consid\`ere donc disposer pour chaque cas, outre un \'echantillon $x_1,\ldots,x_n$, de sp\'ecifications {\it a priori} de la forme $F(x_{q_i})=q_i, i=1, \dots, n$. En introduisant une distribution {\it a priori} de densit\'e $\pi(\theta)$, on a alors :
+\[
+F(x_{q_i}) = \int_{\Theta} F(x_{q_i}; \theta) \pi(\theta) d\theta = q_i, i=1, \dots, n.
+\]
+Nous souhaitons \'evaluer comment les donn\'ees exp\'erimentales et les hypoth\`eses sur la distribution priore pourraient affecter les quantiles et donc les niveaux de retour. De fa\c con g\'en\'erale, les donn\'ees observ\'ees $\mathbf{x}=(X_1, \ldots, X_m)$ conduisent \'a la vraisemblance $l_\mathbf{x}(\theta)= \ds \prod_{j=1}^m f(X_j ; \theta)$. L'int\'er\^et r\'eside dans l'obtention a posteriori d'une certaine quantit\'e, disons $g(\theta)$, qui peut \^etre estim\'ee par 
+\begin{eqnarray}
+G(\pi) & = & \frac{\int_{\Theta}g(\theta) l_\mathbf{x}(\theta) \pi(d\theta)}{\int_{\Theta} l_\mathbf{x}(\theta)\pi(d\theta)}. \label{g.pi}
+\end{eqnarray}
+
+
+\subsection{Approche robuste via une classe de moments contraints g\'en\'eralis\'es }
+
+Nous consid\'erons une variable al\'eatoire $X$ avec une distribution GEV. Nous supposons que l'expert est capable de sp\'ecifier uniquement des quantiles sur la quantit\'e observable $X$ (sans condition sur le param\`etre $\theta$), c'est-\'a-dire qu'il fournit uniquement des d\'eclarations comme $F(x_{q_i})=q_i, i=1, \dots, n$. En introduisant une distribution pr\'ealable $\pi(\theta)$, les instructions deviennent alors
+\[
+F(x_{q_i}) = \int_{\Theta} F(x_{q_i} ; \theta) \pi(\theta) d\theta = q_i, i=1, \dots, n.
+\]
+Nous souhaitons \'evaluer comment les donn\'ees exp\'erimentales et les hypoth\`eses sur la distribution a priori pourraient affecter ces quantiles (et m\^eme d'autres). \\
+
+Une distribution a priori correspondant \'a ces quantiles pourrait \^etre trouv\'ee num\'eriquement, au moins dans une approximation raisonnable, mais un tel choix serait sans doute arbitraire, fond\'e sur la commodit\'e du statisticien plutôt que sur une \'evaluation efficace par l'expert. C'est pourquoi une approche bay\'esienne robuste est adopt\'ee, en consid\'erant toutes les distributions a priori compatibles avec les quantiles \'evalu\'es et en \'etudiant ensuite l'influence d'un tel choix sur les quantit\'es d'int\'er\^et, \'a savoir les quantiles et les rendements.
+
+La classe des priors admissibles est un cas particulier de la classe g\'en\'eralis\'ee des moments contraints pr\'esent\'ee dans \cite{Betro1994}, et  donn\'ee par
+\[
+\Gamma = \{\pi} : \int_{\Theta} H_i(\theta)\pi(\theta) d\theta
+\leq \alpha_i,\ ; i = 1,...,n\}
+\]
+o\`u $H_i$ sont des fonctions int\'egr\'ees $\pi$ et $\alpha_i, i=1, \ldots ,n$, sont des nombres r\'eels fixes. Si nous prenons $H_i(\theta)= F(x_{q_i})$, $\alpha_i=q_i$ et, par souci de simplicit\'e, l'\'egalit\'e au lieu des bornes d'in\'egalit\'e, alors la classe $\Gamma$ est celle de tous les priors menant \'a ces quantiles, en supposant un mod\`ele GEV. \\
+
+%S'ils sont disponible, d'autres contraintes pourraient \^etre ajout\'ees, par exemple sur les moments et les quantiles des param\`etres. \\
+
+
+
+L'approche bay\'esienne robuste s'int\'eresse \'a la mesure de l'effet d'une classe de priors sur la quantit\'e d'int\'er\^et (\ref{g.pi}). La mesure la plus courante est fournie par la gamme
+\[
+\sup_{\pi \in \Gamma}G(\pi) - \inf_{\pi \in \Gamma}G(\pi).
+\]
+La robustesse est atteinte lorsque cette gamme est \emph{petite} (selon un jugement subjectif d'un d\'ecideur). \\
+
+Nous nous concentrerons ici uniquement sur la mani\`ere de calculer $\sup_{\pi \in \Gamma}G(\pi)$, soit l'\'equivalent de $\inf_{\pi \in \Gamma}G(\pi)$. \\
+
+Le th\'eor\`eme 3 de  \cite{Betro1994} montre que
+\[
+\sup_{\pi \in \Gamma}G(\pi)=\sup_{(\theta,{\bf p}) \in T} \frac{\sum_{j=1}^{n+1}g(\theta_j)l_\mathbf{x}(\theta_j)p_j}
+{\sum_{j=1}^{n+1}l_\mathbf{x}(\theta_j)p_j},
+\]
+o\`u $\theta=(\theta_1, \ldots ,\theta_{n+1})'$, ${\bf p}=(p_1, \ldots ,p_{n+1})'$ et l'ensemble $T \subset \Theta^{n+1} \times [0,1]^{n+1}$ est d\'efini par les conditions suivantes : \\
+\begin{itemize}
+  \item[$\bullet$] $\sum_{j=1}^{n+1} F(x_{q_i} ; \theta_j) p_j=q_i, \ ; i=1, \ldots, n$
+  \item[$\bullet$] $\sum_{j=1}^{n+1}p_j=1$. \\
+\end{itemize}
+Par cons\'equent, $\sup_{\pi \in \Gamma}G(\pi)$ est recherch\'e dans le sous-ensemble des distributions extr\^emes $\sum_{j=1}^{n+1}p_j \delta_{\theta_j}$, avec $\delta_{\cdot}$ la mesure  de Dirac, satisfaisant les conditions ci-dessus. \\
+
+Les quantit\'es d'int\'er\^et sont des quantiles \'a des probabilit\'es donn\'ees (et des temps de retour cons\'equents), mais elles ne peuvent \^etre obtenues \'a partir d'une fonction $G(\pi)$ pour un choix ad\'equat de la fonction $g(\theta)$. Par cons\'equent, nous calculerons les limites sup\'erieures et inf\'erieures de $F(x|\mathbf{x})$, $x>0$, et nous obtiendrons les limites des quantiles par une fonction inverse. Le processus est exigeant en termes de calculs (et conduit \'a des solutions approximatives), car de nombreux probl\`emes d'optimisation doivent \^etre r\'esolus pour obtenir les limites sup\'erieures et inf\'erieures de $F(x|\mathbf{x})$ sur une grille suffisamment fine, puis une fonction inverse doit \^etre calcul\'ee num\'eriquement pour obtenir les limites des quantiles. \\
+
+Par cons\'equent, nous calculons d'abord $\sup$ et $\inf$ de
+\[
+\frac{\sum_{j=1}^{n+1}F(x; \theta_j)l_\mathbf{x}(\theta_j)p_j}
+{\sum_{j=1}^{n+1}l_\mathbf{x}(\theta_j)p_j}
+\]
+sur une grille de valeurs $x$ et tracer les deux courbes $\inf_{\pi \in \Gamma} F(x|\mathbf{x})$ et $\sup_{\pi \in \Gamma} F(x|\mathbf{x})$. Supposons que l'int\'er\^et se situe dans la plage a posteriori du quantile $x_{\alpha}$ d'ordre $\alpha$. Nous traçons une ligne horizontale en correspondance de $\alpha$ et nous l'intersectons avec les courbes ci-dessus : les points d'intersection donnent les limites inf\'erieure et sup\'erieure de $x_{\alpha}$.
+
+
+
+\section{Quelques indications pour guider ce travail}
+
+
+Ce travail de recherche vise \'a produire des estimateurs des quantit\'es d'int\'er\^et propos\'ees plus haut, pour les deux cas d'\'etude, en mettant en oeuvre la d\'emarche robuste propos\'ee ci-dessus. Il sera int\'eressant de comparer les r\'esultats avec une d\'emarche classique o\`u une loi {\it a priori} relativement arbitraire est choisie. \\
+
+Il est donc conseill\'e de commencer par formaliser le probl\`eme, notamment en rappelant les principau r\'esultats et en d\'etaillant les formules plus haut, puis de choisir un cas simple de loi {\it a priori} auquel comparer les r\'esultats. Il semble aussi important de se munir d'une proc\'edure de simulation de donn\'ees, afin de reproduire l'exp\'erimentation et de tester la "robustesse" g\'en\'erale de l'approche (elle-m\^eme dite robuste). \\
+
+On attend de ce travail, outre une formalisation et une mise en oeuvre, une r\'edaction de code Python ou R bien document\'ee. \\
+
+
+
+\bibliographystyle{plain}
+\bibliography{bibliographie}
+
+\end{document} 

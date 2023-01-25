@@ -1,0 +1,232 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour insÃ©rer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\textheight 21.5cm
+\textwidth 15cm
+\topmargin-1.2cm
+%\evensidemargin-0.2cm %
+\oddsidemargin 1cm
+\footskip 4cm
+
+\title{Examen  2022 : Mod\'elisation et statistique bay\'esienne computationnelle }
+\date{08 avril 2012}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+\section{Fonction de co\^ut (8 pts) }
+
+Soit $\theta\in\Theta=\R$ le param\`etre d'un mod\`ele, sur lequel on dispose d'une loi {\it a priori} $\pi(\theta)$ et de donn\'ees $x_1,\ldots,x_n$. On suppose que la loi a posteriori de densit\'e  $\pi(\theta|x_1,\ldots,x_n)$ est propre et telle que $\E_{\pi}[\exp(k\theta)|x_1,\ldots,x_n]<\infty$ pour tout $k\in\R$. On consid\`ere la fonction de co\^ut pour l'estimation $\delta$ de $\theta$ d\'efinie sur $\R$ par
+\begin{eqnarray*}
+L_a(\theta,\delta) & = & \exp(a(\theta-\delta)) - a(\theta-\delta) - 1
+\end{eqnarray*}
+o\`u $a$ est un r\'eel.
+\begin{enumerate}
+\item Montrer que $L_a(\theta,\delta)\geq 0$ pour tout $\theta\in\Theta$ et pour tout $a$ et qu'elle est convexe en $\theta$ ; repr\'esenter cette fonction de co\^ut comme une fonction de $(\theta-\delta)$ lorsque $a=\{0.1, 0.5, 1,2\}$. 
+\item On suppose que $a>0$. \`A quelles conditions cette fonction p\'enalise-t-elle les co\^uts de sous-estimation et de surestimation de $\theta$ de fa\c con similaire ? Au contraire, \`a quelles conditions cette fonction p\'enalise-t-elle les co\^uts de sous-estimation et de surestimation de $\theta$ de fa\c con tr\`es dissym\'etrique ? 
+\item On suppose que $a\neq 0$. Donner l'expression de l'estimateur de Bayes $\hat{\delta}_a$ sous cette fonction de co\^ut.
+\item Supposons que les donn\'ees sont issues de ${\cal{N}}(\theta,1)$ et que $\pi(\theta)\propto 1$ ; donnez l'estimateur de Bayes associ\'e.
+\end{enumerate}
+
+
+\section{Construction de prior (4 pts)}
+
+Soient $X$ une variable al\'eatoire discr\`ete  de loi (fonction de masse ou densit\'e)
+$$
+P(X=x|\theta) \propto \theta^x \exp(-\theta) 
+$$
+avec $x\in\N$,  $\theta\in\R^+_*$, et $x_1,\ldots,x_n$ un \'echantillon de cette loi.
+\begin{enumerate}
+\item D\'eterminer la mesure {\it a priori} de Jeffreys $\pi^J(\theta)$.
+\item \'evaluer, \`a partir des conditions d'existence des lois {\it a posteriori} si cette mesure {\it a priori} est pr\'ef\'erable \`a la mesure {\it a priori} invariante par transformation d'\'echelle $\pi_0(\theta)\propto1/\theta$.
+\item Soit $\pi_{\alpha}(\theta) \propto \theta^{-\alpha}$ avec $\alpha\in\R^+$. Donner l'expression de la fonction de masse pr\'edictive {\it a posteriori} $P_{\alpha}(X=k|x_1,\ldots,x_n)$ ainsi que son esp\'erance.  %conditions d'existence.
+%\item Donner la loi {\it a priori} d'entropie maximale d\'efinie pour la mesure de r\'ef\'erence $\pi_{\alpha}(\theta)$ et les contraintes $\E_{\pi_0}[\theta]=1$, $\V_{\pi_0}[\theta]=1$. Discuter l'existence d'une vraie densit\'e {\it a priori} en fonction de $\alpha$
+\end{enumerate}
+
+
+
+
+\section{Maximisation d'entropie et calcul bay\'esien (13 pts) }\label{max.entropie}
+
+On d\'efinit une nouvelle m\'ethodologie de construction de prior de la fa\c con suivante. \'Etant donn\'e un mod\`ele d'\'echantillonnage $X|\theta \sim p(x|\theta)$, avec $x\in S$ et $\theta\in\Theta\in\R^d$, et un prior de r\'ef\'erence $\pi^J(\theta)$, on d\'efinit
+\begin{eqnarray}
+\pi^*(\theta) & = & \arg\max\limits_{\pi(\theta)\geq 0} G(\Theta) \label{mdiprior}
+\end{eqnarray}
+o\`u $G(\Theta)$ est l'information moyenne apport\'ee par la densit\'e $p$ relativement \`a celle apport\'ee par un prior $\pi(\theta)$ :
+\begin{eqnarray*}
+G(\Theta) & = & \E_{\theta}\left[H^J(\Theta) - H(X|\theta)\right],
+\end{eqnarray*}
+o\`u $H(X|\theta)$ et
+$H^J(\Theta)$ sont respectivement l'entropie (relative \`a une mesure de Lebesgue) du mod\`ele d'\'echantillonnage et l'entropie (relative \`a $\pi^J(\theta)$) du prior $\pi(\theta)$. 
+\begin{enumerate}
+\item Prouvez que si $Y\sim f(y)$ sur un espace norm\'e et mesur\'e $\Omega\in\R^q$ avec $q<\infty$ et $f\in L^2(\Omega)$, alors l'entropie relative \`a la mesure de Lebesgue de $f$ est born\'ee. \\
+
+\begin{itemize}
+    \item {\it Il peut \^etre utile de prouver au pr\'ealable  que $\log y \leq 1 + y$ $\forall y\in \R^+_*$.} \\
+\end{itemize}
+\item Soit $Z(\theta)$ l'information de Shannon (ou entropie diff\'erentielle n\'egative) de $p$ 
+\begin{eqnarray*}
+Z(\theta) & = & \int_{S} p(x|\theta) \log p(x|\theta) \ dx.
+\end{eqnarray*}
+En imposant la contrainte que $p(x|\theta)$ et $\pi(\theta)$ soient respectivement $L^4$ ($\forall \theta\in\Theta$) sur $S$ et sur $\Theta$, prouvez que 
+\begin{eqnarray*}
+\E_{\pi}[Z] \ = \ \int_{\Theta} Z(\theta) \pi(\theta) \ d\theta & < & \infty.
+\end{eqnarray*}
+\item Sous les hypoth\`eses pr\'ec\'edentes, prouvez alors que la solution du probl\`eme  (\ref{mdiprior}) est similaire \`a celle du probl\`eme de maximum d'entropie de $\pi(\theta)$ sous la contrainte
+\begin{eqnarray}
+\E_{\pi}[Z] & = & c \label{contr2}
+\end{eqnarray}
+o\`u $c$ prend une valeur maximale mais finie. \\
+
+
+ 
+\item {\bf Cette partie peut \^etre trait\'ee ind\'ependamment du reste.} Pour $S=\R^+$ et $(\beta,\eta)\in\R^+_* \times \R^+_*$, consid\'erons maintenant la loi de fonction de r\'epartition de Weibull
+\begin{eqnarray*}
+P(X<x|\theta) & = & 1-\exp\left(-\left\{\frac{x}{\eta}\right\}^{\beta}\right).
+\end{eqnarray*}
+d'esp\'erance $\E[X|\theta] =  \eta\Gamma(1+1/\beta)$.
+\begin{enumerate}
+\item Calculez $Z(\eta,\beta)$ pour ce mod\`ele, sachant que
+%{\it 
+%\begin{itemize}
+%    \item On rappelle que l'esp\'erance de la loi de Weibull est 
+%\begin{eqnarray}
+%\E[X|\theta] & = & \eta\Gamma(1+1/\beta). \label{weibu}
+%\end{eqnarray}
+%Par ailleurs, on rappelle que
+\begin{eqnarray}
+\int_0^{\infty} (\log x) \exp(-x) \ dx & = & -\gamma \label{aide1} \\
+\int_0^{\infty} x \exp(-x) \ dx & = & \Gamma(2) \label{aide2}
+\end{eqnarray}
+o\`u $\gamma$ est la constante d'Euler. % (que vous pouvez prendre \'egale \`a 0.5772157)
+%\end{itemize}
+%}
+    
+
+\item En utilisant le prior de Berger-Bernardo $\pi^J(\eta,\beta)\propto (\eta,\beta)^{-1}$ comme mesure de r\'ef\'erence, donnez la solution formelle $\pi^*(\eta,\beta)$  du probl\`eme de maximisation d'entropie relative sous les contraintes (\ref{contr2}) et
+\begin{eqnarray}
+\int_S x m_{\pi}(x) \ dx & = & x_e \label{cons2}
+\end{eqnarray}
+o\`u $m_{\pi}(x)$ est la loi {\it a priori} pr\'edictive. 
+\item Placez les r\'esultats sous la forme hi\'erarchique 
+\begin{eqnarray*}
+\pi^*(\theta) & = & \pi^*(\eta|\beta)\pi^*(\beta).
+\end{eqnarray*}
+et prouvez que la loi {\it a priori} sur $\beta$ peut s'\'ecrire
+\begin{eqnarray*}
+\pi^*(\beta) & \propto & \tilde{\pi}^*(\beta) 
+\end{eqnarray*}
+avec
+\begin{eqnarray}
+\tilde{\pi}^*(\beta) & = & \frac{\beta^{-\lambda_1-1}\exp\left(-\lambda_1 \frac{\gamma}{\beta}\right)}{\Gamma^{\lambda_1}(1+1/\beta)}\label{pistar}
+\end{eqnarray}
+o\`u $\lambda_1$ est un multiplicateur de Lagrange. 
+\item En pla\c cant des contraintes sur les multiplicateurs de Lagrange issus de l'\'ecriture g\'en\'erale de $\pi^*(\eta,\beta)$, reconnaissez-vous une forme sp\'ecifique (connue) pour $\pi^*(\eta|\beta)$ et $\pi^*(\beta)$ ? La loi $\pi^*(\eta|\beta)$ est-elle conjugu\'ee conditionnellement \`a $\beta$ ? 
+\item Cette loi jointe $\pi^*(\theta)$ est-elle propre (int\'egrale) ? Sous quelle(s) condition(s) sur les multiplicateurs de Lagrange ? On rappelle que lorsque $\beta>0$ \begin{eqnarray}
+\Gamma(1+1/\beta) & \geq & \frac{\sqrt{\pi}}{3}  \label{borne.min}.
+\end{eqnarray}
+\item Reliez formellement les multiplicateurs de Lagrange \`a $x_e$ en v\'erifiant l'\'equation (\ref{cons2}). Doit-on conna\^itre la constante d'int\'egration de $\pi^*(\beta)$ pour ce faire ? 
+\item Proposez, codez et validez une m\'ethode num\'erique permettant de simuler des tirages de $\beta$ selon $\pi^*(\beta)$ (formule (\ref{pistar})), en fixant $\lambda_1=1$. Pour la validation, utilisez plut\^ot la repr\'esentation de la variable $Y=1/\beta$ en op\'erant un changement de variable.
+\end{enumerate}
+\end{enumerate}
+
+
+
+\section{Risque d'un estimateur (5 pts)}
+
+Consid\'erons une variable binomiale $X\sim{\cal{B}}(n,p)$ de probabilit\'e $p\in[0,1]$. Soit la perte quadratique $L(\delta,p)$. On appelle {\it risque bay\'esien d'un estimateur $\delta(x)$} la quantit\'e $\E_{\pi}[L(\delta(x),p)|x]$, et  {\it risque fr\'equentiste de $\delta(x)$}  la quantit\'e $\E_{X}[L(\delta(x),p)]$.
+\begin{enumerate}
+\item Soit $\pi(p)$ le prior de Laplace. D\'efinissez l'estimateur MAP ({\it maximum a posteriori}) $\delta_1(x)$ de $p$.
+\item En choisissant plut\^ot $\pi(p)$ comme le prior de Jeffreys, calculez les risques bay\'esien et fr\'equentiste $R_b(x)$ et $R_f(p)$ de  $\delta_1(x)$.
+\item Comparez $r_f = \sup_p R_f(p)$ \`a 
+$r_b  =  \sup_x R_b(x)$. 
+\end{enumerate}
+
+
+
+
+\end{document} 

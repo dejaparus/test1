@@ -1,0 +1,22 @@
+\begin{proof}%[Preuve] % Convergence en probabilité (cas discret)
+On va montrer que $\Pi(\theta|X_1,\ldots,X_n)\to 0$ $\forall \theta\neq\theta_0$. On a
+\begin{eqnarray}
+\log \frac{\Pi(\theta|X_1,\ldots,X_n)}{\Pi(\theta_0|X_1,\ldots,X_n)} & = & \log \frac{\Pi(\theta)}{\Pi(\theta_0)} + \sum\limits_{i=1} Y_i \label{decomp1}
+\end{eqnarray}
+où les 
+$$
+Y_i = \log \frac{f(X_i|\theta)}{f(X_i|\theta_0)}
+$$
+ sont des v.a. iid, telles ques
+ \begin{eqnarray*}
+ \E\left[Y_i\right] & = & KL\left(\theta_0\right) - KL\left(\theta\right)
+ \end{eqnarray*}
+ {\it (rappelons que l'intégration se fait par rapport à la vraie loi inconnue des données)}
+ qui vaut 0 si $\theta=\theta_0$, et qui est négatif sinon car $\theta_0$ est l'unique minimiseur de $KL(\theta)$. Ainsi, si $\theta\neq\theta_0$, le second terme de (\ref{decomp1}) est une somme de termes iid avec une espérance négative. Par la loi des grands nombres, on obtient que $\lim_{n\to\infty} \sum_{i=1} Y_i = -\infty$ si $\theta\neq\theta_0$. Tant que le premier terme de (\ref{decomp1}) est fini (soit tant que $\Pi(\theta=\theta_0)>0$), l'expression totale pour (\ref{decomp1}) tend également vers $-\infty$. Nécessairement, 
+ \begin{eqnarray*}
+ \frac{\Pi(\theta|X_1,\ldots,X_n)}{\Pi(\theta_0|X_1,\ldots,X_n)} & \xrightarrow[\Pp]{n\to\infty} 0
+ \end{eqnarray*}
+ et donc $\Pi(\theta|X_1,\ldots,X_n)\to 0$ $\forall \theta\neq\theta_0$. Comme toutes les probabilités somment à 1, nécessairement \begin{eqnarray*}
+\Pi\left(\theta=\theta_0|X_1,\ldots,X_n\right) & \xrightarrow[\Pp]{n\to\infty} & 1.
+\end{eqnarray*}
+\end{proof}

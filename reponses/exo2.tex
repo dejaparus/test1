@@ -1,0 +1,23 @@
+\begin{rep} %[Exercice \ref{exo2}]
+Notons $\Pp(Y_2|\theta)$ la mesure de probabilité associée à $Y_2$. On définit la gauche par l'événement $0\leq Y_2<\theta\leq 1$. Alors
+\begin{eqnarray*}
+\Pp(Y_2<\theta|\theta) & = & \theta
+\end{eqnarray*}
+et l'indicatrice $\1_{Y_2<\theta}$ suit alors une loi de Bernoulli ${\cal{B}}(\theta)$. Alors après $n$ répétitions iid, on a 
+\begin{eqnarray*}
+X & = & \sum\limits_{i=1}^n \1_{Y_{2,i}<\theta} \ \sim \ {\cal{B}}(n,\theta) \ \ \ \text{(loi binomiale)}.
+\end{eqnarray*}
+Si on connaît une réalisation $x$ de $X$, la vraisemblance statistique associée est donc
+\begin{eqnarray*}
+\Pp(X=x|\theta) & = & \left(\begin{array}{l} n \\ x \end{array}\right) \theta^x (1-\theta)^{n-x}.
+\end{eqnarray*}
+Comme $\theta\in[0,1]$ et qu'on ne dispose pas d'information {\it a priori} sur $\theta$, on peut simplement supposer {\it a priori}
+\begin{eqnarray*}
+\pi(\theta) & = \1_{\{0\leq \theta \leq 1\}}(\theta).
+\end{eqnarray*}
+ On en déduit la loi {\it a posteriori} (en utilisant le symbole de proportionalité $\propto$)
+ \begin{eqnarray*}
+ \pi(\theta|X=x) & \propto & \theta^x (1-\theta)^{n-x}\1_{\{0\leq \theta \leq 1\}}(\theta)
+ \end{eqnarray*}
+ qui correspond au terme général de la loi bêta ${\cal{B}}_e(1+x,1+n-x)$ d'espérance $(1+x)/(2+n)\sim x/n$ si $(x,n)\gg 1$.
+ \end{rep}

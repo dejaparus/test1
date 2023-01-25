@@ -1,0 +1,21 @@
+\begin{proof}% Log pooling
+Soit $\{\pi_i\}_{i=1,\ldots,M}$ un ensemble de lois {\it a priori} sur $\Theta$. On pose
+\begin{eqnarray*}
+\pi^*(\theta) & = & \arg\min\limits_{\pi} \sum\limits_{i=1}^M \omega_i KL(\pi, \pi_i)
+\end{eqnarray*}
+avec $\sum_{i=1}^M \omega_i=1$ et $0\leq \omega_i \leq 1$ $\forall i=1,\ldots,M$. Alors, sous réserve que 
+\begin{eqnarray*}
+A & = & \int_{\Theta} \prod\limits_{i=1}^M \pi^{\omega_i}_i(\theta) \ d\theta \ < \ \infty,
+\end{eqnarray*}
+on a 
+\begin{eqnarray*}
+\pi^*(\theta) & = &  \arg\min\limits_{\pi} \sum\limits_{i=1}^M \omega_i \int_{\Theta} \pi(\theta) \log\frac{\pi(\theta)}{\pi_i(\theta)} \ d\theta, \\
+& = &  \arg\min\limits_{\pi} \int_{\Theta} \pi(\theta) \left( \log \pi(\theta) - \log A^{-1}\prod\limits_{i=1}^M \pi^{\omega_i}_i(\theta) - A\right) \ d\theta, \\
+ & = &  \arg\min\limits_{\pi} \left\{ KL\left(\pi || A^{-1}\prod\limits_{i=1}^M \pi^{\omega_i}_i(.)\right) - A\right\}, \\
+ & = &  \arg\min\limits_{\pi}  KL\left(\pi || A^{-1}\prod\limits_{i=1}^M \pi^{\omega_i}_i(.)\right).
+\end{eqnarray*}
+et on en déduit que
+\begin{eqnarray*}
+\pi^*(\theta) & = & A^{-1}\prod\limits_{i=1}^M \pi^{\omega_i}_i(\theta). 
+\end{eqnarray*}
+\end{proof}

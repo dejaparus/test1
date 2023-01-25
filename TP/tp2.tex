@@ -1,0 +1,16 @@
+\subsection{TP : Comparatif des approches bayésienne et fréquentiste pour les régions HPD }
+
+Soit $x_1,\ldots,x_n$ des réalisations iid de loi ${\cal{N}}(\mu,\sigma^2)$. On choisit la mesure {\it a priori} (non probabiliste) jointe
+\begin{eqnarray*}
+\pi(\mu,\sigma^2) & \propto & 1/\sigma^2.
+\end{eqnarray*}
+\begin{enumerate}
+\item Déterminez la loi {\it a posteriori} jointe $\pi(\mu,\sigma^2|x_1,\ldots,x_n)$ 
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\mu|x_1,\ldots,x_n)$ 
+\item Calculez la région HPD de seuil $\alpha$ pour $\mu$ et comparez-la à la région de confiance fréquentiste, de même seuil, qu'on pourrait calculer par l'emploi du maximum de vraisemblance.
+\item Déterminez la loi {\it a posteriori} marginale $\pi(\sigma^2|x_1,\ldots,x_n)$ ; le calcul de la région HPD est-il simple ?
+\end{enumerate}
+\paragraph{Remarque.} ``Déterminer" signifie indiquer si la loi appartient à une famille connue, par exemple largement implémentée sur machines. La connaissance des lois gamma, inverse gamma et Student est peut-être nécessaire pour répondre aux questions.
+
+\if\mycmdtpthree1 \input{TP/corrigeTP2}
+\fi

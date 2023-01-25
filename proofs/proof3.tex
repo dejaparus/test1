@@ -1,0 +1,11 @@
+\begin{proof}%[Preuve] % Fonction de coût 0-1
+ Cette fonction de perte est utilisée dans le contexte des tests statistiques. On suppose partitionner $\Theta$ en $\Theta_0$ et $\Theta_1$. La fonction de perte correspondante est alors
+ \begin{eqnarray*}
+ L(\theta,\delta) & = & \1_{\theta\in\Theta_0} \1_{\delta=1} + \1_{\theta\in\Theta_1} \1_{\delta=0}.
+ \end{eqnarray*}
+ Le risque {\it a posteriori} est alors
+ \begin{eqnarray*}
+ R_P(\delta|\pi) & = & \1_{\delta=1} \Pi(\theta\in\Theta_0|x) + \1_{\delta=0} \Pi(\theta\in\Theta_0|x). 
+ \end{eqnarray*}
+ Ainsi $\delta^{\pi}=1$ équivaut à $\Pi(\theta\in\Theta_0|X)\leq \Pi(\theta\in\Theta_1|X)$.
+\end{proof}

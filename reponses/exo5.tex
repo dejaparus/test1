@@ -1,0 +1,12 @@
+\begin{rep} %[Exercice \ref{exo4}]
+L'intégrale de la loi {\it posteriori} s'écrit
+\begin{eqnarray*}
+m_{\pi}(x_1,\ldots,x_n) & = & \int_{\R} \int_{0}^{\infty} \exp\left(-\frac{\bar{x_n}-\mu)^2}{2\sigma^2}\right) \exp\left( \frac{\sum\limits_{i=1}^n (x_i-\bar{x_n})^2}{2\sigma^2}\right) \ \frac{d\mu d\sigma}{\sigma^{n+1}} \\
+& = & \int_{0}^{\infty} \frac{1}{\sqrt{2\pi}} \exp\left(\frac{\sum\limits_{i=1}^n (x_i-\bar{x_n})^2}{2\sigma^2}\right) \ \frac{d\sigma}{\sigma^{n}}.
+\end{eqnarray*}
+Pour que l'expression converge, il faut avoir $n>1$ et la propriété suivante vérifiée :
+\begin{eqnarray*}
+\exists (i,j)\in\N^*, \ i\neq j \ \ \text{tel que} \ \ X_i\neq X_j. 
+\end{eqnarray*}
+Lorsque $n>1$ l'ensemble des vecteurs qui ne vérifient pas cette propriété est de mesure nulle et donc n'affecte pas la finitude de l'intégrale définie ci-dessus. Il est possible de donner une interprétation intuitive du résultat ci-dessus : pour estimer la dispersion (variance), au moins deux observations non égales sont nécessaires. 
+\end{rep}

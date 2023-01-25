@@ -1,0 +1,201 @@
+\documentclass[10pt]{article}
+
+\usepackage[english,french]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[fleqn]{amsmath}
+\usepackage{epsfig}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url} % pour ins\'erer des url
+\usepackage{color}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{amsmath,amsfonts,times,latexsym,comment,times}
+\usepackage{color,epsfig,rotating}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+%\usepackage{mprocl}
+
+
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bz{\mathbf{z}}
+\def\bp{\mathbf{p}}
+\newcommand{\MRTF}{\mbox{MRTF}}
+\newcommand{\mttf}{\mbox{mttf}}
+\newcommand{\mode}{\mbox{md}}
+\newcommand{\sS}{\mbox{S}}
+\newcommand{\LL}{\ell}
+\newcommand{\DAC}{\mbox{DAC}}
+\newcommand{\D}{\mbox{D}}
+\newcommand{\R}{I\!\!R}
+\newcommand{\N}{I\!\!N}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\I}{\mathds{1}}
+\newcommand{\C}{C}
+\newcommand{\Pp}{\mathbbm{P}}
+\newcommand{\E}{\mbox{E}}
+\newcommand{\V}{\mbox{Var}}
+\newcommand{\Var}{\mbox{Var}}
+\newcommand{\Cov}{\mbox{Cov}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Med}{\mbox{Med}}
+\newcommand{\Mod}{\mbox{Mod}}
+\newcommand{\Md}{\mbox{M}_d}
+\newcommand{\Card}{\mbox{Card}}
+\newcommand{\DIP}{\mbox{Dip}}
+\newcommand{\Supp}{\mbox{Supp}}
+
+
+\newcounter{cptpropo}[part]
+\newenvironment{propo}[0]
+{\noindent\textsc{Proposition}\,\refstepcounter{cptpropo}\thecptpropo.\it}
+
+\newcounter{cptlemmo}[part]
+\newenvironment{lemmo}[0]
+{\noindent\textsc{Lemma}\,\refstepcounter{cptlemmo}\thecptlemmo.\it}
+
+\newcounter{cptexo}[part]
+\newenvironment{exo}[0]
+{\noindent\textsc{Example}\,\refstepcounter{cptexo}\thecptexo.\it}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+%\newtheorem{proof}{Proof}
+%\renewcommand{\theproof}{\empty{}} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{\noindent Assumption}
+\newtheorem{acknowledgments}{\noindent Acknowledgments}
+\newtheorem{example}{\noindent Example}
+\newtheorem{remark}{\noindent Remark}
+
+
+\title{Projet de recherche : Mod\'elisation d'une fiabilit\'e par Poly\`a inverse, application \`a la maintenance d'\'equipements industriels }
+\date{M2 2023}
+
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%
+\maketitle
+
+%%%%%%%%%%%%%%%%%%  
+ 
+
+
+
+
+
+\section{Contexte}
+
+L'assimilation de la dur\'ee de vie de syst\`emes industriels ou humains avec des tirages d'urnes de P\'olya a \'et\'e appliqu\'ee avec succ\`es \`a  des probl\`emes de contagion. Voir par exemple \cite{Alajaji1993,Marshall1993,Hayhoe2017}. On trouve plus de pr\'ecisions et d'autres r\'ef\'erences dans \cite{Xie2002}. 
+On assimile ici le composant \`a  une urne contenant initialement $N$ boules, dont $k$ noires et $N-k$ blanches. Chaque sollicitation est consid\'er\'ee comme un tirage : si l'on tire une boule blanche, il n'y a pas d\'efaillance ; si l'on tire une boule noire, il y a d\'efaillance. La mod\'elisation d'une usure r\'eguli\`ere du composant est faite de la fa\c con suivante : tant que l'on tire une boule blanche, on rajoute $\nu$ boules noires dans l'urne, en sus de la boule blanche tir\'ee. Ainsi, on augmente r\'eguli\`erement la probabilit\'e d'obtenir une boule noire, soit une d\'efaillance \`a  la sollicitation. \\
+
+D'apr\`es \cite{pasanisi2015}, ce type de mod\`ele peut \^etre utile pour repr\'esenter la dur\'ee de vie d'un composant industriel de type "interrupteur" (donn\'ees de fonctionnement discr\`etes = comptage) dont le vieillissement est d\'ec\'el\'er\'e au cours du temps, ce qui est r\'ealiste pour bon nombre d'applications. Son int\'er\^et pour le monde industriel et la fiabilit\'e n'a toutefois \'et\'e \'etudi\'e que dans un cadre fr\'equentiste classique. \\
+
+L'objectif de ce travail est de l'\'etudier dans un cadre bay\'esien, en produisant des propositions de mod\`eles  complets, de calcul bay\'esien et de sensibilit\'e d\'ecision\-nelle. Pour cela, on pourra par exemple proposer d'\'etudier la r\'ef\'erence r\'ecente \cite{Glynn2019} qui pourra donner des id\'ees, mais on pourra chercher \`a d\'evelopper une m\'ethodologie propre sur des jeux de simulations et des donn\'ees r\'eelles. \\
+
+\section{Application}
+
+Trois jeux de donn\'ees r\'eelles sont t\'el\'echargeables :
+\begin{itemize}
+\item un jeu indiquant le nombre de cycles de fonctionnement d'un diesel jusqu'\`a d\'efaillance : \url{https://perso.lpsm.paris/~bousquet/projets/DieselSollicitation.txt}
+\item un jeu indiquant le nombre de sollicitations d'un disjoncteur jusqu'\`a d\'efaillance : \url{https://perso.lpsm.paris/~bousquet/projets/Disjoncteurs.txt} \\
+\item un jeu NIFE indiquant le nombre de d\'emarrages d'une batterie jusqu'\`a d\'efaillance : \url{https://perso.lpsm.paris/~bousquet/projets/NIFE.txt} 
+\end{itemize}
+Ces jeux de donn\'ees comprennent des vraies donn\'ees de d\'efaillance (labellis\'ees par 1) et des donn\'ees de censure \`a droite (labellis\'ees par 0). Ces jeux de donn\'ees sont accompagn\'ees d'une expertise qui s'exprime sous la forme d'un estimateur et un \'ecart-type de l'esp\'erance du nombre de d\'efaillance $N_d$ (voir plus bas), fournie dans le tableau ci-dessous :
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{lll}
+Jeu & moyenne & \'ecart-type \\
+\hline
+Diesel & 150 & 35 \\
+Disjoncteur & 900 & 100 \\
+Batteries NIFE & 5 & 1 \\
+\hline
+\end{tabular}
+\caption{Expertise  sur le nombre de sollicitations avant d\'efaillance.}
+\label{expert1}
+\end{table}
+
+
+Dans les trois cas, on souhaite pouvoir estimer des dur\'ees de vies moyennes avant d\'efaillance (MTTF, voir plus bas), calculer une gamme de probabilit\'es de tomber en panne avant des temps (nombres de cycles ou de sollicitation) $n_0,n_1,\ldots$ et proposer une r\`egle de maintenance fond\'ee sur une fonction de coût \`a \'elaborer. Le tout peut prendre la forme d'un code Python ou R, possiblement sous la forme d'une interface graphique accompagn\'ee d'un petit document m\'ethodologique. \\
+
+Toutefois, on souhaite aussi savoir si la loi {\it a posteriori} pr\'edictive permet d'expliquer ces donn\'ees. Le mod\`ele de Polya inverse bay\'esien est-il un bon mod\`ele ? Comment peut-on le simuler ? \\
+
+On portera un soin particulier \`a expliquer les choix {\it a priori}. 
+
+\section{Formalisation}
+
+Pour une bonne introduction au mod\`ele de Poly\`a inverse, voir \cite{pasanisi2015}. \\
+
+Soit $N_d$ le nombre de d\'efaillances. On peut param\'etriser le mod\`ele par
+\begin{eqnarray*}
+\theta & = & \frac{k}{N}, \\
+\delta & = & \frac{\nu}{N}.
+\end{eqnarray*}
+Ici $\theta$ correspond \`a  la probabilit\'e de tomber en panne \`a  la
+premi\`ere sollicitation (par accident, pourrait-on dire). Ainsi $\theta\in[0,1]$.
+Au contraire, $\delta$ est un indicateur du vieillissement ou plut\`a´t de la {\it d\'efiabilit\'e} du
+composant, et celui-ci n'est pas forc\'ement restreint \`a  $[0,1]$. %(sauf pour des raisons de bon sens, o\`u il pourra \`aªtre forc\'e {\it a priori}
+%\`a  \`aªtre plus petit que $\theta$).
+Le {\it taux de d\'efaillance} est alors
+\begin{eqnarray*}
+h(n) & = & P(N_d=n|N_d>n-1) \ = \ \frac{\theta + (n-1)\delta}{1+(n-1)\delta},
+\end{eqnarray*}
+la probabilit\'e de d\'efaillance ("densit\'e" du mod\`ele) et la survie
+s'\'ecrivent
+\begin{eqnarray*}
+P(N_d=n) & = & \frac{(1-\theta)^{n-1} \left(\theta + (n-1)\delta\right)}{\prod\limits_{i=1}^n (1+(i-1)\delta)}, \\
+P(N_d>n) & = & \frac{(1-\theta)^{n}}{\prod\limits_{i=1}^n (1+(i-1)\delta)}.
+\end{eqnarray*}
+Le MTTF (\textit{Mean Time To Failure}) vaut
+ \begin{eqnarray*}
+MTTF & = & \E[N_p] \ = \  \sum\limits_{n=0}^{\infty} nP(N_d=n|\theta,\delta) \\
+&  = & 
+         \frac{(1-\delta)\delta^{(1/\delta)-2}}{(1-\theta)^{\frac{1-\delta}{\delta}}} \exp\left(\frac{1-\theta}{\delta}\right) \ \gamma\left(\frac{1-\delta}{\delta},\frac{1-\theta}{\delta}\right)
+\end{eqnarray*}
+o\`u $\gamma(a,x)$ est la  fonction Gamma incompl\`ete (``inf\'erieure'')
+\begin{eqnarray*}
+\gamma(a,x) & = & \int_{0}^{x} t^{a-1} exp(-t) \ dt \ = \ \Gamma(a)-\Gamma(a,x).
+\end{eqnarray*}
+
+\paragraph{Remarque.}
+Dans le cas o\`u le vieillissement est nul, on obtient un mod\`ele {\it g\'eom\'etrique} d'esp\'erance
+\begin{eqnarray*}
+\E[N_p] & = & \sum\limits_{n=0}^{\infty} n\theta(1-\theta)^{n-1}
+        \ = \ \theta \left(\sum\limits_{n=0}^{\infty} x^n\right)'(x=1-\theta), \\
+        & = & \frac{\theta}{\left\{1-(1-\theta)\right\}^2}
+        \ = \ \theta^{-1}.
+\end{eqnarray*}
+Ce type de mod\`ele est l'\'equivalent "discret" d'un mod\`ele exponentiel. 
+
+\section{Quelques questions pour guider ce travail}
+
+\begin{enumerate}
+\item Ecrivez la vraisemblance compl\`ete du mod\`ele en utilisant la notation
+\begin{eqnarray*}
+\alpha & = & \sum\limits_{i=1}^s k_i n_i + \sum\limits_{j=s+1}^{s+r} n_j - r,
+\end{eqnarray*}
+\item Construisez un simulateur de ce mod\`ele, afin de produire des donn\'ees synth\'etiques qui permettront de tester le bien-fond\'e des algorithmes d'estimation bay\'esienne.
+\item Proposez des mesures {\it a priori} non informative ou peu informatives, puis un ou des choix de lois {\it a priori} explicables et enfin produisez des algorithmes de calcul bay\'esien, dont il faudra tester le bon comportement (par exemple gr\^ace aux donn\'ees simul\'ees). Les lois non informatives (ex : Jeffreys) ne sont peut-\^etre pas explicites, mais cela ne doit pas vous emp\^echer d'essayer de les mettre en oeuvre dans les algorithmes de calcul bay\'esien.
+\begin{itemize}
+\item Pour calibrer une loi {\it a priori} sur $(\delta,\theta)$ ou mener une analyse de sensibilit\'e, il peut \^etre int\'eressant de d\'eterminer un domaine de valeurs possible en consid\'erant les cas extr\^emes $\delta=0$ (d\'efaillance purement accidentelle) ou $\theta=0$ (usure sans accident initial).
+\item Il est peut-\^etre int\'eressant de supposer que $\theta$, qui est une probabilit\'e, suit une loi b\^eta (\'eventuellement restreinte \`a un sous-ensemble de $[0,1]$. D'une mani\`ere g\'en\'erale, il est utile de s'interroger sur la signification des param\`etres $(\theta,\delta)$ pour construire des lois {\it a priori}. 
+\end{itemize}
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\end{document} 
